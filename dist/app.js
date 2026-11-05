@@ -74,7 +74,8 @@ relatedSessions.post.cards[0].followup='正式净值公布后确认全天表现�
 relatedSessions.post.cards[1].followup='观察半导体成交与板块强度能否延续，并跟进订单、业绩的新进展。';
 for(const session of ['pre','live','post'])relatedSessions[session].cards.forEach((card,i)=>Object.assign(card,marketImpact[session].cards[i]));
 // Layout and expansion choices survive changes of trading session.
-let readingLayout='full';
+const requestedLayout=new URLSearchParams(location.search).get('layout');
+let readingLayout=['full','compact','bighead'].includes(requestedLayout)?requestedLayout:'full';
 let activeReadingSession='post';
 const expandedDecks=new Set();
 let drilledGroup=null;
@@ -134,7 +135,11 @@ function readingCard(item,index,group){
 }
 function renderReadingDecks(){
  const groups=getReadingGroups(activeReadingSession);
- document.querySelector('.personal-reading').dataset.layout=readingLayout;
+ document.querySelector('.personal-reading').dataset.layout=readingLayout==='bighead'?'compact':readingLayout;
+ phone.dataset.pageLayout=readingLayout;
+ const sectors=document.querySelector('.sectors');
+ if(readingLayout==='bighead'){document.querySelector('.a-market').after(sectors);}
+ else if(sectors.parentElement!==document.querySelector('.report')){document.querySelector('.report').append(sectors);}
  document.querySelectorAll('.reading-variants button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===readingLayout)));
  const overview={
   pre:'今日关注：芯片开盘后的承接力度、成长基金的修复表现，以及订阅机构信号和重要公告的新进展。',
@@ -152,8 +157,8 @@ function renderReadingDecks(){
   if(key==='funds'||key==='subscriptions'){
    const tail=readingLayout==='full'&&items.length>1?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';
    let footer=items.length>1?`<button class="deck-footer deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';
-   if(readingLayout==='compact'&&key==='subscriptions')footer='';
-   if(readingLayout==='compact'&&key==='funds'){
+   if(readingLayout!=='full'&&key==='subscriptions')footer='';
+   if(readingLayout!=='full'&&key==='funds'){
     const count=groups.funds.length+groups.stocks.length;
     footer=`<button type="button" class="watchlist-entry" data-more="watchlist" aria-label="前往自选，${count}个异动"><span class="watchlist-entry-title">自选</span><span class="watchlist-entry-count">${count}个异动</span><span class="watchlist-entry-arrow" aria-hidden="true">›</span></button>`;
    }
@@ -193,7 +198,7 @@ function renderRelatedSession(session){
  document.querySelector('.reading-note').textContent='场外基金展示最近公布的净值及对应涨跌，盘中与收盘估算不替代正式净值；ETF、指数与关注板块展示所选时段行情。';
 
 }
-document.querySelectorAll('.reading-variants button').forEach(button=>button.addEventListener('click',()=>{readingLayout=button.dataset.layout;drilledGroup=null;document.querySelector('#watchlist-drilldown').hidden=true;renderReadingDecks();}));
+document.querySelectorAll('.reading-variants button').forEach(button=>button.addEventListener('click',()=>{const reorder=readingLayout==='bighead'||button.dataset.layout==='bighead';readingLayout=button.dataset.layout;drilledGroup=null;document.querySelector('#watchlist-drilldown').hidden=true;renderReadingDecks();if(reorder)window.scrollTo({top:0,behavior:'instant'});}));
 document.querySelector('#personal-decks').addEventListener('click',event=>{
  const expand=event.target.closest('[data-expand]');
  if(expand){const key=expand.dataset.expand;const expanded=!expandedDecks.has(key);expanded?expandedDecks.add(key):expandedDecks.delete(key);const pile=expand.closest('.reading-deck').querySelector('.deck-pile');pile.dataset.expanded=String(expanded);pile.classList.toggle('is-stacked',!expanded);const tail=pile.querySelector('.deck-tail');tail.inert=!expanded;tail.setAttribute('aria-hidden',String(!expanded));expand.setAttribute('aria-expanded',String(expanded));expand.setAttribute('aria-label',(expanded?'收起':'展开')+deckNames[key]+'卡组');return;}

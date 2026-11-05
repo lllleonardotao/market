@@ -302,3 +302,14 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .community-insight>span{flex:1;min-width:0;text-wrap:pretty}
 .community-insight>.reading-inline-time{flex:none;margin:0;font-size:21px;line-height:44px;font-weight:400;color:#7b889c;letter-spacing:0;white-space:nowrap}
 .personal-overview>.overview-summary{display:block}.overview-kicker{margin-top:0;margin-right:12px}.overview-copy{display:inline}
+
+/* Big-head version: the A-share story leads; sectors follow directly below. */
+.phone[data-page-layout="bighead"] .report{height:128px}
+.phone[data-page-layout="bighead"] .indices,
+.phone[data-page-layout="bighead"] .next-index{display:none}
+.phone[data-page-layout="bighead"] .a-market{margin:0 40px;padding:32px;border-radius:32px;background:rgba(255,255,255,.88);box-shadow:none}
+.phone[data-page-layout="bighead"]>.sectors{position:relative;top:auto;left:auto;margin:24px 40px 0;width:670px;height:242px;background:rgba(255,255,255,.8);box-shadow:none}
+.phone[data-page-layout="bighead"] .hero-art{background-image:linear-gradient(155deg,#a6d5ff 0,#84b5f1 210px,#d7e9ff 620px,#dfeeff 100%);background-size:100% 100%}
+.phone[data-page-layout="bighead"] .hero-art:after{display:none}
+.page-session-switch .footer-switch-row:last-child{flex:1.45}
+.page-session-switch .footer-switch-row:last-child>.page-session-label{display:none}
