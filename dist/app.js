@@ -126,7 +126,7 @@ function institutionalSignalCard(item){
 }
 function readingCard(item,index,group){
  if(item.institutional)return institutionalSignalCard(item);
- if(group==='stocks')return `<article class="reading-card stock-tracking-card" aria-label="${item.name}股票追踪"><div class="reading-card-top"></div><h3 class="reading-title"><span>${item.name}｜${item.news}</span><time class="reading-inline-time">${index===0?'5分钟前':'1小时前'}</time></h3><div class="stock-live-quote"><strong class="number ${item.down?'down':'up'}">${item.change}</strong><span>实时涨跌</span></div>${miniTrend(item.points,item.axis,item.down,item.caption)}<p class="reading-body">${item.body}</p></article>`;
+ if(group==='stocks')return `<article class="reading-card stock-tracking-card" aria-label="${item.name}股票追踪"><div class="reading-card-top"></div><h3 class="reading-title"><span>${item.name}｜${item.news}</span><time class="reading-inline-time">${index===0?'5分钟前':'1小时前'}</time></h3><div class="stock-live-quote"><strong class="number ${item.down?'down':'up'}">${item.change}</strong><span>实时涨跌</span></div>${miniTrend(item.points,item.axis,item.down,item.caption)}</article>`;
  const subscription=group==='subscriptions';
  const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption,item.signal):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
@@ -171,17 +171,7 @@ function renderDrilldown(group,scroll=true){
  target.innerHTML=`<header class="drilldown-heading"><h3>${name}</h3><button type="button" data-close-drilldown>返回卡片 ↑</button></header><div class="deck-list">${getReadingGroups(activeReadingSession)[group].map((item,i)=>readingCard(item,i,group)).join('')}</div>`;
  if(scroll){target.focus({preventScroll:true});target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
 }
-function renderPostFollowup(){
- const tech=document.querySelector('#followup-tech'),growthCopy=document.querySelector('#followup-growth');
- if(!tech||!growthCopy)return;
- const products=getReadingGroups('post').funds;
- const chip=products.find(item=>item.code==='159995');
- const growth=products.find(item=>item.code==='000925');
- tech.textContent=chip?`你自选的芯片ETF${chip.change}，后续关注半导体成交能否延续，以及订单与业绩的新进展。`:'关注半导体成交能否延续，以及订单与业绩的新进展。';
- growthCopy.textContent=growth?`你自选的成长基金${growth.change}，关注正式净值公布，以及配置方向能否修复。`:'关注上涨能否扩散到其他成长方向，以及相关基金的净值变化。';
-}
 function renderRelatedSession(session){
- if(session==='post')renderPostFollowup();
  activeReadingSession=session;
  renderReadingDecks();
  const quotes={pre:[['1.6820','−0.25%'],['1.2225','+1.92%'],['3893.13','+0.12%'],['4519.91','+0.08%'],['6280.45','+1.65%']],live:[['1.6820','−0.25%'],['1.2377','+1.24%'],['3905.20','+0.31%'],['4512.68','−0.16%'],['6378.43','+1.56%']],post:[['1.6820','−0.25%'],['1.2460','+1.92%'],['3912.64','+0.50%'],['4528.95','+0.20%'],['6423.65','+2.28%']]}[session];
