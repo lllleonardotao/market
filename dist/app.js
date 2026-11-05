@@ -77,7 +77,7 @@ let readingLayout='full';
 let activeReadingSession='post';
 const expandedDecks=new Set();
 let drilledGroup=null;
-const deckNames={funds:'自选异动',stocks:'股票异动',subscriptions:'订阅机会'};
+const deckNames={funds:'异动',stocks:'股票异动',subscriptions:'订阅机会'};
 function miniTrend(points,axis,down,label){
  const xs=[8,155,302,449,596],tone=down?'#43a047':'#e9676c';
  const path=points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
@@ -111,12 +111,13 @@ function renderReadingDecks(){
  document.querySelectorAll('.reading-variants button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===readingLayout)));
  const overview=marketImpact[activeReadingSession];
  document.querySelector('#personal-overview').innerHTML=`<p class="overview-eyebrow">我的自选概览 · ${relatedSessions[activeReadingSession].label}</p><h3>${overview.overview}</h3><p>${overview.detail}</p>`;
- document.querySelector('#personal-decks').innerHTML=Object.entries(groups).map(([key,items])=>{
+ Object.entries(groups).forEach(([key,items])=>{
   const expanded=readingLayout==='full'&&expandedDecks.has(key);
-  const cards=expanded?items:items.slice(0,1);
+  const cards=items.slice(0,1);
   const action=readingLayout==='full'?`<button class="deck-action" data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"><span>共 ${items.length} ${key==='subscriptions'?'类订阅':'条'+deckNames[key]}</span><strong>${expanded?'收起卡片':'展开 '+items.length+' 张卡片'} ${expanded?'⌃':'⌄'}</strong></button>`:`<button class="deck-action compact-more" data-more="${key}"><span>还有 ${items.length-1} ${key==='subscriptions'?'类订阅': '条'+deckNames[key]}</span><strong>${key==='subscriptions'?'去我的订阅':'去自选查看'} →</strong></button>`;
-  return `<section class="reading-deck" aria-labelledby="deck-title-${key}"><header class="deck-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'我订阅的机会':deckNames[key]}</h3><span>${items.length} ${key==='subscriptions'?'类订阅':'条关注'}</span></header><div class="deck-pile ${readingLayout==='full'&&!expanded?'is-stacked':''}"><div class="deck-list" id="deck-${key}">${cards.map((item,i)=>readingCard(item,i,key)).join('')}</div>${action}</div></section>`;
- }).join('');
+  const tail=readingLayout==='full'?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';
+  document.querySelector(`[data-deck-host="${key}"]`).innerHTML=`<section class="reading-deck" aria-labelledby="deck-title-${key}"><header class="deck-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'订阅':deckNames[key]}</h3><span>${items.length} ${key==='subscriptions'?'类订阅':'条关注'}</span></header><div class="deck-pile ${readingLayout==='full'&&!expanded?'is-stacked':''}" data-expanded="${expanded}"><div class="deck-list" id="deck-${key}">${cards.map((item,i)=>readingCard(item,i,key)).join('')}${tail}</div>${action}</div></section>`;
+ });
  if(drilledGroup)renderDrilldown(drilledGroup,false);
 }
 function renderDrilldown(group,scroll=true){
@@ -144,10 +145,12 @@ function renderRelatedSession(session){
 document.querySelectorAll('.reading-variants button').forEach(button=>button.addEventListener('click',()=>{readingLayout=button.dataset.layout;drilledGroup=null;document.querySelector('#watchlist-drilldown').hidden=true;renderReadingDecks();}));
 document.querySelector('#personal-decks').addEventListener('click',event=>{
  const expand=event.target.closest('[data-expand]');
- if(expand){const key=expand.dataset.expand;expandedDecks.has(key)?expandedDecks.delete(key):expandedDecks.add(key);renderReadingDecks();const button=document.querySelector(`[data-expand="${key}"]`);button.focus({preventScroll:true});if(!expandedDecks.has(key))document.querySelector(`#deck-title-${key}`).scrollIntoView({block:'nearest'});return;}
+ if(expand){const key=expand.dataset.expand;const expanded=!expandedDecks.has(key);expanded?expandedDecks.add(key):expandedDecks.delete(key);const pile=expand.closest('.deck-pile');pile.dataset.expanded=String(expanded);pile.classList.toggle('is-stacked',!expanded);const tail=pile.querySelector('.deck-tail');tail.inert=!expanded;tail.setAttribute('aria-hidden',String(!expanded));expand.setAttribute('aria-expanded',String(expanded));expand.querySelector('strong').textContent=expanded?'收起卡片 ⌃':'展开 '+getReadingGroups(activeReadingSession)[key].length+' 张卡片 ⌄';return;}
  const more=event.target.closest('[data-more]');if(more)renderDrilldown(more.dataset.more);
 });
 document.querySelector('#watchlist-drilldown').addEventListener('click',event=>{if(event.target.closest('[data-close-drilldown]')){const key=drilledGroup;drilledGroup=null;document.querySelector('#watchlist-drilldown').hidden=true;const trigger=document.querySelector(`[data-more="${key}"]`);trigger.focus({preventScroll:true});trigger.scrollIntoView({block:'center'});}});
 selectMarketSession('post');
 
 document.querySelectorAll('.yesterday-details').forEach(details=>details.addEventListener('toggle',()=>{details.querySelector('summary').textContent=details.open?'收起昨日复盘':'展开昨日复盘';}));
+
+document.querySelectorAll('[data-sentiment]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-sentiment]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));document.querySelector('.sentiment-caption').textContent='你的选择：'+button.dataset.sentiment;}));

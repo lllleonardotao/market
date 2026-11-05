@@ -87,11 +87,10 @@
   <section class="personal-reading" aria-labelledby="personal-title" data-layout="full">
    <header class="personal-header"><h2 id="personal-title">与你相关</h2></header>
    <div class="personal-overview" id="personal-overview"></div>
-   <div id="personal-decks"></div>
-  </section>
-   <section class="watchlist-drilldown" id="watchlist-drilldown" hidden tabindex="-1" aria-label="自选异动详情"></section>
+   <div id="personal-decks">
+    <div data-deck-host="funds"></div>
   <section class="saved-watchlist" aria-labelledby="saved-watchlist-title">
-   <header class="watchlist-title"><h2 id="saved-watchlist-title">自选列表</h2><span>共 5 项</span></header>
+   <header class="watchlist-title"><h3 id="saved-watchlist-title">自选</h3><span>共 5 项</span></header>
    <div class="saved-list" role="table" aria-label="自选基金、指数与板块行情">
     <div class="saved-list-labels" role="row"><span role="columnheader">名称 / 类型</span><span role="columnheader">最新值 / 日涨跌</span></div>
     <div class="saved-list-row" role="row"><div role="cell"><h3>汇添富外延增长主题股票A</h3><p>基金 · 000925</p></div><div class="saved-list-quote" role="cell"><span class="number">1.6820</span><span class="number down">−0.25%</span></div></div>
@@ -101,6 +100,20 @@
     <div class="saved-list-row" role="row"><div role="cell"><h3>半导体</h3><p>板块 · 行业指数</p></div><div class="saved-list-quote" role="cell"><span class="number">6423.65</span><span class="number up">+2.28%</span></div></div>
    </div>
    <p class="reading-note">场外基金展示最新净值；ETF、指数与关注板块展示对应时段行情。</p>
+  </section>
+    <div data-deck-host="stocks"></div>
+    <div data-deck-host="subscriptions"></div>
+   </div>
+  </section>
+   <section class="watchlist-drilldown" id="watchlist-drilldown" hidden tabindex="-1" aria-label="自选异动详情"></section>
+
+  <section class="community-reading" aria-labelledby="community-title">
+   <h2 id="community-title">大家都在关注</h2>
+   <section class="community-module" aria-labelledby="sentiment-title"><header><h3 id="sentiment-title">竞猜风向</h3><span>下一交易日 · 上证指数</span></header><p class="community-question">你觉得，下一个交易日怎么走？</p><div class="sentiment-options"><button type="button" data-sentiment="看涨" aria-pressed="false"><span>看涨</span><strong>61%</strong></button><button type="button" data-sentiment="看跌" aria-pressed="false"><span>看跌</span><strong>39%</strong></button></div><p class="sentiment-caption" role="status">看看大家的判断，也留下你的看法</p></section>
+   <section class="community-module" aria-labelledby="discussion-title"><header><h3 id="discussion-title">全网热议</h3><span>市场正在讨论</span></header>
+    <details class="discussion-topic"><summary><span class="topic-rank">01</span><span>芯片领涨之后，科技主线还能持续吗？<small>半导体 · 资金与需求</small></span><span class="topic-arrow">⌄</span></summary><p>讨论聚焦科技板块的成交持续性，以及订单、业绩能否支持当前需求预期。</p></details>
+    <details class="discussion-topic"><summary><span class="topic-rank">02</span><span>指数涨了，为什么我的基金没跟上？<small>基金 · 配置与收益差异</small></span><span class="topic-arrow">⌄</span></summary><p>指数与基金配置并不相同。观察上涨覆盖的板块，以及基金配置方向是否同步修复。</p></details>
+   </section>
   </section>
  </main>
  <footer class="page-session-switch" aria-label="全页时段与卡片版本切换">
@@ -112,7 +125,7 @@
    <button type="button" role="tab" id="tab-post" aria-controls="panel-post" aria-selected="false" tabindex="-1" data-session="post">盘后</button>
   </div>
   </div>
-  <div class="footer-switch-row"><span class="page-session-label">卡片版本</span><div class="reading-variants" role="group" aria-label="卡片展示版本"><button type="button" aria-pressed="true" data-layout="full">全卡版</button><button type="button" aria-pressed="false" data-layout="compact">小卡版</button></div></div>
+  <div class="footer-switch-row"><span class="page-session-label">卡片版本</span><div class="reading-variants" role="group" aria-label="卡片展示版本"><button type="button" aria-pressed="true" data-layout="full">多卡版</button><button type="button" aria-pressed="false" data-layout="compact">单卡版</button></div></div>
  </footer>
  <script src="app.js"></script>
 </body>
