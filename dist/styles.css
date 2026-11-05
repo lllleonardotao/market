@@ -290,3 +290,5 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 
 /* A quiet accent lifts the overview below the stronger story titles. */
 .personal-overview>.overview-summary{padding:4px 0 4px 18px;border-left:3px solid #b5c8e2;color:#53657e;font-size:26px;line-height:44px;font-weight:400}.overview-kicker{display:inline-block;padding:2px 10px;margin-right:12px;border-radius:8px;background:#e6edf8;color:#51688b;font-size:21px;line-height:32px;font-weight:500;vertical-align:2px}.overview-copy{color:#53657e;font-weight:400}.overview-key{color:#4c6383;font-weight:500}
+
+.personal-overview>.overview-summary{display:flex;align-items:flex-start;gap:12px;border-left:0;padding:4px 0}.overview-kicker{flex:none;margin-right:0;margin-top:4px}.overview-copy{flex:1;min-width:0;font-weight:600}.overview-key{font-weight:600;color:inherit}
