@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#83b8f4">
+  <meta name="description" content="财小通行情日报与自选追踪，Figma 原稿还原。">
+  <title>财小通 · 行情日报</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ <main class="phone" aria-label="财小通行情首页">
+  <div class="hero-art" aria-hidden="true"></div>
+  <div class="glow glow-1"><img src="assets/glow-1.svg" alt=""></div>
+  <div class="glow glow-2"><img src="assets/glow-2.svg" alt=""></div>
+  <div class="glow glow-3"><img src="assets/glow-3.svg" alt=""></div>
+  <div class="glow glow-4"><img src="assets/25289-19754-5fd0e.svg" alt=""></div>
+  <header class="navigation">
+   <div class="status-bar"><span class="time">12:58</span><div class="status-icons"><img src="assets/25289-19754-ea146.svg" alt="移动信号"><img src="assets/25289-19754-67875.svg" alt="无线网络"><img src="assets/25289-19754-6d42d.svg" alt="电量充足"></div></div>
+   <button class="menu icon-button" aria-label="打开菜单"><img src="assets/25289-19754-a394c.svg" alt=""><img src="assets/25289-19754-5d4c3.svg" alt=""><img src="assets/25289-19754-7a359.svg" alt=""></button>
+   <h1>财小通</h1>
+   <button class="mini-app icon-button" aria-label="更多选项"><img src="assets/25289-19754-fac5c.svg" alt=""></button>
+  </header>
+  <section class="report" aria-label="行情日报">
+   <div class="report-title"><h2>行情日报</h2><button class="play icon-button" aria-label="播放行情日报" aria-pressed="false"><img src="assets/25289-27835-20b50.svg" alt=""></button><time datetime="2022-06-15">2022-06-15 星期三</time></div>
+   <div class="indices" id="indices"></div>
+   <button class="next-index icon-button" aria-label="切换行情"><img src="assets/25289-27922-fb69f.svg" alt=""></button>
+   <section class="sectors"><header><h3>热门板块</h3><button class="text-button" id="all-sectors">全部</button></header><div class="sector-list">
+    <button class="sector"><img src="assets/25289-19923-00b7e.svg" alt=""><span>存储</span><strong>+8.67%</strong></button>
+    <button class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>有色金属</span><strong>+4.21%</strong></button>
+    <button class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>医疗服务</span><strong>+1.52%</strong></button>
+    <button class="sector down"><img src="assets/25289-19923-eebd7.svg" alt=""><span>大农业</span><strong>−0.26%</strong></button>
+   </div></section>
+  </section>
+  <section class="watchlist" aria-label="自选追踪">
+   <header class="watchlist-title"><h2>自选追踪</h2><button class="manage"><img src="assets/25289-19954-fd05a.svg" alt=""><span>管理</span></button></header>
+   <div class="cards">
+    <article class="stock-card red-card" data-name="A股">
+     <img class="chart-art" src="assets/chart-red.png" alt="A股走势与红色点阵背景">
+     <header class="stock-header"><h3>A股</h3><div class="quote"><span class="index-name">上证指数</span><span class="number">3905.20</span><span class="number">+0.31%</span></div></header>
+     <div class="stock-story"><p>订单之外</p><p>需求 <b>没毛病</b></p><p>订单翻倍</p><p>分歧是 <strong>利润率</strong></p></div>
+     <img class="underline" src="assets/25289-22555-d72a5.svg" alt="">
+    </article>
+    <article class="stock-card green-card" data-name="中旭国际">
+     <img class="chart-art" src="assets/chart-green.png" alt="中旭国际走势与绿色点阵背景">
+     <header class="stock-header"><h3>中旭国际</h3><div class="quote down"><span class="number">603.02</span><span class="number">−0.31%</span></div></header>
+     <img class="circle-mark" src="assets/25289-25135-06697.svg" alt="">
+     <div class="stock-story"><p>近期 <b class="down">高位震荡</b></p><p>高确定性业绩</p><p>与极端<b>周期恐惧</b></p><p>的残酷博弈</p></div>
+    </article>
+    <article class="stock-card blue-card" data-name="华夏国证半导体芯片ETF">
+     <img class="chart-art" src="assets/chart-blue.png" alt="半导体芯片ETF走势与蓝色点阵背景">
+     <header class="stock-header"><h3>华夏国证半导体芯片ETF</h3><div class="quote"><span class="number">603.02</span><span class="number">+0.31%</span></div></header>
+     <div class="ai-highlight" aria-hidden="true"></div>
+     <div class="stock-story"><p>互联网回暖</p><p> <b>AI收钱</b></p><p>故事讲得通</p><p>卖的是<b class="blue-text">预期</b></p></div>
+    </article>
+    <div class="compact-stocks">
+     <article class="compact-stock" data-name="新易盛"><h3>新易盛 <small>300502</small></h3><div class="quote down"><span class="number">421.02</span><span class="number">−0.31%</span></div></article>
+     <article class="compact-stock" data-name="闪迪"><h3>闪迪 <small>SNDK</small></h3><div class="quote"><span class="number">1641.28</span><span class="number">+2.31%</span></div></article>
+     <article class="compact-stock" data-name="立讯精密"><h3>立讯精密 <small>002475</small></h3><div class="quote"><span class="number">603.02</span><span class="number">+0.31%</span></div></article>
+    </div>
+   </div>
+   <footer class="composer"><div class="quick-actions"><button id="thinking" aria-pressed="false"><img src="assets/25289-27779-697f5.svg" alt="">深度思考</button><button id="skills"><img src="assets/25289-27779-86172.svg" alt="">金融技能</button></div><form class="message-box"><button type="button" class="voice icon-button" aria-label="语音输入"><img src="assets/25289-27764-20303.svg" alt=""></button><input aria-label="发送消息" placeholder="发消息或按住说话..." autocomplete="off"><button type="submit" class="add icon-button" aria-label="发送消息"><img src="assets/25289-27764-28f5b.svg" alt=""></button></form></footer>
+  </section>
+  <dialog class="sheet"><header><h2 id="sheet-title"></h2><button class="close-sheet" aria-label="关闭">×</button></header><div id="sheet-content"></div></dialog>
+  <div class="toast" role="status" aria-live="polite"></div>
+ </main>
+ <script src="app.js"></script>
+</body>
+</html>
