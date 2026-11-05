@@ -212,3 +212,8 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .reading-inline-time{display:inline-block;margin-left:16px;color:#7b889c;font-size:21px;line-height:32px;font-weight:400;letter-spacing:0;white-space:nowrap;vertical-align:baseline}
 
 .reading-card-top:empty{display:none}
+
+/* Relative time stays at the upper right while the headline wraps. */
+.reading-card .reading-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.reading-title>span{flex:1;min-width:0;text-wrap:pretty}
+.reading-title>.reading-inline-time{flex:none;margin:0;line-height:44px;white-space:nowrap}
