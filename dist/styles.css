@@ -199,3 +199,16 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .reading-signal>strong{font-weight:500}
 .reading-signal.is-down{background:#f0f6f0;color:#347d39}
 .reading-signal.is-down>span{color:#55755a}
+
+/* A shared surface joins all selected-product movements. */
+.united-deck .deck-list{background:#fff;border:1px solid #ffffffc9;border-radius:24px;overflow:hidden}
+.united-deck .deck-list>.card-heading{padding:26px 28px 0;margin:0}
+.united-deck .card-heading h3{font-size:28px;line-height:40px;font-weight:500;color:#202020;margin:0}
+.united-deck .reading-card{border:0;border-radius:0;background:transparent}
+.united-deck .reading-card>h3{margin-top:0}
+.united-deck .deck-tail-cards{gap:0;padding-top:0}
+.united-deck .deck-tail .reading-card{border-top:1px solid #edf0f5;transform:none;opacity:1}
+.united-deck .deck-footer{width:100%;justify-content:center;gap:12px;padding:18px 28px;border-top:1px solid #edf0f5;background:#f7f8fa;color:#7b828d;font-size:22px;line-height:36px}
+.reading-inline-time{display:inline-block;margin-left:16px;color:#7b889c;font-size:21px;line-height:32px;font-weight:400;letter-spacing:0;white-space:nowrap;vertical-align:baseline}
+
+.reading-card-top:empty{display:none}

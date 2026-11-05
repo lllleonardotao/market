@@ -120,7 +120,7 @@ function readingCard(item,index,group){
  const subscription=group==='subscriptions';
  const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption,item.signal):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
- return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${subscription?'':'自选：'}${item.name}</span>${subscription?`<span class="subscription-stage">${item.tag}</span>`:group==='funds'?'':`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`}</div>${trend}${facts}${group==='funds'?'':`<p class="reading-body">${item.body}</p>`}</article>`;
+ return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"></div><h3>${item.title}<time class="reading-inline-time">${item.time}</time></h3><div class="reading-product"><span>${subscription?'':'自选：'}${item.name}</span>${subscription?`<span class="subscription-stage">${item.tag}</span>`:group==='funds'?'':`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`}</div>${trend}${facts}${group==='funds'?'':`<p class="reading-body">${item.body}</p>`}</article>`;
 }
 function renderReadingDecks(){
  const groups=getReadingGroups(activeReadingSession);
@@ -134,6 +134,12 @@ function renderReadingDecks(){
   if(!items.length){host.replaceChildren();return;}
   const expanded=items.length>1&&readingLayout==='full'&&expandedDecks.has(key);
   const countText=`共${items.length}${key==='subscriptions'?'类订阅':'条异动'}`;
+  if(key==='funds'){
+   const tail=readingLayout==='full'&&items.length>1?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';
+   const footer=items.length>1?`<button class="deck-footer deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';
+   host.innerHTML=`<section class="reading-deck united-deck" aria-labelledby="deck-title-${key}"><div class="deck-pile ${items.length>1&&readingLayout==='full'&&!expanded?'is-stacked':''}" data-expanded="${expanded}"><div class="deck-list" id="deck-${key}"><header class="deck-heading card-heading"><h3 id="deck-title-${key}">${deckNames[key]}</h3></header>${readingCard(items[0],0,key)}${tail}${footer}</div></div></section>`;
+   return;
+  }
   const headerAction=items.length>1?`<button class="deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';
   const action='';
   const cardHeader=`<header class="deck-heading card-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'订阅':deckNames[key]}</h3>${headerAction}</header>`;
