@@ -194,3 +194,10 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .deck-toggle-arrow{display:inline-block;line-height:26px;transition:transform .2s ease}
 .deck-toggle[aria-expanded="true"] .deck-toggle-arrow{transform:rotate(180deg)}
 @media(prefers-reduced-motion:reduce){.deck-toggle-arrow{transition:none}}
+
+/* Explain the cause, identify the selection, then emphasize the trigger. */
+.reading-signal{display:flex;align-items:flex-start;gap:12px;margin-top:24px;padding:16px 18px;background:#fcf2f2;border-radius:12px;color:#bf494e;font-size:25px;line-height:38px}
+.reading-signal>span{flex:none;font-size:20px;line-height:32px;padding:3px 0;color:#8c6065}
+.reading-signal>strong{font-weight:500}
+.reading-signal.is-down{background:#f0f6f0;color:#347d39}
+.reading-signal.is-down>span{color:#55755a}

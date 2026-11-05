@@ -103,14 +103,24 @@ function getReadingGroups(session){
  live:['午后科技方向回升，芯片ETF当前上涨1.24%，领先上证0.93个百分点。','午后估算跌幅由0.42%收窄至0.18%，仍未翻红。实际表现以公布净值为准。','半导体当前上涨1.56%，午后与科技方向同步回升。'],
  post:['芯片ETF收涨1.92%，领先上证1.42个百分点，午后涨势延续至收盘。','午后修复未延续，收盘估算下跌0.25%，未跟随大盘收红。正式净值待公布。','半导体收涨2.28%，全天强于大盘，午后保持活跃。']
  };
- funds.forEach((item,i)=>{item.body=fundNotes[session][i];item.followup=null;});
+ const fundReasons={
+ pre:['隔夜海外芯片回落，可能影响今日开盘情绪','昨日成长方向偏弱，拖累基金净值表现','隔夜芯片股承压，关注板块开盘承接'],
+ live:['午后科技方向回升，带动芯片ETF走强','部分成长方向回升，带动基金估算跌幅收窄','科技方向买盘回流，带动半导体板块上涨'],
+ post:['午后科技买盘延续，带动芯片ETF扩大涨幅','其他成长方向偏弱，抵消了科技回升的贡献','科技方向持续活跃，带动半导体板块收涨']
+ };
+ const fundSignals={
+ pre:['昨日涨幅领先上证1.80个百分点','最新净值下跌0.25%','昨日板块上涨1.65%'],
+ live:['涨幅领先上证0.93个百分点','估算跌幅较早盘收窄0.24个百分点','板块上涨1.56%，强于上证'],
+ post:['收盘涨幅领先上证1.42个百分点','收盘估算落后上证0.75个百分点','收盘涨幅领先上证1.78个百分点']
+ };
+ funds.forEach((item,i)=>{item.title=fundReasons[session][i];item.signal=fundSignals[session][i];item.body=fundNotes[session][i];item.followup=null;});
  return {funds:funds.filter(item=>item.hasChange!==false),stocks:stocks.filter(item=>item.hasChange!==false),subscriptions};
 }
 function readingCard(item,index,group){
  const subscription=group==='subscriptions';
  const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
- return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div>${trend}${facts}${group==='funds'?'':`<p class="reading-body">${item.body}</p>`}</article>`;
+ return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${subscription?'':'自选：'}${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div>${item.signal?`<p class="reading-signal ${item.down?'is-down':''}"><span>异动信号</span><strong>${item.signal}</strong></p>`:''}${trend}${facts}${group==='funds'?'':`<p class="reading-body">${item.body}</p>`}</article>`;
 }
 function renderReadingDecks(){
  const groups=getReadingGroups(activeReadingSession);
