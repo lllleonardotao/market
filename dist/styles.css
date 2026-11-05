@@ -239,3 +239,7 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .a-market[data-session="post"] .close-chart{margin:16px 0 18px}.post-followup{margin-top:22px;padding:22px 24px;border-radius:20px;background:#f0f4fb}.post-followup>h3{font-size:28px;line-height:42px;font-weight:600;color:#293b55}.post-followup ol{counter-reset:post-focus;list-style:none;padding:0;margin:16px 0 0}.post-followup li{counter-increment:post-focus;position:relative;padding-left:36px}.post-followup li+li{margin-top:18px;padding-top:18px;border-top:1px solid #e0e7f2}.post-followup li:before{content:counter(post-focus,decimal-leading-zero);position:absolute;left:0;top:0;font-family:LCT_NUMB,sans-serif;font-size:22px;line-height:38px;color:#7b92b4}.post-followup li+li:before{top:18px}.post-followup h4{font-size:26px;line-height:38px;font-weight:500;color:#344e72;margin:0}.post-followup p{font-size:24px;line-height:39px;color:#647892;margin-top:6px}
 
 .deck-chart figcaption{margin:0 0 12px}
+
+.stock-live-quote{display:flex;align-items:baseline;gap:14px;margin-top:12px}
+.stock-live-quote strong{font-size:30px;line-height:42px;font-weight:500}
+.stock-live-quote>span{font-size:21px;line-height:32px;color:#7b889c}

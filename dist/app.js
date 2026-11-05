@@ -78,7 +78,7 @@ let readingLayout='full';
 let activeReadingSession='post';
 const expandedDecks=new Set();
 let drilledGroup=null;
-const deckNames={funds:'自选异动',stocks:'股票异动',subscriptions:'订阅机会'};
+const deckNames={funds:'自选异动',stocks:'股票追踪',subscriptions:'订阅机会'};
 function miniTrend(points,axis,down,label,signal=''){
  const xs=[8,155,302,449,596],tone=down?'#43a047':'#e9676c';
  const path=points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
@@ -91,6 +91,7 @@ function getReadingGroups(session){
  funds.push({kind:'板块',name:'半导体',code:'行业指数',title:isPre?'隔夜芯片调整，留意板块承接':isPost?'半导体领涨，收盘强于大盘':'半导体午后回升，科技主线活跃',change:isPre?'昨日 +1.65%':isPost?'收盘 +2.28%':'当前 +1.56%',down:false,summary:'你关注的半导体板块，与芯片ETF的走势密切相关。',body:isPre?'保留昨日板块回顾，今早补充隔夜芯片情绪变化。开盘后再观察是否传导至A股半导体方向。':'科技方向买盘回流，半导体板块表现较强。结合板块成交与成分股表现观察上涨是否具有持续性。',time:data.label,points:[135,95,108,65,isPost?24:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日全天板块走势':'截至 13:42 的板块走势'});
  // Each stock has its own full card, including a trend and an explanation.
  const stocks=data.stocks.map((row,i)=>({hasChange:!isPre||i===0,kind:'股票',name:i?'立讯精密':'新易盛',code:i?'002475':'300502',title:row[1],change:row[0],down:!!i,summary:i?'消费电子与科技主线表现分化，关注买盘承接。':'光模块与科技主线同步，关注需求预期及成交变化。',body:row[2],time:data.label,points:i?[55,74,110,96,isPost?130:118]:[135,102,119,66,isPost?28:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日完整走势':'截至 13:42 的盘中走势'}));
+ stocks.forEach((item,i)=>{Object.assign(item,i?{news:'消费电子业务进展受到市场关注',change:'−0.86%',body:'示例新闻：市场关注消费电子需求变化，以及相关业务的后续进展。'}:{name:'腾讯',code:'00700',news:'游戏与广告业务进展受到市场关注',change:'+1.28%',down:false,body:'示例新闻：市场关注腾讯游戏产品进展与广告业务表现，后续观察公司公开披露的信息。'});item.axis=['09:30','10:30','11:30','14:00','当前'];item.caption='今日实时走势';});
  const subscriptionTitles=isPre?['隔夜芯片调整，需求观察继续','机构关注方向，等待新增信号','今日留意企业公告与披露进展']:isPost?['科技收涨，继续跟进需求验证','科技配置线索，等待后续确认','收盘后关注公告与业绩进展']:['科技方向回升，观察成交持续性','科技交易活跃，跟进机构线索','重要公告与披露窗口持续跟踪'];
  const subscriptions=[
  {category:'机构信号',name:'创业板指',title:'机构信号：创业板指',institutional:true,relativeTime:'29分钟前'},
@@ -125,6 +126,7 @@ function institutionalSignalCard(item){
 }
 function readingCard(item,index,group){
  if(item.institutional)return institutionalSignalCard(item);
+ if(group==='stocks')return `<article class="reading-card stock-tracking-card" aria-label="${item.name}股票追踪"><div class="reading-card-top"></div><h3 class="reading-title"><span>${item.name}｜${item.news}</span><time class="reading-inline-time">${index===0?'5分钟前':'1小时前'}</time></h3><div class="stock-live-quote"><strong class="number ${item.down?'down':'up'}">${item.change}</strong><span>实时涨跌</span></div>${miniTrend(item.points,item.axis,item.down,item.caption)}<p class="reading-body">${item.body}</p></article>`;
  const subscription=group==='subscriptions';
  const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption,item.signal):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
