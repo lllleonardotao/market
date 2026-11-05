@@ -82,7 +82,7 @@ const deckNames={funds:'自选异动',stocks:'股票异动',subscriptions:'订�
 function miniTrend(points,axis,down,label,signal=''){
  const xs=[8,155,302,449,596],tone=down?'#43a047':'#e9676c';
  const path=points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
- return `<figure class="deck-chart"><svg viewBox="0 0 604 ${signal?208:184}" role="img" aria-label="${label}${signal?'，'+signal:''}"><g transform="translate(0 ${signal?24:0})"><path d="M8 40H596 M8 90H596 M8 140H596" stroke="#edf0f5" fill="none"/><path d="${path}V145H8Z" fill="${tone}" fill-opacity=".07"/><path d="${path}" fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="596" cy="${points.at(-1)}" r="5" fill="${tone}" stroke="white" stroke-width="3"/>${signal?`<text class="chart-signal" x="584" y="${Math.max(8,points.at(-1)-20)}" text-anchor="end" fill="${tone}" font-size="25" font-weight="500" paint-order="stroke" stroke="white" stroke-width="7" stroke-linejoin="round">${signal}</text>`:''}${axis.map((t,i)=>`<text x="${xs[i]}" y="177" text-anchor="${i===0?'start':i===4?'end':'middle'}" fill="#8390a3" font-size="20">${t}</text>`).join('')}</g></svg><figcaption>${label}</figcaption></figure>`;
+ return `<figure class="deck-chart"><svg viewBox="0 0 604 ${signal?208:184}" role="img" aria-label="${label}${signal?'，'+signal:''}"><g transform="translate(0 ${signal?24:0})"><path d="M8 40H596 M8 90H596 M8 140H596" stroke="#edf0f5" fill="none"/><path d="${path}V145H8Z" fill="${tone}" fill-opacity=".07"/><path d="${path}" fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="596" cy="${points.at(-1)}" r="5" fill="${tone}" stroke="white" stroke-width="3"/>${signal?`<g class="chart-signal-badge" transform="translate(${584-Math.min(510,signal.length*23+28)} ${Math.max(0,points.at(-1)-42)})"><rect width="${Math.min(510,signal.length*23+28)}" height="40" rx="12" fill="${down?'#eaf4eb':'#fff0f0'}" stroke="${down?'#cfe5d1':'#f8d7d9'}"/><text x="${Math.min(510,signal.length*23+28)/2}" y="27" text-anchor="middle" fill="${tone}" font-size="23" font-weight="500">${signal}</text></g>`:''}${axis.map((t,i)=>`<text x="${xs[i]}" y="177" text-anchor="${i===0?'start':i===4?'end':'middle'}" fill="#8390a3" font-size="20">${t}</text>`).join('')}</g></svg><figcaption>${label}</figcaption></figure>`;
 }
 function getReadingGroups(session){
  const data=relatedSessions[session],isPre=session==='pre',isPost=session==='post';
@@ -93,7 +93,7 @@ function getReadingGroups(session){
  const stocks=data.stocks.map((row,i)=>({hasChange:!isPre||i===0,kind:'股票',name:i?'立讯精密':'新易盛',code:i?'002475':'300502',title:row[1],change:row[0],down:!!i,summary:i?'消费电子与科技主线表现分化，关注买盘承接。':'光模块与科技主线同步，关注需求预期及成交变化。',body:row[2],time:data.label,points:i?[55,74,110,96,isPost?130:118]:[135,102,119,66,isPost?28:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日完整走势':'截至 13:42 的盘中走势'}));
  const subscriptionTitles=isPre?['隔夜芯片调整，需求观察继续','机构关注方向，等待新增信号','今日留意企业公告与披露进展']:isPost?['科技收涨，继续跟进需求验证','科技配置线索，等待后续确认','收盘后关注公告与业绩进展']:['科技方向回升，观察成交持续性','科技交易活跃，跟进机构线索','重要公告与披露窗口持续跟踪'];
  const subscriptions=[
- {category:'投资机会',name:'半导体需求观察',title:subscriptionTitles[0],summary:'你订阅的「半导体与算力」机会',body:'持续跟进需求、订单和业绩三条线索。板块价格变化先反映预期，机会是否得到验证，仍需后续经营信息支持。',tag:'观察阶段',facts:[['关注方向','半导体 / 算力'],['下一步','订单与业绩验证']]},
+ {category:'机构信号',name:'创业板指',title:'机构信号：创业板指',institutional:true,relativeTime:'29分钟前'},
  {category:'机构信号',name:'科技方向机构线索',title:subscriptionTitles[1],summary:'你订阅的「机构动向」',body:'关注机构调研和持仓披露中的科技线索。单次调研不代表实际买入，后续结合公开披露与经营进展持续观察。',tag:'持续跟踪',facts:[['信号类型','调研 / 公开披露'],['下一步','跟进信息更新']]},
  {category:'大事件',name:'企业业绩与公告窗口',title:subscriptionTitles[2],summary:'你订阅的「重要事件」',body:'留意自选公司业绩、订单与重要公告。事件公布后，再看实际结果与市场预期的差异，以及关联自选的表现。',tag:'事件跟踪',facts:[['事件类型','业绩 / 公司公告'],['下一步','等待披露结果']]}
  ].map(item=>({...item,kind:'订阅',time:isPre?'盘前更新':isPost?'盘后更新':'盘中跟踪'}));
@@ -116,7 +116,14 @@ function getReadingGroups(session){
  funds.forEach((item,i)=>{item.title=fundReasons[session][i];item.signal=fundSignals[session][i];item.body=fundNotes[session][i];item.followup=null;if(isPre){item.points=[[135,112,132,91,30],[90,130,145,103,123],[135,95,108,65,24]][i];item.axis=['前4日','前3日','前2日','前1日','昨日'];item.caption='近5个交易日走势';}});
  return {funds:funds.filter(item=>item.hasChange!==false),stocks:stocks.filter(item=>item.hasChange!==false),subscriptions};
 }
+function institutionalSignalCard(item){
+ const polar=angle=>[302+165*Math.cos(angle*Math.PI/180),218-165*Math.sin(angle*Math.PI/180)];
+ const arcs=[[180,123],[120,63],[60,0]].map(([a,b],i)=>{const start=polar(a),end=polar(b);return `<path d="M${start.join(' ')} A165 165 0 0 1 ${end.join(' ')}" fill="none" stroke="${i===2?'#246ff0':'#eaf2ff'}" stroke-width="54"/>`;}).join('');
+ const metrics=[['趋势强度',36,2],['相对估值',58,3],['资金流入',84,4]];
+ return `<article class="reading-card subscription-card institution-card" aria-label="机构信号：${item.name}"><div class="reading-card-top"></div><h3 class="reading-title"><span>${item.title}</span><time class="reading-inline-time">${item.relativeTime}</time></h3><figure class="institution-gauge"><svg viewBox="0 0 604 244" role="img" aria-label="机构信号仪表盘：进攻">${arcs}<path d="M282 204 L426 136 Q438 130 432 143 L316 236Z" fill="#246ff0" stroke="#c7ddff" stroke-width="5" stroke-linejoin="round"/><circle cx="302" cy="218" r="91" fill="#fff"/><text x="302" y="216" text-anchor="middle" fill="#246ff0" font-size="43" font-weight="500">进攻</text></svg><figcaption>出现进攻信号，可考虑布局</figcaption></figure><div class="institution-metrics">${metrics.map(([name,value,bars])=>`<div class="institution-metric"><h4>${name}</h4><div class="institution-bars" aria-label="${name}，优于${value}%的行业">${Array.from({length:5},(_,i)=>`<i class="${i<bars?'is-filled':''}"></i>`).join('')}</div><p>优于${value}%的行业</p></div>`).join('')}</div></article>`;
+}
 function readingCard(item,index,group){
+ if(item.institutional)return institutionalSignalCard(item);
  const subscription=group==='subscriptions';
  const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption,item.signal):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
@@ -134,10 +141,10 @@ function renderReadingDecks(){
   if(!items.length){host.replaceChildren();return;}
   const expanded=items.length>1&&readingLayout==='full'&&expandedDecks.has(key);
   const countText=`共${items.length}${key==='subscriptions'?'类订阅':'条异动'}`;
-  if(key==='funds'){
+  if(key==='funds'||key==='subscriptions'){
    const tail=readingLayout==='full'&&items.length>1?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';
    const footer=items.length>1?`<button class="deck-footer deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';
-   host.innerHTML=`<section class="reading-deck united-deck" aria-labelledby="deck-title-${key}"><div class="deck-pile ${items.length>1&&readingLayout==='full'&&!expanded?'is-stacked':''}" data-expanded="${expanded}"><div class="deck-list" id="deck-${key}"><header class="deck-heading card-heading"><h3 id="deck-title-${key}">${deckNames[key]}</h3></header>${readingCard(items[0],0,key)}${tail}${footer}</div></div></section>`;
+   host.innerHTML=`<section class="reading-deck united-deck" aria-labelledby="deck-title-${key}"><div class="deck-pile ${items.length>1&&readingLayout==='full'&&!expanded?'is-stacked':''}" data-expanded="${expanded}"><div class="deck-list" id="deck-${key}"><header class="deck-heading card-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'订阅':deckNames[key]}</h3></header>${readingCard(items[0],0,key)}${tail}${footer}</div></div></section>`;
    return;
   }
   const headerAction=items.length>1?`<button class="deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';

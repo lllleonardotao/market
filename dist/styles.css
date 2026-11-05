@@ -217,3 +217,15 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .reading-card .reading-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
 .reading-title>span{flex:1;min-width:0;text-wrap:pretty}
 .reading-title>.reading-inline-time{flex:none;margin:0;line-height:44px;white-space:nowrap}
+
+/* Institutional signal replaces the subscription story using the shared shell. */
+.institution-gauge{margin:18px 0 24px}
+.institution-gauge svg{display:block;width:100%;height:auto;max-height:244px}
+.institution-gauge figcaption{text-align:center;font-size:27px;line-height:42px;color:#26354c;margin-top:4px}
+.institution-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.institution-metric{background:#edf4ff;border-radius:12px;padding:22px 14px}
+.institution-metric h4{font-size:24px;line-height:36px;font-weight:400;color:#26354c;margin:0}
+.institution-bars{display:flex;gap:3px;height:16px;border-radius:12px;overflow:hidden;margin-top:20px}
+.institution-bars i{flex:1;background:#d5dce6}
+.institution-bars i.is-filled{background:#4c91ff}
+.institution-metric p{font-size:20px;line-height:32px;color:#7a8799;margin-top:14px;white-space:nowrap}
