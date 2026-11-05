@@ -307,3 +307,10 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .phone[data-page-layout="bighead"]>.sectors{position:relative;top:auto;left:auto;margin:24px 40px 0;width:670px;height:242px;background:rgba(255,255,255,.8);box-shadow:none}
 .page-session-switch .footer-switch-row:last-child{flex:1.45}
 .page-session-switch .footer-switch-row:last-child>.page-session-label{display:none}
+
+/* All story headlines share the A-share headline scale. */
+.reading-card .reading-title,
+.community-module>.community-insight{font-size:38px;line-height:56px;font-weight:600;letter-spacing:0;color:#243249}
+.sector-insight{display:none}
+.phone[data-page-layout="bighead"]>.sectors{height:auto;padding-bottom:28px}
+.phone[data-page-layout="bighead"] .sector-insight{display:block;margin:0 28px 24px;font-size:38px;line-height:56px;font-weight:600;letter-spacing:0;color:#243249;text-wrap:pretty}
