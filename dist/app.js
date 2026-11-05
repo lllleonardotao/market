@@ -110,7 +110,7 @@ function readingCard(item,index,group){
  const subscription=group==='subscriptions';
  const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
- return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top">${group==='funds'?`<span>${item.kind} · ${item.code}</span>`:''}<time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div>${trend}${facts}<p class="reading-body">${item.body}</p></article>`;
+ return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div>${trend}${facts}${group==='funds'?'':`<p class="reading-body">${item.body}</p>`}</article>`;
 }
 function renderReadingDecks(){
  const groups=getReadingGroups(activeReadingSession);
