@@ -86,10 +86,10 @@ function miniTrend(points,axis,down,label){
 function getReadingGroups(session){
  const data=relatedSessions[session],isPre=session==='pre',isPost=session==='post';
  const fundNames=['汇添富外延增长主题股票A','华夏国证半导体芯片ETF'];
- let funds=data.cards.map((item,i)=>({kind:'基金',name:fundNames[i],code:i?'159995':'000925',title:isPre?(i?'隔夜科技调整，开盘承接待观察':'暂无重大新增，保留昨日回顾'):i?(isPost?'芯片领涨，收盘优势扩大':'午后重新走高，强于大盘'):(isPost?'午后修复未延续，收盘仍为负':'跌幅收窄，尚未跟上大盘'),change:item.change,down:!!item.down,summary:item.summary,body:item.body,followup:item.followup,points:isPre?null:item.points,axis:data.axis,caption:item.caption,time:data.label}));
+ let funds=data.cards.map((item,i)=>({hasChange:!isPre||i===1,kind:'基金',name:fundNames[i],code:i?'159995':'000925',title:isPre?(i?'隔夜科技调整，开盘承接待观察':'暂无重大新增，保留昨日回顾'):i?(isPost?'芯片领涨，收盘优势扩大':'午后重新走高，强于大盘'):(isPost?'午后修复未延续，收盘仍为负':'跌幅收窄，尚未跟上大盘'),change:item.change,down:!!item.down,summary:item.summary,body:item.body,followup:item.followup,points:isPre?null:item.points,axis:data.axis,caption:item.caption,time:data.label}));
  funds.push({kind:'板块',name:'半导体',code:'行业指数',title:isPre?'隔夜芯片调整，留意板块承接':isPost?'半导体领涨，收盘强于大盘':'半导体午后回升，科技主线活跃',change:isPre?'昨日 +1.65%':isPost?'收盘 +2.28%':'当前 +1.56%',down:false,summary:'你关注的半导体板块，与芯片ETF的走势密切相关。',body:isPre?'保留昨日板块回顾，今早补充隔夜芯片情绪变化。开盘后再观察是否传导至A股半导体方向。':'科技方向买盘回流，半导体板块表现较强。结合板块成交与成分股表现观察上涨是否具有持续性。',time:data.label,points:[135,95,108,65,isPost?24:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日全天板块走势':'截至 13:42 的板块走势'});
  // Each stock has its own full card, including a trend and an explanation.
- const stocks=data.stocks.map((row,i)=>({kind:'股票',name:i?'立讯精密':'新易盛',code:i?'002475':'300502',title:row[1],change:row[0],down:!!i,summary:i?'消费电子与科技主线表现分化，关注买盘承接。':'光模块与科技主线同步，关注需求预期及成交变化。',body:row[2],time:data.label,points:i?[55,74,110,96,isPost?130:118]:[135,102,119,66,isPost?28:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日完整走势':'截至 13:42 的盘中走势'}));
+ const stocks=data.stocks.map((row,i)=>({hasChange:!isPre||i===0,kind:'股票',name:i?'立讯精密':'新易盛',code:i?'002475':'300502',title:row[1],change:row[0],down:!!i,summary:i?'消费电子与科技主线表现分化，关注买盘承接。':'光模块与科技主线同步，关注需求预期及成交变化。',body:row[2],time:data.label,points:i?[55,74,110,96,isPost?130:118]:[135,102,119,66,isPost?28:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日完整走势':'截至 13:42 的盘中走势'}));
  const subscriptionTitles=isPre?['隔夜芯片调整，需求观察继续','机构关注方向，等待新增信号','今日留意企业公告与披露进展']:isPost?['科技收涨，继续跟进需求验证','科技配置线索，等待后续确认','收盘后关注公告与业绩进展']:['科技方向回升，观察成交持续性','科技交易活跃，跟进机构线索','重要公告与披露窗口持续跟踪'];
  const subscriptions=[
  {category:'投资机会',name:'半导体需求观察',title:subscriptionTitles[0],summary:'你订阅的「半导体与算力」机会',body:'持续跟进需求、订单和业绩三条线索。板块价格变化先反映预期，机会是否得到验证，仍需后续经营信息支持。',tag:'观察阶段',facts:[['关注方向','半导体 / 算力'],['下一步','订单与业绩验证']]},
@@ -103,7 +103,7 @@ function getReadingGroups(session){
  post:['芯片ETF收涨1.92%，领先上证1.42个百分点，午后涨势延续至收盘。','午后修复未延续，收盘估算下跌0.25%，未跟随大盘收红。正式净值待公布。','半导体收涨2.28%，全天强于大盘，午后保持活跃。']
  };
  funds.forEach((item,i)=>{item.body=fundNotes[session][i];item.followup=null;});
- return {funds,stocks,subscriptions};
+ return {funds:funds.filter(item=>item.hasChange!==false),stocks:stocks.filter(item=>item.hasChange!==false),subscriptions};
 }
 function readingCard(item,index,group){
  const subscription=group==='subscriptions';
@@ -118,11 +118,14 @@ function renderReadingDecks(){
  const overview=marketImpact[activeReadingSession];
  document.querySelector('#personal-overview').innerHTML=`<p class="overview-eyebrow">我的自选概览 · ${relatedSessions[activeReadingSession].label}</p><h3>${overview.overview}</h3><p>${overview.detail}</p>`;
  Object.entries(groups).forEach(([key,items])=>{
-  const expanded=readingLayout==='full'&&expandedDecks.has(key);
+  const host=document.querySelector(`[data-deck-host="${key}"]`);
+  host.hidden=items.length===0;
+  if(!items.length){host.replaceChildren();return;}
+  const expanded=items.length>1&&readingLayout==='full'&&expandedDecks.has(key);
   const cards=items.slice(0,1);
-  const action=readingLayout==='full'?`<button class="deck-action" data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"><span>共 ${items.length} ${key==='subscriptions'?'类订阅':'条'+deckNames[key]}</span><strong>${expanded?'收起卡片':'展开 '+items.length+' 张卡片'} ${expanded?'⌃':'⌄'}</strong></button>`:`<button class="deck-action compact-more" data-more="${key}"><span>还有 ${items.length-1} ${key==='subscriptions'?'类订阅': '条'+deckNames[key]}</span><strong>${key==='subscriptions'?'去我的订阅':'去自选查看'} →</strong></button>`;
-  const tail=readingLayout==='full'?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';
-  document.querySelector(`[data-deck-host="${key}"]`).innerHTML=`<section class="reading-deck" aria-labelledby="deck-title-${key}"><header class="deck-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'订阅':deckNames[key]}</h3><span>${items.length} ${key==='subscriptions'?'类订阅':'条关注'}</span></header><div class="deck-pile ${readingLayout==='full'&&!expanded?'is-stacked':''}" data-expanded="${expanded}"><div class="deck-list" id="deck-${key}">${cards.map((item,i)=>readingCard(item,i,key)).join('')}${tail}</div>${action}</div></section>`;
+  const action=items.length<2?'':readingLayout==='full'?`<button class="deck-action" data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"><span>共 ${items.length} ${key==='subscriptions'?'类订阅':'条'+deckNames[key]}</span><strong>${expanded?'收起卡片':'展开 '+items.length+' 张卡片'} ${expanded?'⌃':'⌄'}</strong></button>`:`<button class="deck-action compact-more" data-more="${key}"><span>还有 ${items.length-1} ${key==='subscriptions'?'类订阅': '条'+deckNames[key]}</span><strong>${key==='subscriptions'?'去我的订阅':'去自选查看'} →</strong></button>`;
+  const tail=readingLayout==='full'&&items.length>1?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';
+  document.querySelector(`[data-deck-host="${key}"]`).innerHTML=`<section class="reading-deck" aria-labelledby="deck-title-${key}"><header class="deck-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'订阅':deckNames[key]}</h3><span>${items.length} ${key==='subscriptions'?'类订阅':'条关注'}</span></header><div class="deck-pile ${items.length>1&&readingLayout==='full'&&!expanded?'is-stacked':''}" data-expanded="${expanded}"><div class="deck-list" id="deck-${key}">${cards.map((item,i)=>readingCard(item,i,key)).join('')}${tail}</div>${action}</div></section>`;
  });
  if(drilledGroup)renderDrilldown(drilledGroup,false);
 }
