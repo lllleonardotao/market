@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#83b8f4">
+  <meta name="description" content="财小通行情日报与自选追踪，Figma 原稿还原。">
+  <title>财小通 · 行情日报</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+ <main class="phone" aria-label="财小通行情首页">
+  <div class="hero-art" aria-hidden="true"></div>
+  <header class="navigation">
+   <div class="status-bar"><span class="time">12:58</span><div class="status-icons"><img src="assets/25289-19754-ea146.svg" alt="移动信号"><img src="assets/25289-19754-67875.svg" alt="无线网络"><img src="assets/25289-19754-6d42d.svg" alt="电量充足"></div></div>
+   <button class="menu icon-button" aria-label="打开菜单"><img src="assets/25289-19754-a394c.svg" alt=""><img src="assets/25289-19754-5d4c3.svg" alt=""><img src="assets/25289-19754-7a359.svg" alt=""></button>
+   <h1>财小通</h1>
+   <button class="mini-app icon-button" aria-label="更多选项"><img src="assets/25289-19754-fac5c.svg" alt=""></button>
+  </header>
+  <section class="report" aria-label="行情日报">
+   <div class="report-title"><h2>行情日报</h2><button class="play icon-button" aria-label="播放行情日报" aria-pressed="false"><img src="assets/25289-27835-20b50.svg" alt=""></button><time datetime="2022-06-15">2022-06-15 星期三</time></div>
+   <div class="indices" id="indices"></div>
+   <button class="next-index icon-button" aria-label="切换行情"><img src="assets/25289-27922-fb69f.svg" alt=""></button>
+   <section class="sectors"><header><h3>热门板块</h3><button class="text-button all-sectors">全部</button></header><div class="sector-list">
+    <div class="sector"><img src="assets/25289-19923-00b7e.svg" alt=""><span>存储</span><strong>+8.67%</strong></div>
+    <div class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>有色金属</span><strong>+4.21%</strong></div>
+    <div class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>医疗服务</span><strong>+1.52%</strong></div>
+    <div class="sector down"><img src="assets/25289-19923-eebd7.svg" alt=""><span>大农业</span><strong>−0.26%</strong></div>
+   </div></section>
+  </section>
+  <section class="a-market" data-session="live" aria-labelledby="a-market-title">
+   <header class="a-market-header"><div class="a-market-heading"><h2 id="a-market-title">A股</h2><span class="intraday-status"><i></i><span id="session-status">盘中</span></span></div></header>
+   <div role="tabpanel" id="panel-pre" aria-labelledby="tab-pre" hidden>
+    <section class="session-block yesterday-result" aria-labelledby="yesterday-title">
+     <div class="focus-heading"><h3 id="yesterday-title">昨日大盘</h3><span>上一交易日收盘</span></div>
+     <div class="a-market-quote"><span>上证指数</span><strong class="number">3893.13</strong><b class="number">+0.12%</b></div>
+     <p>大盘微涨，科技方向相对活跃，市场表现分化。</p>
+    </section>
+    <section class="session-block" aria-labelledby="today-focus-title"><div class="focus-heading"><h3 id="today-focus-title">今日关注</h3><span>开盘后观察</span></div><p>科技方向能否承接昨日强势，上涨能否扩散到其他成长板块。</p></section>
+    <section class="session-block" aria-labelledby="overnight-title"><div class="focus-heading"><h3 id="overnight-title">隔夜事件</h3><span>08:45 更新</span></div><p>美股芯片、光通信方向回落，留意 A 股科技板块的开盘表现。</p></section>
+   </div>
+   <div role="tabpanel" id="panel-live" aria-labelledby="tab-live">
+   <div class="a-market-quote"><span>上证指数</span><strong class="number">3905.20</strong><b class="number">+0.31%</b><span class="a-market-updated">截至 13:42</span></div>
+   <svg class="intraday-chart" viewBox="0 0 614 352" role="group" aria-labelledby="intraday-title intraday-desc">
+    <title id="intraday-title">A股盘中走势与事件</title><desc id="intraday-desc">曲线截至13点42分，后续交易时段留白。10:05科技板块走强，11:02早盘涨幅收窄，13:18科技方向再度活跃。说明直接标在线上对应的点旁，不可点击。</desc>
+    <defs><linearGradient id="intraday-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ed6868" stop-opacity=".14"/><stop offset="1" stop-color="#ed6868" stop-opacity="0"/></linearGradient></defs>
+    <g class="chart-grid"><path d="M0 72H614 M0 158H614 M0 244H614"/><path class="chart-baseline" d="M0 276H614"/></g>
+    <text class="chart-future" x="536" y="166" text-anchor="middle">待交易</text>
+    <path fill="url(#intraday-fill)" d="M0 251 L12 238 22 246 34 225 44 232 54 209 63 218 73 190 83 201 93 178 105 185 117 154 128 166 140 144 153 152 165 125 178 135 190 121 203 142 216 153 232 179 243 166 255 190 269 181 282 161 297 174 310 148 323 155 335 129 347 139 360 110 374 120 389 96 401 103 413 81 425 91 437 67 453 76 L453 292H0Z"/>
+    <path class="intraday-line" d="M0 251 L12 238 22 246 34 225 44 232 54 209 63 218 73 190 83 201 93 178 105 185 117 154 128 166 140 144 153 152 165 125 178 135 190 121 203 142 216 153 232 179 243 166 255 190 269 181 282 161 297 174 310 148 323 155 335 129 347 139 360 110 374 120 389 96 401 103 413 81 425 91 437 67 453 76"/>
+    <g class="chart-annotations">
+     <g><circle cx="93" cy="178" r="5"/><text x="93" y="145" text-anchor="middle">科技板块走强</text></g>
+     <g><circle cx="232" cy="179" r="5"/><text x="232" y="224" text-anchor="middle">早盘涨幅收窄</text></g>
+     <g><circle cx="401" cy="103" r="5"/><text x="401" y="43" text-anchor="middle">科技方向再度活跃</text></g>
+    </g>
+    <path class="current-time-line" d="M453 90V294"/><circle class="current-halo" cx="453" cy="76" r="13"/><circle class="current-dot" cx="453" cy="76" r="5"/>
+    <g class="chart-axis"><text x="0" y="329">09:30</text><text x="307" y="329" text-anchor="middle">11:30 / 13:00</text><text x="614" y="329" text-anchor="end">15:00</text></g>
+   </svg>
+   </div>
+   <div role="tabpanel" id="panel-post" aria-labelledby="tab-post" hidden>
+    <p class="a-market-summary post-market-summary">早盘回升后回落，午后再度走高，上证收涨 0.50%。科技方向相对活跃，板块表现仍有分化。</p>
+    <div class="a-market-quote compact-quote"><span>上证指数</span><strong class="number">3912.64</strong><b class="number">+0.50%</b><span class="a-market-updated">15:00 收盘</span></div>
+    <svg class="close-chart" viewBox="0 0 614 174" role="img" aria-labelledby="close-chart-title"><title id="close-chart-title">全天走势：早盘回升后回落，午后再度走高，15点收盘</title>
+     <defs><linearGradient id="close-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ed6868" stop-opacity=".13"/><stop offset="1" stop-color="#ed6868" stop-opacity="0"/></linearGradient></defs>
+     <path class="chart-grid" d="M0 40H614 M0 94H614"/>
+     <path fill="url(#close-fill)" d="M0 127L16 113 30 120 49 98 63 105 82 80 97 87 120 53 137 65 155 41 176 58 199 70 218 91 239 79 260 103 280 83 307 89 329 67 350 77 373 51 395 60 414 37 436 49 459 28 479 38 500 20 519 33 540 23 562 34 583 19 614 24V141H0Z"/>
+     <path class="intraday-line" d="M0 127L16 113 30 120 49 98 63 105 82 80 97 87 120 53 137 65 155 41 176 58 199 70 218 91 239 79 260 103 280 83 307 89 329 67 350 77 373 51 395 60 414 37 436 49 459 28 479 38 500 20 519 33 540 23 562 34 583 19 614 24"/>
+     <circle class="current-dot" cx="614" cy="24" r="5"/><g class="chart-axis"><text x="0" y="170">09:30</text><text x="307" y="170" text-anchor="middle">11:30 / 13:00</text><text x="614" y="170" text-anchor="end">15:00</text></g>
+    </svg>
+    <section class="session-block post-market-impact" id="post-market-impact" aria-labelledby="post-impact-title" hidden><div class="focus-heading"><h3 id="post-impact-title">与你相关</h3></div><p id="post-impact-copy"></p></section>
+   </div>
+  </section>
+  <section class="personal-reading" aria-labelledby="personal-title" data-layout="full">
+   <header class="personal-header"><h2 id="personal-title">与你相关</h2></header>
+   <div class="personal-overview" id="personal-overview"></div>
+   <div id="personal-decks">
+    <div data-deck-host="funds"></div>
+  <section class="saved-watchlist" aria-labelledby="saved-watchlist-title">
+   <header class="watchlist-title"><h3 id="saved-watchlist-title">自选</h3><span>共 5 项</span></header>
+   <div class="saved-list" role="table" aria-label="自选基金、指数与板块行情">
+    <div class="saved-list-labels" role="row"><span role="columnheader">名称 / 类型</span><span role="columnheader">最新值 / 日涨跌</span></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>汇添富外延增长主题股票A</h3><p>基金 · 000925</p></div><div class="saved-list-quote" role="cell"><span class="number">1.6820</span><span class="number down">−0.25%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>华夏国证半导体芯片ETF</h3><p>基金 · 159995</p></div><div class="saved-list-quote" role="cell"><span class="number">1.2460</span><span class="number up">+1.92%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>上证指数</h3><p>指数 · 000001</p></div><div class="saved-list-quote" role="cell"><span class="number">3905.20</span><span class="number up">+0.31%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>沪深300</h3><p>指数 · 000300</p></div><div class="saved-list-quote" role="cell"><span class="number">4512.68</span><span class="number down">−0.16%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>半导体</h3><p>板块 · 行业指数</p></div><div class="saved-list-quote" role="cell"><span class="number">6423.65</span><span class="number up">+2.28%</span></div></div>
+   </div>
+   <p class="reading-note">场外基金展示最新净值；ETF、指数与关注板块展示对应时段行情。</p>
+  </section>
+    <div data-deck-host="stocks"></div>
+    <div data-deck-host="subscriptions"></div>
+   </div>
+  </section>
+   <section class="watchlist-drilldown" id="watchlist-drilldown" hidden tabindex="-1" aria-label="自选异动详情"></section>
+
+  <section class="community-reading" aria-labelledby="community-title">
+   <h2 id="community-title">大家都在关注</h2>
+   <section class="community-module" aria-labelledby="sentiment-title"><header><h3 id="sentiment-title">竞猜风向</h3><span>下一交易日 · 上证指数</span></header><p class="community-question">你觉得，下一个交易日怎么走？</p><div class="sentiment-options"><button type="button" data-sentiment="看涨" aria-pressed="false"><span>看涨</span><strong>61%</strong></button><button type="button" data-sentiment="看跌" aria-pressed="false"><span>看跌</span><strong>39%</strong></button></div><p class="sentiment-caption" role="status">看看大家的判断，也留下你的看法</p></section>
+   <section class="community-module" aria-labelledby="discussion-title"><header><h3 id="discussion-title">全网热议</h3><span>市场正在讨论</span></header>
+    <details class="discussion-topic"><summary><span class="topic-rank">01</span><span>芯片领涨之后，科技主线还能持续吗？<small>半导体 · 资金与需求</small></span><span class="topic-arrow">⌄</span></summary><p>讨论聚焦科技板块的成交持续性，以及订单、业绩能否支持当前需求预期。</p></details>
+    <details class="discussion-topic"><summary><span class="topic-rank">02</span><span>指数涨了，为什么我的基金没跟上？<small>基金 · 配置与收益差异</small></span><span class="topic-arrow">⌄</span></summary><p>指数与基金配置并不相同。观察上涨覆盖的板块，以及基金配置方向是否同步修复。</p></details>
+   </section>
+  </section>
+ </main>
+ <footer class="page-session-switch" aria-label="全页时段与卡片版本切换">
+  <div class="footer-switch-row">
+  <span class="page-session-label">全页时段</span>
+  <div class="session-tabs" role="tablist" aria-label="全页交易时段">
+   <button type="button" role="tab" id="tab-pre" aria-controls="panel-pre" aria-selected="false" tabindex="-1" data-session="pre">盘前</button>
+   <button type="button" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" tabindex="0" data-session="live">盘中</button>
+   <button type="button" role="tab" id="tab-post" aria-controls="panel-post" aria-selected="false" tabindex="-1" data-session="post">盘后</button>
+  </div>
+  </div>
+  <div class="footer-switch-row"><span class="page-session-label">卡片版本</span><div class="reading-variants" role="group" aria-label="卡片展示版本"><button type="button" aria-pressed="true" data-layout="full">多卡版</button><button type="button" aria-pressed="false" data-layout="compact">单卡版</button></div></div>
+ </footer>
+ <script src="app.js"></script>
+</body>
+</html>
