@@ -148,12 +148,12 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .post-market-impact{margin-top:12px}
 
 /* Pre-market: overnight conclusion first, prior close as context, focus last. */
-.premarket-lead{padding:0 0 28px;border-bottom:1px solid #dce5f1}
+.premarket-lead{padding:0}
 .premarket-eyebrow{display:flex;align-items:center;justify-content:flex-end;gap:16px;color:#64738a;font-size:21px;line-height:32px}
 
 .premarket-close{display:flex;align-items:baseline;gap:12px;margin-top:10px;font-size:22px;line-height:34px;white-space:nowrap;color:#64738a}
 .premarket-close strong,.premarket-close>span{font-size:24px;color:var(--red);font-weight:500}
-.premarket-focus{margin-top:36px;padding:22px 26px;border-radius:16px;background:#edf4fd}
+.premarket-focus{margin-top:24px;padding:22px 26px;border-radius:16px;background:#edf4fd}
 .premarket-focus h3{font-size:23px;line-height:34px;font-weight:500;color:#607692}
 .premarket-focus-list{list-style:none;margin:12px 0 0;padding:0}
 .premarket-focus-list li{position:relative;padding-left:22px;font-size:27px;line-height:42px;font-weight:400;color:#243249}

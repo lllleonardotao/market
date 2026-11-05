@@ -26,7 +26,7 @@ function selectMarketSession(session){
  renderRelatedSession(session);
  document.querySelector('.a-market').dataset.session=session;
  document.querySelector('#a-market-title').textContent={pre:'A股盘前',live:'A股盘中',post:'A股收评'}[session];
- document.querySelector('#market-refresh').textContent=session==='pre'?'08:45 更新':'3分钟前';
+ document.querySelector('#market-refresh').textContent=session==='pre'?'5分钟前':'3分钟前';
  sessionTabs.forEach(tab=>{const active=tab===activeTab;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;});
 }
 sessionTabs.forEach((tab,index)=>{
@@ -78,11 +78,11 @@ let readingLayout='full';
 let activeReadingSession='post';
 const expandedDecks=new Set();
 let drilledGroup=null;
-const deckNames={funds:'异动',stocks:'股票异动',subscriptions:'订阅机会'};
+const deckNames={funds:'自选异动',stocks:'股票异动',subscriptions:'订阅机会'};
 function miniTrend(points,axis,down,label,signal=''){
  const xs=[8,155,302,449,596],tone=down?'#43a047':'#e9676c';
  const path=points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
- return `<figure class="deck-chart"><svg viewBox="0 0 604 ${signal?240:184}" role="img" aria-label="${label}${signal?'，'+signal:''}">${signal?`<text x="8" y="30" fill="${tone}" font-size="27" font-weight="500">${signal}</text>`:''}<g transform="translate(0 ${signal?56:0})"><path d="M8 40H596 M8 90H596 M8 140H596" stroke="#edf0f5" fill="none"/><path d="${path}V145H8Z" fill="${tone}" fill-opacity=".07"/><path d="${path}" fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="596" cy="${points.at(-1)}" r="5" fill="${tone}" stroke="white" stroke-width="3"/>${axis.map((t,i)=>`<text x="${xs[i]}" y="177" text-anchor="${i===0?'start':i===4?'end':'middle'}" fill="#8390a3" font-size="20">${t}</text>`).join('')}</g></svg><figcaption>${label}</figcaption></figure>`;
+ return `<figure class="deck-chart"><svg viewBox="0 0 604 ${signal?208:184}" role="img" aria-label="${label}${signal?'，'+signal:''}"><g transform="translate(0 ${signal?24:0})"><path d="M8 40H596 M8 90H596 M8 140H596" stroke="#edf0f5" fill="none"/><path d="${path}V145H8Z" fill="${tone}" fill-opacity=".07"/><path d="${path}" fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="596" cy="${points.at(-1)}" r="5" fill="${tone}" stroke="white" stroke-width="3"/>${signal?`<text class="chart-signal" x="584" y="${Math.max(8,points.at(-1)-20)}" text-anchor="end" fill="${tone}" font-size="25" font-weight="500" paint-order="stroke" stroke="white" stroke-width="7" stroke-linejoin="round">${signal}</text>`:''}${axis.map((t,i)=>`<text x="${xs[i]}" y="177" text-anchor="${i===0?'start':i===4?'end':'middle'}" fill="#8390a3" font-size="20">${t}</text>`).join('')}</g></svg><figcaption>${label}</figcaption></figure>`;
 }
 function getReadingGroups(session){
  const data=relatedSessions[session],isPre=session==='pre',isPost=session==='post';
