@@ -26,6 +26,7 @@ function selectMarketSession(session){
  renderRelatedSession(session);
  document.querySelector('.a-market').dataset.session=session;
  document.querySelector('#session-status').textContent=activeTab.textContent;
+ document.querySelector('#market-refresh').textContent={pre:'08:45 更新',live:'13:42 更新',post:'15:00 更新'}[session];
  sessionTabs.forEach(tab=>{const active=tab===activeTab;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;});
 }
 sessionTabs.forEach((tab,index)=>{
