@@ -179,3 +179,5 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .personal-reading .saved-watchlist>.watchlist-title{padding:0;margin:0 0 22px;min-height:40px}
 .personal-reading .saved-watchlist .saved-list{padding:0;border-radius:0;background:transparent}
 .personal-reading .saved-watchlist .reading-note{padding:18px 0 0}
+
+.reading-card-top>time:only-child{margin-left:auto}
