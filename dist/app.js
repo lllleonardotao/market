@@ -137,9 +137,9 @@ function renderReadingDecks(){
  document.querySelector('.personal-reading').dataset.layout=readingLayout;
  document.querySelectorAll('.reading-variants button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===readingLayout)));
  const overview={
-  pre:'今日关注：芯片开盘承接、成长基金修复及订阅机构新动向。',
-  live:'今日关注：芯片与光模块走强，留意成长基金修复及订阅机构动向。',
-  post:'今日关注：芯片与光模块收涨，跟进成长基金净值及订阅公告更新。'
+  pre:'今日关注：芯片开盘后的承接力度、成长基金的修复表现，以及订阅机构信号和重要公告的新进展。',
+  live:'今日关注：芯片与光模块的午后表现、成长基金的修复进度，以及订阅机构信号与重要公告的最新变化。',
+  post:'今日关注：芯片与光模块收涨后的持续性、成长基金正式净值，以及订阅机构信号和盘后公告的新进展。'
  }[activeReadingSession];
  const overviewCopy=overview.replace(/^今日关注：/,'').replace(/^(.*?)([、，])/,'<span class="overview-key">$1</span>$2');
  document.querySelector('#personal-overview').innerHTML=`<p class="overview-summary"><span class="overview-kicker">今日关注</span><span class="overview-copy">${overviewCopy}</span></p>`;
