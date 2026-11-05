@@ -17,19 +17,16 @@
   <div class="glow glow-4"><img src="assets/25289-19754-5fd0e.svg" alt=""></div>
   <header class="navigation">
    <div class="status-bar"><span class="time">12:58</span><div class="status-icons"><img src="assets/25289-19754-ea146.svg" alt="移动信号"><img src="assets/25289-19754-67875.svg" alt="无线网络"><img src="assets/25289-19754-6d42d.svg" alt="电量充足"></div></div>
-   <button class="menu icon-button" aria-label="打开菜单"><img src="assets/25289-19754-a394c.svg" alt=""><img src="assets/25289-19754-5d4c3.svg" alt=""><img src="assets/25289-19754-7a359.svg" alt=""></button>
    <h1>财小通</h1>
-   <button class="mini-app icon-button" aria-label="更多选项"><img src="assets/25289-19754-fac5c.svg" alt=""></button>
   </header>
   <section class="report" aria-label="行情日报">
-   <div class="report-title"><h2>行情日报</h2><button class="play icon-button" aria-label="播放行情日报" aria-pressed="false"><img src="assets/25289-27835-20b50.svg" alt=""></button><time datetime="2022-06-15">2022-06-15 星期三</time></div>
+   <div class="report-title"><h2>行情日报</h2><time datetime="2022-06-15">2022-06-15 星期三</time></div>
    <div class="indices" id="indices"></div>
-   <button class="next-index icon-button" aria-label="切换行情"><img src="assets/25289-27922-fb69f.svg" alt=""></button>
-   <section class="sectors"><header><h3>热门板块</h3><button class="text-button" id="all-sectors">全部</button></header><div class="sector-list">
-    <button class="sector"><img src="assets/25289-19923-00b7e.svg" alt=""><span>存储</span><strong>+8.67%</strong></button>
-    <button class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>有色金属</span><strong>+4.21%</strong></button>
-    <button class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>医疗服务</span><strong>+1.52%</strong></button>
-    <button class="sector down"><img src="assets/25289-19923-eebd7.svg" alt=""><span>大农业</span><strong>−0.26%</strong></button>
+   <section class="sectors"><header><h3>热门板块</h3></header><div class="sector-list">
+    <div class="sector"><img src="assets/25289-19923-00b7e.svg" alt=""><span>存储</span><strong>+8.67%</strong></div>
+    <div class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>有色金属</span><strong>+4.21%</strong></div>
+    <div class="sector"><img src="assets/25289-19923-0cd6b.svg" alt=""><span>医疗服务</span><strong>+1.52%</strong></div>
+    <div class="sector down"><img src="assets/25289-19923-eebd7.svg" alt=""><span>大农业</span><strong>−0.26%</strong></div>
    </div></section>
   </section>
   <section class="a-market" aria-labelledby="a-market-title">
@@ -37,51 +34,63 @@
    <p class="a-market-summary">科技领涨，午后资金回流，<strong>大盘震荡走高。</strong></p>
    <div class="a-market-quote"><span>上证指数</span><strong class="number">3905.20</strong><b class="number">+0.31%</b><span class="a-market-updated">截至 13:42</span></div>
    <svg class="intraday-chart" viewBox="0 0 614 352" role="group" aria-labelledby="intraday-title intraday-desc">
-    <title id="intraday-title">A股盘中走势与事件</title><desc id="intraday-desc">早盘科技股走强，随后获利回吐，午后资金回流。曲线截至13点42分，后续交易时段留白。点击事件标签查看解读。</desc>
+    <title id="intraday-title">A股盘中走势与事件</title><desc id="intraday-desc">早盘科技股走强，随后获利回吐，午后资金回流。曲线截至13点42分，后续交易时段留白。事件原因在图表下方按时间顺序展开。</desc>
     <defs><linearGradient id="intraday-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ed6868" stop-opacity=".14"/><stop offset="1" stop-color="#ed6868" stop-opacity="0"/></linearGradient></defs>
     <g class="chart-grid"><path d="M0 72H614 M0 158H614 M0 244H614"/><path class="chart-baseline" d="M0 276H614"/></g>
     <text class="chart-future" x="536" y="166" text-anchor="middle">待交易</text>
     <path fill="url(#intraday-fill)" d="M0 251 L12 238 22 246 34 225 44 232 54 209 63 218 73 190 83 201 93 178 105 185 117 154 128 166 140 144 153 152 165 125 178 135 190 121 203 142 216 153 232 179 243 166 255 190 269 181 282 161 297 174 310 148 323 155 335 129 347 139 360 110 374 120 389 96 401 103 413 81 425 91 437 67 453 76 L453 292H0Z"/>
     <path class="intraday-line" d="M0 251 L12 238 22 246 34 225 44 232 54 209 63 218 73 190 83 201 93 178 105 185 117 154 128 166 140 144 153 152 165 125 178 135 190 121 203 142 216 153 232 179 243 166 255 190 269 181 282 161 297 174 310 148 323 155 335 129 347 139 360 110 374 120 389 96 401 103 413 81 425 91 437 67 453 76"/>
-    <g class="chart-event" role="button" tabindex="0" data-event="0" aria-label="10:05 科技股走强，查看事件解读"><path class="event-stem" d="M93 178V106"/><circle cx="93" cy="178" r="7"/><rect x="4" y="37" width="194" height="69" rx="12"/><text class="event-time" x="20" y="63">10:05</text><text x="20" y="89">科技股走强 ↗</text></g>
-    <g class="chart-event" role="button" tabindex="0" data-event="1" aria-label="11:02 获利盘回吐，查看事件解读"><path class="event-stem" d="M232 179V220"/><circle cx="232" cy="179" r="7"/><rect x="161" y="220" width="194" height="69" rx="12"/><text class="event-time" x="177" y="246">11:02</text><text x="177" y="272">获利盘回吐 ↘</text></g>
-    <g class="chart-event" role="button" tabindex="0" data-event="2" aria-label="13:18 资金回流，查看事件解读"><path class="event-stem" d="M401 103V24H371"/><circle cx="401" cy="103" r="7"/><rect x="263" y="0" width="162" height="69" rx="12"/><text class="event-time" x="279" y="26">13:18</text><text x="279" y="52">资金回流 ↗</text></g>
+    <g class="chart-event"><path class="event-stem" d="M93 178V106"/><circle cx="93" cy="178" r="7"/><rect x="4" y="37" width="194" height="69" rx="12"/><text class="event-time" x="20" y="63">10:05</text><text x="20" y="89">科技股走强 ↗</text></g>
+    <g class="chart-event"><path class="event-stem" d="M232 179V220"/><circle cx="232" cy="179" r="7"/><rect x="161" y="220" width="194" height="69" rx="12"/><text class="event-time" x="177" y="246">11:02</text><text x="177" y="272">获利盘回吐 ↘</text></g>
+    <g class="chart-event"><path class="event-stem" d="M401 103V24H371"/><circle cx="401" cy="103" r="7"/><rect x="263" y="0" width="162" height="69" rx="12"/><text class="event-time" x="279" y="26">13:18</text><text x="279" y="52">资金回流 ↗</text></g>
     <path class="current-time-line" d="M453 90V294"/><circle class="current-halo" cx="453" cy="76" r="13"/><circle class="current-dot" cx="453" cy="76" r="5"/>
     <g class="chart-axis"><text x="0" y="329">09:30</text><text x="307" y="329" text-anchor="middle">11:30 / 13:00</text><text x="614" y="329" text-anchor="end">15:00</text></g>
    </svg>
-   <p class="chart-caption">走势背后的事<span>点击节点，查看盘中解读</span></p>
-  </section>
-  <section class="watchlist" aria-label="自选追踪">
-   <header class="watchlist-title"><h2>自选追踪</h2><button class="manage"><img src="assets/25289-19954-fd05a.svg" alt=""><span>管理</span></button></header>
-   <div class="cards">
-    <article class="stock-card red-card" data-name="A股">
-     <img class="chart-art" src="assets/chart-red.png" alt="A股走势与红色点阵背景">
-     <header class="stock-header"><h3>A股</h3><div class="quote"><span class="index-name">上证指数</span><span class="number">3905.20</span><span class="number">+0.31%</span></div></header>
-     <div class="stock-story"><p>订单之外</p><p>需求 <b>没毛病</b></p><p>订单翻倍</p><p>分歧是 <strong>利润率</strong></p></div>
-     <img class="underline" src="assets/25289-22555-d72a5.svg" alt="">
-    </article>
-    <article class="stock-card green-card" data-name="中旭国际">
-     <img class="chart-art" src="assets/chart-green.png" alt="中旭国际走势与绿色点阵背景">
-     <header class="stock-header"><h3>中旭国际</h3><div class="quote down"><span class="number">603.02</span><span class="number">−0.31%</span></div></header>
-     <img class="circle-mark" src="assets/25289-25135-06697.svg" alt="">
-     <div class="stock-story"><p>近期 <b class="down">高位震荡</b></p><p>高确定性业绩</p><p>与极端<b>周期恐惧</b></p><p>的残酷博弈</p></div>
-    </article>
-    <article class="stock-card blue-card" data-name="华夏国证半导体芯片ETF">
-     <img class="chart-art" src="assets/chart-blue.png" alt="半导体芯片ETF走势与蓝色点阵背景">
-     <header class="stock-header"><h3>华夏国证半导体芯片ETF</h3><div class="quote"><span class="number">603.02</span><span class="number">+0.31%</span></div></header>
-     <div class="ai-highlight" aria-hidden="true"></div>
-     <div class="stock-story"><p>互联网回暖</p><p> <b>AI收钱</b></p><p>故事讲得通</p><p>卖的是<b class="blue-text">预期</b></p></div>
-    </article>
-    <div class="compact-stocks">
-     <article class="compact-stock" data-name="新易盛"><h3>新易盛 <small>300502</small></h3><div class="quote down"><span class="number">421.02</span><span class="number">−0.31%</span></div></article>
-     <article class="compact-stock" data-name="闪迪"><h3>闪迪 <small>SNDK</small></h3><div class="quote"><span class="number">1641.28</span><span class="number">+2.31%</span></div></article>
-     <article class="compact-stock" data-name="立讯精密"><h3>立讯精密 <small>002475</small></h3><div class="quote"><span class="number">603.02</span><span class="number">+0.31%</span></div></article>
-    </div>
+   <div class="market-reading">
+    <h3>走势背后的事</h3>
+    <p><time>10:05</time><span><strong>科技股走强。</strong>科技板块买盘活跃，带动指数从早盘低位回升。</span></p>
+    <p><time>11:02</time><span><strong>上涨后回落。</strong>部分资金获利了结，早盘涨幅有所收窄。</span></p>
+    <p><time>13:18</time><span><strong>午后再度回升。</strong>资金重新流入科技板块，指数震荡走高。</span></p>
    </div>
-   <footer class="composer"><div class="quick-actions"><button id="thinking" aria-pressed="false"><img src="assets/25289-27779-697f5.svg" alt="">深度思考</button><button id="skills"><img src="assets/25289-27779-86172.svg" alt="">金融技能</button></div><form class="message-box"><button type="button" class="voice icon-button" aria-label="语音输入"><img src="assets/25289-27764-20303.svg" alt=""></button><input aria-label="发送消息" placeholder="发消息或按住说话..." autocomplete="off"><button type="submit" class="add icon-button" aria-label="发送消息"><img src="assets/25289-27764-28f5b.svg" alt=""></button></form></footer>
   </section>
-  <dialog class="sheet"><header><h2 id="sheet-title"></h2><button class="close-sheet" aria-label="关闭">×</button></header><div id="sheet-content"></div></dialog>
-  <div class="toast" role="status" aria-live="polite"></div>
+  <section class="watchlist" aria-labelledby="watchlist-title">
+   <header class="watchlist-title"><h2 id="watchlist-title">自选异动</h2><span>2 个产品有变化</span></header>
+   <div class="movement-cards">
+    <article class="movement-card">
+     <p class="movement-meta">汇添富外延增长主题股票A · 近一交易日</p>
+     <h3>你的自选基金昨日<span class="down">下跌了 0.25%</span></h3>
+     <p class="movement-summary">前一日回升后再度回落，近五个交易日呈震荡走势。</p>
+     <figure class="movement-figure">
+      <svg viewBox="0 0 598 206" role="img" aria-labelledby="fund-chart-title"><title id="fund-chart-title">示例净值走势，8月11日回升，8月12日下跌0.25%</title>
+       <defs><linearGradient id="fund-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2876ed" stop-opacity=".16"/><stop offset="1" stop-color="#2876ed" stop-opacity="0"/></linearGradient></defs>
+       <path class="movement-grid" d="M12 24H586 M12 64H586 M12 104H586 M12 144H586"/>
+       <path fill="url(#fund-fill)" d="M12 113L156 103 300 141 444 51 586 128V166H12Z"/>
+       <path class="movement-line" d="M12 113L156 103 300 141 444 51"/><path class="movement-line falling" d="M444 51L586 128"/>
+       <g class="movement-points"><circle cx="12" cy="113" r="6"/><circle cx="156" cy="103" r="6"/><circle cx="300" cy="141" r="6"/><circle class="falling-dot" cx="444" cy="51" r="6"/><circle class="falling-dot" cx="586" cy="128" r="6"/></g>
+       <g class="movement-axis"><text x="12" y="198">08-08</text><text x="156" y="198" text-anchor="middle">08-09</text><text x="300" y="198" text-anchor="middle">08-10</text><text x="444" y="198" text-anchor="middle">08-11</text><text x="586" y="198" text-anchor="end">08-12</text></g>
+      </svg><figcaption>近 5 个交易日净值走势<span class="down">昨日 −0.25%</span></figcaption>
+     </figure>
+     <p class="movement-reason"><strong>为什么回落？</strong>主要指数整体承压，基金所配置的成长股随市场调整，拖累当日净值。市场情绪偏谨慎、资金观望，也让前一日的反弹未能延续。</p>
+    </article>
+    <article class="movement-card">
+     <p class="movement-meta">华夏国证半导体芯片ETF · 近一交易日</p>
+     <h3>你的自选芯片ETF昨日<span class="up">上涨了 1.92%</span></h3>
+     <p class="movement-summary">连续两日回升，昨日涨势加快，表现强于同期大盘。</p>
+     <figure class="movement-figure">
+      <svg viewBox="0 0 598 206" role="img" aria-labelledby="chip-chart-title"><title id="chip-chart-title">示例芯片ETF走势，连续两日回升，最近一个交易日上涨1.92%</title>
+       <defs><linearGradient id="chip-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ed6868" stop-opacity=".16"/><stop offset="1" stop-color="#ed6868" stop-opacity="0"/></linearGradient></defs>
+       <path class="movement-grid" d="M12 24H586 M12 64H586 M12 104H586 M12 144H586"/>
+       <path fill="url(#chip-fill)" d="M12 135L156 112 300 132 444 91 586 30V166H12Z"/>
+       <path class="movement-line rising" d="M12 135L156 112 300 132 444 91 586 30"/>
+       <g class="movement-points rising-points"><circle cx="12" cy="135" r="6"/><circle cx="156" cy="112" r="6"/><circle cx="300" cy="132" r="6"/><circle cx="444" cy="91" r="6"/><circle cx="586" cy="30" r="6"/></g>
+       <g class="movement-axis"><text x="12" y="198">08-08</text><text x="156" y="198" text-anchor="middle">08-09</text><text x="300" y="198" text-anchor="middle">08-10</text><text x="444" y="198" text-anchor="middle">08-11</text><text x="586" y="198" text-anchor="end">08-12</text></g>
+      </svg><figcaption>近 5 个交易日价格走势<span class="up">昨日 +1.92%</span></figcaption>
+     </figure>
+     <p class="movement-reason"><strong>为什么走强？</strong>AI算力需求带动芯片订单预期升温，资金回流半导体板块，推高ETF所跟踪的芯片股。上涨主要反映市场对需求改善的预期，仍需后续业绩验证。</p>
+    </article>
+   </div>
+   <p class="reading-note">以上行情、走势与原因均为设计示例，用于展示阅读结构。</p>
+  </section>
  </main>
  <script src="app.js"></script>
 </body>
