@@ -18,3 +18,16 @@ document.querySelector('.mini-app').onclick=()=>headerInfo('财小通行情日�
 document.querySelector('.all-sectors').onclick=()=>headerInfo('热门板块','存储 +8.67%\n有色金属 +4.21%\n医疗服务 +1.52%\n大农业 -0.26%');
 document.querySelector('.next-index').onclick=()=>{const positions=markets.map(m=>[m[3],m[4]]);markets.push(markets.shift());markets.forEach((m,i)=>{m[3]=positions[i][0];m[4]=positions[i][1];});renderMarkets();};
 document.querySelector('.play').onclick=function(){const playing=this.getAttribute('aria-pressed')==='true';if('speechSynthesis' in window){speechSynthesis.cancel();if(!playing){const message=new SpeechSynthesisUtterance('行情日报。'+markets.map(m=>m[0]+m[1]+'，涨跌幅'+m[2]).join('。'));message.lang='zh-CN';message.onend=()=>{this.setAttribute('aria-pressed','false');this.setAttribute('aria-label','播放行情日报');};speechSynthesis.speak(message);}}else{headerInfo('行情日报',markets.map(m=>m[0]+' '+m[1]+' '+m[2]).join('\n'));return;}this.setAttribute('aria-pressed',String(!playing));this.setAttribute('aria-label',playing?'播放行情日报':'暂停行情日报');};
+
+const sessionTabs=[...document.querySelectorAll('.session-tabs [role="tab"]')];
+function selectMarketSession(session){
+ const activeTab=sessionTabs.find(tab=>tab.dataset.session===session);
+ if(!activeTab)return;
+ document.querySelector('.a-market').dataset.session=session;
+ document.querySelector('#session-status').textContent=activeTab.textContent;
+ sessionTabs.forEach(tab=>{const active=tab===activeTab;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;});
+}
+sessionTabs.forEach((tab,index)=>{
+ tab.addEventListener('click',()=>selectMarketSession(tab.dataset.session));
+ tab.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight')next=(index+1)%sessionTabs.length;else if(event.key==='ArrowLeft')next=(index+sessionTabs.length-1)%sessionTabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=sessionTabs.length-1;else return;event.preventDefault();selectMarketSession(sessionTabs[next].dataset.session);sessionTabs[next].focus();});
+});

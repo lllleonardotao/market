@@ -28,8 +28,19 @@
     <div class="sector down"><img src="assets/25289-19923-eebd7.svg" alt=""><span>大农业</span><strong>−0.26%</strong></div>
    </div></section>
   </section>
-  <section class="a-market" aria-labelledby="a-market-title">
-   <header class="a-market-header"><div class="a-market-heading"><h2 id="a-market-title">A股</h2><span class="intraday-status"><i></i>盘中</span></div></header>
+  <section class="a-market" data-session="live" aria-labelledby="a-market-title">
+   <header class="a-market-header"><div class="a-market-heading"><h2 id="a-market-title">A股</h2><span class="intraday-status"><i></i><span id="session-status">盘中</span></span></div><div class="session-tabs" role="tablist" aria-label="A股交易时段"><button type="button" role="tab" id="tab-pre" aria-controls="panel-pre" aria-selected="false" tabindex="-1" data-session="pre">盘前</button><button type="button" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" tabindex="0" data-session="live">盘中</button><button type="button" role="tab" id="tab-post" aria-controls="panel-post" aria-selected="false" tabindex="-1" data-session="post">盘后</button></div></header>
+   <div role="tabpanel" id="panel-pre" aria-labelledby="tab-pre" hidden>
+    <p class="a-market-summary">隔夜科技股回暖，<strong>今天先看成长板块能否接力。</strong></p>
+    <div class="a-market-quote compact-quote"><span>上证指数</span><strong class="number">3893.13</strong><b class="number">+0.12%</b><span class="a-market-updated">昨日收盘</span></div>
+    <div class="session-focus"><div class="focus-heading"><h3>开盘前，关注这三件事</h3><span>08:45 更新</span></div>
+     <article class="session-item"><span class="session-item-mark">隔夜</span><div><h4>海外科技股回暖</h4><p>科技板块情绪回升，留意 A 股芯片、算力方向的开盘表现。</p></div></article>
+     <article class="session-item"><span class="session-item-mark">09:30</span><div><h4>科技能否接过领涨棒</h4><p>观察半导体与成长板块的成交配合，关注高开后的承接。</p></div></article>
+     <article class="session-item"><span class="session-item-mark">今日</span><div><h4>关注企业业绩与订单进展</h4><p>留意自选公司公告，判断需求预期是否得到经营数据支持。</p></div></article>
+    </div>
+    <div class="session-related"><span class="related-eyebrow">与你的自选有关</span><p><strong>芯片ETF</strong> · 开盘关注科技板块情绪与成交变化</p></div>
+   </div>
+   <div role="tabpanel" id="panel-live" aria-labelledby="tab-live">
    <p class="a-market-summary">科技领涨，午后资金回流，<strong>大盘震荡走高。</strong></p>
    <div class="a-market-quote"><span>上证指数</span><strong class="number">3905.20</strong><b class="number">+0.31%</b><span class="a-market-updated">截至 13:42</span></div>
    <svg class="intraday-chart" viewBox="0 0 614 352" role="group" aria-labelledby="intraday-title intraday-desc">
@@ -50,9 +61,28 @@
     <p><time>11:02</time><span><strong>上涨后回落。</strong>部分资金获利了结，早盘涨幅有所收窄。</span></p>
     <p><time>13:18</time><span><strong>午后再度回升。</strong>资金重新流入科技板块，指数震荡走高。</span></p>
    </div>
+    <div class="session-related"><span class="related-eyebrow">与你的自选有关</span><p><strong>芯片ETF</strong> · 科技股走强，留意午后板块走势</p></div>
+   </div>
+   <div role="tabpanel" id="panel-post" aria-labelledby="tab-post" hidden>
+    <p class="a-market-summary">科技领涨、午后回升，<strong>A 股收涨 0.50%。</strong></p>
+    <div class="a-market-quote compact-quote"><span>上证指数</span><strong class="number">3912.64</strong><b class="number">+0.50%</b><span class="a-market-updated">15:00 收盘</span></div>
+    <svg class="close-chart" viewBox="0 0 614 174" role="img" aria-labelledby="close-chart-title"><title id="close-chart-title">全天走势：早盘回升后回落，午后再度走高，15点收盘</title>
+     <defs><linearGradient id="close-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ed6868" stop-opacity=".13"/><stop offset="1" stop-color="#ed6868" stop-opacity="0"/></linearGradient></defs>
+     <path class="chart-grid" d="M0 40H614 M0 94H614"/>
+     <path fill="url(#close-fill)" d="M0 127L16 113 30 120 49 98 63 105 82 80 97 87 120 53 137 65 155 41 176 58 199 70 218 91 239 79 260 103 280 83 307 89 329 67 350 77 373 51 395 60 414 37 436 49 459 28 479 38 500 20 519 33 540 23 562 34 583 19 614 24V141H0Z"/>
+     <path class="intraday-line" d="M0 127L16 113 30 120 49 98 63 105 82 80 97 87 120 53 137 65 155 41 176 58 199 70 218 91 239 79 260 103 280 83 307 89 329 67 350 77 373 51 395 60 414 37 436 49 459 28 479 38 500 20 519 33 540 23 562 34 583 19 614 24"/>
+     <circle class="current-dot" cx="614" cy="24" r="5"/><g class="chart-axis"><text x="0" y="170">09:30</text><text x="307" y="170" text-anchor="middle">11:30 / 13:00</text><text x="614" y="170" text-anchor="end">15:00</text></g>
+    </svg>
+    <div class="session-focus closing-focus"><div class="focus-heading"><h3>今天，市场走出了什么</h3><span>收盘复盘</span></div>
+     <article class="recap-item"><span>主线</span><div><h4>科技成为上涨主力</h4><p>芯片、算力方向活跃，成长板块带动指数收高。</p></div></article>
+     <article class="recap-item"><span>分歧</span><div><h4>盘中回落，午后重新回升</h4><p>早盘获利回吐一度压低指数，午后买盘回流，涨幅扩大。</p></div></article>
+    </div>
+    <div class="session-related"><span class="related-eyebrow">与你的自选有关</span><p><strong>芯片ETF</strong> · 今日科技走强，关注板块表现的延续性</p></div>
+    <div class="next-session"><span>明日关注</span><p>科技板块能否延续强势，以及上涨能否扩散到更多行业。</p></div>
+   </div>
   </section>
   <section class="watchlist" aria-labelledby="watchlist-title">
-   <header class="watchlist-title"><h2 id="watchlist-title">自选异动</h2><span>2 个产品有变化</span></header>
+   <header class="watchlist-title"><h2 id="watchlist-title">与你相关</h2><span>2 个产品有变化</span></header>
    <div class="movement-cards">
     <article class="movement-card">
      <p class="movement-meta">汇添富外延增长主题股票A · 近一交易日</p>
@@ -87,7 +117,33 @@
      <p class="movement-reason"><strong>为什么走强？</strong>AI算力需求带动芯片订单预期升温，资金回流半导体板块，推高ETF所跟踪的芯片股。上涨主要反映市场对需求改善的预期，仍需后续业绩验证。</p>
     </article>
    </div>
-   <p class="reading-note">以上行情、走势与原因均为设计示例，用于展示阅读结构。</p>
+  </section>
+  <section class="stock-movements" aria-labelledby="stock-movements-title">
+   <header class="watchlist-title"><h2 id="stock-movements-title">股票异动</h2><span>盘中观察</span></header>
+   <div class="stock-reading-list">
+    <article class="stock-reading-item">
+     <header><h3>新易盛 <small>300502</small></h3><span class="up number">+3.26%</span></header>
+     <h4>午后涨幅扩大，光模块板块同步走强</h4>
+     <p>算力需求预期升温，资金回流光模块方向，带动股价午后上行。本轮变化与板块共振有关，后续仍需观察订单和业绩能否兑现。</p>
+    </article>
+    <article class="stock-reading-item">
+     <header><h3>立讯精密 <small>002475</small></h3><span class="down number">−1.18%</span></header>
+     <h4>冲高后回落，早盘涨幅未能延续</h4>
+     <p>消费电子板块走弱，叠加前期上涨后的获利回吐，股价由涨转跌。当前回落更多反映短期资金分歧，仍需结合后续经营数据判断。</p>
+    </article>
+   </div>
+  </section>
+  <section class="saved-watchlist" aria-labelledby="saved-watchlist-title">
+   <header class="watchlist-title"><h2 id="saved-watchlist-title">自选列表</h2><span>共 5 项</span></header>
+   <div class="saved-list" role="table" aria-label="自选基金与指数行情">
+    <div class="saved-list-labels" role="row"><span role="columnheader">名称 / 类型</span><span role="columnheader">最新值 / 日涨跌</span></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>汇添富外延增长主题股票A</h3><p>基金 · 000925</p></div><div class="saved-list-quote" role="cell"><span class="number">1.6820</span><span class="number down">−0.25%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>华夏国证半导体芯片ETF</h3><p>基金 · 159995</p></div><div class="saved-list-quote" role="cell"><span class="number">1.2460</span><span class="number up">+1.92%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>上证指数</h3><p>指数 · 000001</p></div><div class="saved-list-quote" role="cell"><span class="number">3905.20</span><span class="number up">+0.31%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>沪深300</h3><p>指数 · 000300</p></div><div class="saved-list-quote" role="cell"><span class="number">4512.68</span><span class="number down">−0.16%</span></div></div>
+    <div class="saved-list-row" role="row"><div role="cell"><h3>易方达沪深300ETF联接A</h3><p>基金 · 110020</p></div><div class="saved-list-quote" role="cell"><span class="number">1.8572</span><span class="number down">−0.18%</span></div></div>
+   </div>
+   <p class="reading-note">基金展示最近公布的单位净值，指数展示盘中点位。以上行情、走势与原因均为设计示例。</p>
   </section>
  </main>
  <script src="app.js"></script>
