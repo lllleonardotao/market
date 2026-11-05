@@ -114,6 +114,7 @@ function getReadingGroups(session){
  post:['连涨5天','昨日净值下跌0.25%','板块创近1年新高']
  };
  funds.forEach((item,i)=>{item.title=fundReasons[session][i];item.signal=fundSignals[session][i];item.body=fundNotes[session][i];item.followup=null;if(isPre){item.points=[[135,112,132,91,30],[90,130,145,103,123],[135,95,108,65,24]][i];item.axis=['前4日','前3日','前2日','前1日','昨日'];item.caption='近5个交易日走势';}});
+ Object.assign(funds[2],{title:'板块买盘偏弱，半导体连续回落',signal:'连跌5天',down:true,change:isPre?'昨日 −1.65%':isPost?'收盘 −2.28%':'当前 −1.56%',points:[25,55,78,110,138],axis:['前4日','前3日','前2日','前1日',isPre?'昨日':'今日'],caption:'近5个交易日走势',body:'半导体板块买盘偏弱，连续5个交易日下跌。'});
  return {funds:funds.filter(item=>item.hasChange!==false),stocks:stocks.filter(item=>item.hasChange!==false),subscriptions};
 }
 function institutionalSignalCard(item){
@@ -133,8 +134,12 @@ function renderReadingDecks(){
  const groups=getReadingGroups(activeReadingSession);
  document.querySelector('.personal-reading').dataset.layout=readingLayout;
  document.querySelectorAll('.reading-variants button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===readingLayout)));
- const overview=marketImpact[activeReadingSession];
- document.querySelector('#personal-overview').innerHTML=`<p class="overview-eyebrow">我的自选概览 · ${relatedSessions[activeReadingSession].label}</p><h3>${overview.overview}</h3><p>${overview.detail}</p>`;
+ const overview={
+  pre:'今日关注：芯片开盘承接、成长基金修复及订阅机构新动向。',
+  live:'今日关注：芯片与光模块走强，留意成长基金修复及订阅机构动向。',
+  post:'今日关注：芯片与光模块收涨，跟进成长基金净值及订阅公告更新。'
+ }[activeReadingSession];
+ document.querySelector('#personal-overview').innerHTML=`<p class="overview-summary">${overview}</p>`;
  Object.entries(groups).forEach(([key,items])=>{
   const host=document.querySelector(`[data-deck-host="${key}"]`);
   host.hidden=items.length===0;
@@ -164,7 +169,17 @@ function renderDrilldown(group,scroll=true){
  target.innerHTML=`<header class="drilldown-heading"><h3>${name}</h3><button type="button" data-close-drilldown>返回卡片 ↑</button></header><div class="deck-list">${getReadingGroups(activeReadingSession)[group].map((item,i)=>readingCard(item,i,group)).join('')}</div>`;
  if(scroll){target.focus({preventScroll:true});target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
 }
+function renderPostFollowup(){
+ const tech=document.querySelector('#followup-tech'),growthCopy=document.querySelector('#followup-growth');
+ if(!tech||!growthCopy)return;
+ const products=getReadingGroups('post').funds;
+ const chip=products.find(item=>item.code==='159995');
+ const growth=products.find(item=>item.code==='000925');
+ tech.textContent=chip?`你自选的芯片ETF${chip.change}，后续关注半导体成交能否延续，以及订单与业绩的新进展。`:'关注半导体成交能否延续，以及订单与业绩的新进展。';
+ growthCopy.textContent=growth?`你自选的成长基金${growth.change}，关注正式净值公布，以及配置方向能否修复。`:'关注上涨能否扩散到其他成长方向，以及相关基金的净值变化。';
+}
 function renderRelatedSession(session){
+ if(session==='post')renderPostFollowup();
  activeReadingSession=session;
  renderReadingDecks();
  const quotes={pre:[['1.6820','−0.25%'],['1.2225','+1.92%'],['3893.13','+0.12%'],['4519.91','+0.08%'],['6280.45','+1.65%']],live:[['1.6820','−0.25%'],['1.2377','+1.24%'],['3905.20','+0.31%'],['4512.68','−0.16%'],['6378.43','+1.56%']],post:[['1.6820','−0.25%'],['1.2460','+1.92%'],['3912.64','+0.50%'],['4528.95','+0.20%'],['6423.65','+2.28%']]}[session];
