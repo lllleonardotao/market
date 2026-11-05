@@ -59,7 +59,7 @@ const marketImpact={
  live:{overview:'大盘午后回升，你的自选出现分化',detail:'截至13:42，上证涨0.31%。芯片ETF跟涨更强，成长基金跌幅收窄、仍未翻红。',benchmark:'上证当前 +0.31%',cards:[
   {state:'盘中状态 · 跌幅收窄，仍未翻红',title:'大盘回升，你的基金仍未翻红',change:'当前估算 −0.18%',summary:'从早盘估算下跌0.42%修复至下跌0.18%，收窄了0.24个百分点，仍弱于大盘。',comparison:'基金估算 −0.18% · 落后上证 0.49 个百分点',reason:'为什么大盘涨了，基金还在跌？',body:'午后科技买盘回流，带动基金部分配置方向回升，估算跌幅因此收窄；但其他成长方向仍承压，尚不足以抵消早盘下跌。市场回暖带来了修复，并没有让所有配置同步转涨。实际表现以公布净值为准。'},
   {state:'盘中状态 · 跟随回暖，强于大盘',title:'大盘回暖，芯片ETF跟涨更强',change:'当前上涨 1.24%',summary:'随午后科技资金回流重新走高，涨幅领先大盘0.93个百分点。',comparison:'芯片ETF +1.24% · 领先上证 0.93 个百分点',reason:'为什么比大盘涨得更多？',body:'大盘的回升由科技方向带动，芯片ETF的配置又集中在这条上涨主线上，因此受益更直接。与配置更分散的成长基金相比，芯片股集中走强对ETF价格的拉动更明显。'}]},
- post:{overview:'大盘收涨，你的自选一强一弱',detail:'上证收涨0.50%。芯片ETF领涨收盘，成长基金修复未持续，收盘估算仍为负。',benchmark:'上证收盘 +0.50%',cards:[
+ post:{impactSummary:'科技走强，对你关注的相关方向有提振；部分成长方向仍承压，影响有所分化。',overview:'大盘收涨，你的自选一强一弱',detail:'上证收涨0.50%。芯片ETF领涨收盘，成长基金修复未持续，收盘估算仍为负。',benchmark:'上证收盘 +0.50%',cards:[
   {state:'盘后状态 · 修复未延续，全天落后',title:'大盘收涨，基金修复未能延续',change:'收盘估算 −0.25%',summary:'午后一度修复至估算下跌0.18%，尾盘回落至下跌0.25%，未能跟随大盘收红。',comparison:'基金估算 −0.25% · 落后上证 0.75 个百分点',reason:'为什么没有跟上全天上涨？',body:'大盘收涨主要由科技板块拉动，基金其他配置方向仍偏弱，抵消了科技回升的贡献。盘中修复未能延续至收盘，说明上涨尚未充分扩散到基金配置。正式净值待公布，明日关注弱势方向能否补涨。'},
   {state:'盘后状态 · 领涨收盘，优势扩大',title:'大盘收涨，芯片ETF涨幅领先',change:'今日收涨 1.92%',summary:'从13:42上涨1.24%扩大至收盘上涨1.92%，最终领先大盘1.42个百分点。',comparison:'芯片ETF +1.92% · 领先上证 1.42 个百分点',reason:'为什么优势能保持到收盘？',body:'午后科技板块买盘延续至尾盘，芯片股维持活跃，集中配置这一方向的ETF继续扩大涨幅。大盘上涨主线与ETF配置方向一致，让其全天表现更强；明日关注资金与成交能否延续。'}]}
 };
@@ -140,6 +140,9 @@ function renderDrilldown(group,scroll=true){
  if(scroll){target.focus({preventScroll:true});target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
 }
 function renderRelatedSession(session){
+ const impactSummary=marketImpact[session].impactSummary?.trim()||'';
+ document.querySelector('#post-market-impact').hidden=session!=='post'||!impactSummary;
+ document.querySelector('#post-impact-copy').textContent=impactSummary;
  activeReadingSession=session;
  renderReadingDecks();
  const quotes={pre:[['1.6820','−0.25%'],['1.2225','+1.92%'],['3893.13','+0.12%'],['4519.91','+0.08%'],['6280.45','+1.65%']],live:[['1.6820','−0.25%'],['1.2377','+1.24%'],['3905.20','+0.31%'],['4512.68','−0.16%'],['6378.43','+1.56%']],post:[['1.6820','−0.25%'],['1.2460','+1.92%'],['3912.64','+0.50%'],['4528.95','+0.20%'],['6423.65','+2.28%']]}[session];
