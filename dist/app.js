@@ -166,3 +166,5 @@ selectMarketSession('post');
 document.querySelectorAll('.yesterday-details').forEach(details=>details.addEventListener('toggle',()=>{details.querySelector('summary').textContent=details.open?'收起昨日复盘':'展开昨日复盘';}));
 
 document.querySelectorAll('[data-sentiment]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-sentiment]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));document.querySelector('.sentiment-caption').textContent='你的选择：'+button.dataset.sentiment;}));
+
+document.querySelectorAll('[data-market-guess]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-market-guess]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));const feedback=document.querySelector('.market-guess-feedback');feedback.textContent='已选择'+button.dataset.marketGuess;feedback.hidden=false;}));
