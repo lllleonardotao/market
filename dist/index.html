@@ -29,7 +29,7 @@
    </div></section>
   </section>
   <section class="a-market" data-session="live" aria-labelledby="a-market-title">
-   <header class="a-market-header"><div class="a-market-heading"><h2 id="a-market-title">A股</h2><span class="intraday-status"><i></i><span id="session-status">盘中</span></span></div><div class="session-tabs" role="tablist" aria-label="A股交易时段"><button type="button" role="tab" id="tab-pre" aria-controls="panel-pre" aria-selected="false" tabindex="-1" data-session="pre">盘前</button><button type="button" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" tabindex="0" data-session="live">盘中</button><button type="button" role="tab" id="tab-post" aria-controls="panel-post" aria-selected="false" tabindex="-1" data-session="post">盘后</button></div></header>
+   <header class="a-market-header"><div class="a-market-heading"><h2 id="a-market-title">A股</h2><span class="intraday-status"><i></i><span id="session-status">盘中</span></span></div></header>
    <div role="tabpanel" id="panel-pre" aria-labelledby="tab-pre" hidden>
     <p class="a-market-summary">隔夜科技股回暖，<strong>今天先看成长板块能否接力。</strong></p>
     <div class="a-market-quote compact-quote"><span>上证指数</span><strong class="number">3893.13</strong><b class="number">+0.12%</b><span class="a-market-updated">昨日收盘</span></div>
@@ -146,6 +146,14 @@
    <p class="reading-note">基金展示最近公布的单位净值，指数展示盘中点位。以上行情、走势与原因均为设计示例。</p>
   </section>
  </main>
+ <footer class="page-session-switch" aria-label="全页时段切换">
+  <span class="page-session-label">全页时段</span>
+  <div class="session-tabs" role="tablist" aria-label="全页交易时段">
+   <button type="button" role="tab" id="tab-pre" aria-controls="panel-pre" aria-selected="false" tabindex="-1" data-session="pre">盘前</button>
+   <button type="button" role="tab" id="tab-live" aria-controls="panel-live" aria-selected="true" tabindex="0" data-session="live">盘中</button>
+   <button type="button" role="tab" id="tab-post" aria-controls="panel-post" aria-selected="false" tabindex="-1" data-session="post">盘后</button>
+  </div>
+ </footer>
  <script src="app.js"></script>
 </body>
 </html>

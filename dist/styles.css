@@ -67,3 +67,12 @@ html{scrollbar-width:none}html::-webkit-scrollbar{display:none}.phone{flex-shrin
 .saved-list-row p{font-size:23px;line-height:35px;color:#626e80;margin-top:6px}
 .saved-list-quote{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:28px;line-height:35px;color:#273346}
 .saved-list-quote span+span{font-size:26px}
+
+/* Global session control sits outside the scaled phone canvas. */
+.phone{padding-bottom:240px}
+.page-session-switch{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,375px);z-index:20;display:flex;align-items:center;gap:14px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid #dfe5ef;box-shadow:0 -4px 16px #243b5b08}
+.page-session-label{font-size:12px;line-height:20px;color:#626e80;white-space:nowrap}
+.page-session-switch .session-tabs{flex:1;display:flex;gap:3px;padding:4px;border-radius:12px;background:#edf1f8}
+.page-session-switch .session-tabs button{flex:1;min-width:0;font-size:16px;line-height:24px;padding:7px 8px;border-radius:9px;color:#626e80}
+.page-session-switch .session-tabs button[aria-selected="true"]{background:#fff;color:#233a62;box-shadow:0 1px 4px #263f6b18;font-weight:600}
+.page-session-switch .session-tabs button:focus-visible{outline:2px solid #526896;outline-offset:1px}
