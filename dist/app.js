@@ -144,6 +144,12 @@ function renderReadingDecks(){
  document.querySelector('#personal-overview').innerHTML=`<p class="overview-summary">${overview}</p>`;
  Object.entries(groups).forEach(([key,items])=>{
   const host=document.querySelector(`[data-deck-host="${key}"]`);
+  if(readingLayout==='compact'&&(key==='funds'||key==='stocks')){
+   host.hidden=key==='stocks';
+   const count=groups.funds.length+groups.stocks.length;
+   host.innerHTML=key==='funds'?`<button type="button" class="watchlist-entry" data-more="watchlist" aria-label="前往自选，${count}个异动"><span class="watchlist-entry-title">自选</span><span class="watchlist-entry-count">${count}个异动</span><span class="watchlist-entry-arrow" aria-hidden="true">›</span></button>`:'';
+   return;
+  }
   host.hidden=items.length===0;
   if(!items.length){host.replaceChildren();return;}
   const expanded=items.length>1&&readingLayout==='full'&&expandedDecks.has(key);
@@ -167,8 +173,10 @@ function renderDrilldown(group,scroll=true){
  drilledGroup=group;
  const target=document.querySelector('#watchlist-drilldown');
  target.hidden=false;
- const name=group==='subscriptions'?'我的订阅': '自选 · '+deckNames[group];
- target.innerHTML=`<header class="drilldown-heading"><h3>${name}</h3><button type="button" data-close-drilldown>返回卡片 ↑</button></header><div class="deck-list">${getReadingGroups(activeReadingSession)[group].map((item,i)=>readingCard(item,i,group)).join('')}</div>`;
+ const name=group==='watchlist'?'自选':group==='subscriptions'?'我的订阅': '自选 · '+deckNames[group];
+ const groups=getReadingGroups(activeReadingSession);
+ const items=group==='watchlist'?[...groups.funds,...groups.stocks]:groups[group];
+ target.innerHTML=`<header class="drilldown-heading"><h3>${name}</h3><button type="button" data-close-drilldown>返回卡片 ↑</button></header><div class="deck-list">${items.map((item,i)=>readingCard(item,i,group)).join('')}</div>`;
  if(scroll){target.focus({preventScroll:true});target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
 }
 function renderRelatedSession(session){
