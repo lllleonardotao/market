@@ -147,10 +147,16 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 /* Pre-market: overnight conclusion first, prior close as context, focus last. */
 .premarket-lead{padding-top:26px}
 .premarket-eyebrow{display:flex;align-items:center;justify-content:flex-end;gap:16px;color:#64738a;font-size:21px;line-height:32px}
-.premarket-lead h3{margin-top:14px;font-size:34px;line-height:49px;font-weight:600;letter-spacing:0;color:#243249}
-.premarket-yesterday{margin-top:30px;padding:22px 0;border-top:1px solid #e5eaf2;border-bottom:1px solid #e5eaf2}
-.premarket-yesterday .a-market-quote{margin-top:10px}
-.premarket-yesterday .a-market-quote strong{font-size:32px}
-.premarket-focus{margin-top:22px}
-.premarket-focus h3{font-size:30px;line-height:44px;font-weight:600;color:#243249}
-.premarket-focus p{margin-top:12px;padding:22px 24px;border-radius:16px;background:#eef3fb;font-size:28px;line-height:44px;color:#455974}
+.premarket-lead h3{margin-top:12px;font-size:28px;line-height:42px;font-weight:600;color:#243249}
+.premarket-close{display:flex;align-items:baseline;gap:12px;margin-top:10px;font-size:22px;line-height:34px;white-space:nowrap;color:#64738a}
+.premarket-close strong,.premarket-close>span{font-size:24px;color:var(--red);font-weight:500}
+.premarket-focus{margin-top:28px}
+.premarket-focus h3{font-size:32px;line-height:46px;font-weight:600;color:#243249}
+.premarket-focus-list{list-style:none;counter-reset:focus;margin:12px 0 0;padding:22px 24px;border-radius:16px;background:#eef3fb}
+.premarket-focus-list li{counter-increment:focus;position:relative;padding-left:38px}
+.premarket-focus-list li+li{margin-top:18px}
+.premarket-focus-list li::before{content:counter(focus,decimal-leading-zero);position:absolute;left:0;top:2px;font-family:LCT_NUMB,sans-serif;font-size:22px;line-height:36px;color:#647da5}
+.premarket-focus-list strong{font-size:28px;line-height:38px;font-weight:600;color:#304663}
+.premarket-focus-list p{margin-top:3px;font-size:26px;line-height:38px;color:#536780}
+
+.market-lead{margin-top:26px;font-size:38px;line-height:56px;font-weight:600;letter-spacing:0;color:#243249}.market-context{margin-top:20px;padding-top:20px;border-top:1px solid #e5eaf2;font-size:26px;line-height:42px;color:#586b84}

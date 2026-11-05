@@ -140,9 +140,6 @@ function renderDrilldown(group,scroll=true){
  if(scroll){target.focus({preventScroll:true});target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
 }
 function renderRelatedSession(session){
- const impactSummary=marketImpact[session].impactSummary?.trim()||'';
- document.querySelector('#post-market-impact').hidden=session!=='post'||!impactSummary;
- document.querySelector('#post-impact-copy').textContent=impactSummary;
  activeReadingSession=session;
  renderReadingDecks();
  const quotes={pre:[['1.6820','−0.25%'],['1.2225','+1.92%'],['3893.13','+0.12%'],['4519.91','+0.08%'],['6280.45','+1.65%']],live:[['1.6820','−0.25%'],['1.2377','+1.24%'],['3905.20','+0.31%'],['4512.68','−0.16%'],['6378.43','+1.56%']],post:[['1.6820','−0.25%'],['1.2460','+1.92%'],['3912.64','+0.50%'],['4528.95','+0.20%'],['6423.65','+2.28%']]}[session];
