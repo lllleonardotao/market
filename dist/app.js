@@ -144,19 +144,17 @@ function renderReadingDecks(){
  document.querySelector('#personal-overview').innerHTML=`<p class="overview-summary">${overview}</p>`;
  Object.entries(groups).forEach(([key,items])=>{
   const host=document.querySelector(`[data-deck-host="${key}"]`);
-  if(readingLayout==='compact'&&(key==='funds'||key==='stocks')){
-   host.hidden=key==='stocks';
-   const count=groups.funds.length+groups.stocks.length;
-   host.innerHTML=key==='funds'?`<button type="button" class="watchlist-entry" data-more="watchlist" aria-label="前往自选，${count}个异动"><span class="watchlist-entry-title">自选</span><span class="watchlist-entry-count">${count}个异动</span><span class="watchlist-entry-arrow" aria-hidden="true">›</span></button>`:'';
-   return;
-  }
   host.hidden=items.length===0;
   if(!items.length){host.replaceChildren();return;}
   const expanded=items.length>1&&readingLayout==='full'&&expandedDecks.has(key);
   const countText=`共${items.length}${key==='subscriptions'?'类订阅':'条异动'}`;
   if(key==='funds'||key==='subscriptions'){
    const tail=readingLayout==='full'&&items.length>1?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';
-   const footer=items.length>1?`<button class="deck-footer deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';
+   let footer=items.length>1?`<button class="deck-footer deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';
+   if(readingLayout==='compact'&&key==='funds'){
+    const count=groups.funds.length+groups.stocks.length;
+    footer=`<button type="button" class="watchlist-entry" data-more="watchlist" aria-label="前往自选，${count}个异动"><span class="watchlist-entry-title">自选</span><span class="watchlist-entry-count">${count}个异动</span><span class="watchlist-entry-arrow" aria-hidden="true">›</span></button>`;
+   }
    host.innerHTML=`<section class="reading-deck united-deck" aria-labelledby="deck-title-${key}"><div class="deck-pile ${items.length>1&&readingLayout==='full'&&!expanded?'is-stacked':''}" data-expanded="${expanded}"><div class="deck-list" id="deck-${key}"><header class="deck-heading card-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'订阅':deckNames[key]}</h3></header>${readingCard(items[0],0,key)}${tail}${footer}</div></div></section>`;
    return;
   }

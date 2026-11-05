@@ -262,3 +262,9 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 
 /* A single light surface covers the extended blue backdrop. */
 .phone{background:#f4f6fc}.personal-reading{position:relative;z-index:0;background:#f4f6fc;border-radius:48px 48px 0 0}
+
+/* Keep the featured watchlist card; inset its compact navigation row. */
+.united-deck .deck-list>.watchlist-entry{width:calc(100% - 56px);margin:0 28px 28px;padding:20px 22px;border:0;border-radius:16px;background:#f1f5fb}
+
+/* Place the trend caption inside the chart’s upper-left space in both layouts. */
+.deck-chart figcaption{position:relative;top:76px;z-index:1;pointer-events:none}
