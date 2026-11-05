@@ -97,13 +97,19 @@ function getReadingGroups(session){
  {category:'大事件',name:'企业业绩与公告窗口',title:subscriptionTitles[2],summary:'你订阅的「重要事件」',body:'留意自选公司业绩、订单与重要公告。事件公布后，再看实际结果与市场预期的差异，以及关联自选的表现。',tag:'事件跟踪',facts:[['事件类型','业绩 / 公司公告'],['下一步','等待披露结果']]}
  ].map(item=>({...item,kind:'订阅',time:isPre?'盘前更新':isPost?'盘后更新':'盘中跟踪'}));
  funds=[funds[1],funds[0],funds[2]];
+ const fundNotes={
+ pre:['昨日科技方向活跃，芯片ETF收涨1.92%。隔夜海外芯片回落，今天关注开盘承接。','最近公布净值下跌0.25%，昨日弱于大盘。今早暂无重大新增，关注成长方向能否修复。','昨日板块上涨1.65%。隔夜海外芯片承压，今天关注A股板块开盘表现。'],
+ live:['午后科技方向回升，芯片ETF当前上涨1.24%，领先上证0.93个百分点。','午后估算跌幅由0.42%收窄至0.18%，仍未翻红。实际表现以公布净值为准。','半导体当前上涨1.56%，午后与科技方向同步回升。'],
+ post:['芯片ETF收涨1.92%，领先上证1.42个百分点，午后涨势延续至收盘。','午后修复未延续，收盘估算下跌0.25%，未跟随大盘收红。正式净值待公布。','半导体收涨2.28%，全天强于大盘，午后保持活跃。']
+ };
+ funds.forEach((item,i)=>{item.body=fundNotes[session][i];item.followup=null;});
  return {funds,stocks,subscriptions};
 }
 function readingCard(item,index,group){
  const subscription=group==='subscriptions';
  const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
- return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><span>${subscription?item.category:item.kind+' · '+item.code}</span><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div><p class="reading-summary">${item.summary}</p>${trend}${facts}<p class="reading-body">${item.body}</p>${item.followup?`<p class="reading-followup">后续关注 · ${item.followup}</p>`:''}</article>`;
+ return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><span>${subscription?item.category:item.kind+' · '+item.code}</span><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div>${trend}${facts}<p class="reading-body">${item.body}</p></article>`;
 }
 function renderReadingDecks(){
  const groups=getReadingGroups(activeReadingSession);
