@@ -25,8 +25,8 @@ function selectMarketSession(session){
  if(!activeTab)return;
  renderRelatedSession(session);
  document.querySelector('.a-market').dataset.session=session;
- document.querySelector('#a-market-title').textContent={pre:'A股早报',live:'A股盘中',post:'A股收评'}[session];
- document.querySelector('#market-refresh').textContent='3分钟前';
+ document.querySelector('#a-market-title').textContent={pre:'A股盘前',live:'A股盘中',post:'A股收评'}[session];
+ document.querySelector('#market-refresh').textContent=session==='pre'?'08:45 更新':'3分钟前';
  sessionTabs.forEach(tab=>{const active=tab===activeTab;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;});
 }
 sessionTabs.forEach((tab,index)=>{
@@ -79,10 +79,10 @@ let activeReadingSession='post';
 const expandedDecks=new Set();
 let drilledGroup=null;
 const deckNames={funds:'异动',stocks:'股票异动',subscriptions:'订阅机会'};
-function miniTrend(points,axis,down,label){
+function miniTrend(points,axis,down,label,signal=''){
  const xs=[8,155,302,449,596],tone=down?'#43a047':'#e9676c';
  const path=points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
- return `<figure class="deck-chart"><svg viewBox="0 0 604 184" role="img" aria-label="${label}"><path d="M8 40H596 M8 90H596 M8 140H596" stroke="#edf0f5" fill="none"/><path d="${path}V145H8Z" fill="${tone}" fill-opacity=".07"/><path d="${path}" fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="596" cy="${points.at(-1)}" r="5" fill="${tone}" stroke="white" stroke-width="3"/>${axis.map((t,i)=>`<text x="${xs[i]}" y="177" text-anchor="${i===0?'start':i===4?'end':'middle'}" fill="#8390a3" font-size="20">${t}</text>`).join('')}</svg><figcaption>${label}</figcaption></figure>`;
+ return `<figure class="deck-chart"><svg viewBox="0 0 604 ${signal?240:184}" role="img" aria-label="${label}${signal?'，'+signal:''}">${signal?`<text x="8" y="30" fill="${tone}" font-size="27" font-weight="500">${signal}</text>`:''}<g transform="translate(0 ${signal?56:0})"><path d="M8 40H596 M8 90H596 M8 140H596" stroke="#edf0f5" fill="none"/><path d="${path}V145H8Z" fill="${tone}" fill-opacity=".07"/><path d="${path}" fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="596" cy="${points.at(-1)}" r="5" fill="${tone}" stroke="white" stroke-width="3"/>${axis.map((t,i)=>`<text x="${xs[i]}" y="177" text-anchor="${i===0?'start':i===4?'end':'middle'}" fill="#8390a3" font-size="20">${t}</text>`).join('')}</g></svg><figcaption>${label}</figcaption></figure>`;
 }
 function getReadingGroups(session){
  const data=relatedSessions[session],isPre=session==='pre',isPost=session==='post';
@@ -109,18 +109,18 @@ function getReadingGroups(session){
  post:['午后科技买盘延续，带动芯片ETF扩大涨幅','其他成长方向偏弱，抵消了科技回升的贡献','科技方向持续活跃，带动半导体板块收涨']
  };
  const fundSignals={
- pre:['昨日涨幅领先上证1.80个百分点','最新净值下跌0.25%','昨日板块上涨1.65%'],
- live:['涨幅领先上证0.93个百分点','估算跌幅较早盘收窄0.24个百分点','板块上涨1.56%，强于上证'],
- post:['收盘涨幅领先上证1.42个百分点','收盘估算落后上证0.75个百分点','收盘涨幅领先上证1.78个百分点']
+ pre:['昨日上涨1.92%','昨日净值下跌0.25%','昨日板块上涨1.65%'],
+ live:['连涨5天','估算跌幅收窄0.24个百分点','板块创近1年新高'],
+ post:['连涨5天','昨日净值下跌0.25%','板块创近1年新高']
  };
- funds.forEach((item,i)=>{item.title=fundReasons[session][i];item.signal=fundSignals[session][i];item.body=fundNotes[session][i];item.followup=null;});
+ funds.forEach((item,i)=>{item.title=fundReasons[session][i];item.signal=fundSignals[session][i];item.body=fundNotes[session][i];item.followup=null;if(isPre){item.points=[[135,112,132,91,30],[90,130,145,103,123],[135,95,108,65,24]][i];item.axis=['前4日','前3日','前2日','前1日','昨日'];item.caption='近5个交易日走势';}});
  return {funds:funds.filter(item=>item.hasChange!==false),stocks:stocks.filter(item=>item.hasChange!==false),subscriptions};
 }
 function readingCard(item,index,group){
  const subscription=group==='subscriptions';
- const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption):'';
+ const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption,item.signal):'';
  const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
- return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${subscription?'':'自选：'}${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div>${item.signal?`<p class="reading-signal ${item.down?'is-down':''}"><span>异动信号</span><strong>${item.signal}</strong></p>`:''}${trend}${facts}${group==='funds'?'':`<p class="reading-body">${item.body}</p>`}</article>`;
+ return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${subscription?'':'自选：'}${item.name}</span>${subscription?`<span class="subscription-stage">${item.tag}</span>`:group==='funds'?'':`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`}</div>${trend}${facts}${group==='funds'?'':`<p class="reading-body">${item.body}</p>`}</article>`;
 }
 function renderReadingDecks(){
  const groups=getReadingGroups(activeReadingSession);
@@ -172,7 +172,7 @@ document.querySelector('#personal-decks').addEventListener('click',event=>{
  const more=event.target.closest('[data-more]');if(more)renderDrilldown(more.dataset.more);
 });
 document.querySelector('#watchlist-drilldown').addEventListener('click',event=>{if(event.target.closest('[data-close-drilldown]')){const key=drilledGroup;drilledGroup=null;document.querySelector('#watchlist-drilldown').hidden=true;const trigger=document.querySelector(`[data-more="${key}"]`);trigger.focus({preventScroll:true});trigger.scrollIntoView({block:'center'});}});
-selectMarketSession('post');
+selectMarketSession('pre');
 
 document.querySelectorAll('.yesterday-details').forEach(details=>details.addEventListener('toggle',()=>{details.querySelector('summary').textContent=details.open?'收起昨日复盘':'展开昨日复盘';}));
 
