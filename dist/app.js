@@ -20,3 +20,6 @@ document.querySelector('#thinking').onclick=function(){const on=this.getAttribut
 document.querySelector('#skills').onclick=()=>openSheet('金融技能','支持行情解读、行业观察、自选追踪与投资知识学习。');
 document.querySelector('.voice').onclick=()=>toast('请使用输入框输入消息');
 document.querySelector('.message-box').onsubmit=e=>{e.preventDefault();const input=e.currentTarget.querySelector('input');const message=input.value.trim();if(!message){input.focus();return;}openSheet('消息预览',message+'\n\n此页面为设计还原预览，尚未接入问答服务。');input.value='';};
+
+const intradayEvents=[['10:05 · 科技股走强','示例事件：科技板块买盘活跃，带动指数从早盘低位回升。'],['11:02 · 获利盘回吐','示例事件：早盘上涨后，部分资金获利了结，指数出现一轮回落。'],['13:18 · 资金回流','示例事件：午后资金重新流入科技板块，指数震荡走高。曲线截至 13:42，右侧留白为尚未发生的交易时段。']];
+document.querySelectorAll('.chart-event').forEach(node=>{const show=()=>openSheet(...intradayEvents[Number(node.dataset.event)]);node.addEventListener('click',show);node.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();show();}});});
