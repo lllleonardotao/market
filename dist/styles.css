@@ -145,7 +145,7 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .post-market-impact{margin-top:12px}
 
 /* Pre-market: overnight conclusion first, prior close as context, focus last. */
-.premarket-lead{padding-top:26px}
+.premarket-lead{padding-top:10px}
 .premarket-eyebrow{display:flex;align-items:center;justify-content:flex-end;gap:16px;color:#64738a;font-size:21px;line-height:32px}
 .premarket-lead h3{margin-top:12px;font-size:28px;line-height:42px;font-weight:600;color:#243249}
 .premarket-close{display:flex;align-items:baseline;gap:12px;margin-top:10px;font-size:22px;line-height:34px;white-space:nowrap;color:#64738a}
