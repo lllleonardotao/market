@@ -72,54 +72,64 @@ relatedSessions.pre.stocks=[['昨日 +3.26%','隔夜光通信回落，关注开�
 relatedSessions.post.cards[0].followup='正式净值公布后确认全天表现；后续观察其他成长方向能否修复。';
 relatedSessions.post.cards[1].followup='观察半导体成交与板块强度能否延续，并跟进订单、业绩的新进展。';
 for(const session of ['pre','live','post'])relatedSessions[session].cards.forEach((card,i)=>Object.assign(card,marketImpact[session].cards[i]));
+// Layout and expansion choices survive changes of trading session.
+let readingLayout='full';
+let activeReadingSession='post';
+const expandedDecks=new Set();
+let drilledGroup=null;
+const deckNames={funds:'自选异动',stocks:'股票异动',subscriptions:'订阅机会'};
+function miniTrend(points,axis,down,label){
+ const xs=[8,155,302,449,596],tone=down?'#43a047':'#e9676c';
+ const path=points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
+ return `<figure class="deck-chart"><svg viewBox="0 0 604 184" role="img" aria-label="${label}"><path d="M8 40H596 M8 90H596 M8 140H596" stroke="#edf0f5" fill="none"/><path d="${path}V145H8Z" fill="${tone}" fill-opacity=".07"/><path d="${path}" fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><circle cx="596" cy="${points.at(-1)}" r="5" fill="${tone}" stroke="white" stroke-width="3"/>${axis.map((t,i)=>`<text x="${xs[i]}" y="177" text-anchor="${i===0?'start':i===4?'end':'middle'}" fill="#8390a3" font-size="20">${t}</text>`).join('')}</svg><figcaption>${label}</figcaption></figure>`;
+}
+function getReadingGroups(session){
+ const data=relatedSessions[session],isPre=session==='pre',isPost=session==='post';
+ const fundNames=['汇添富外延增长主题股票A','华夏国证半导体芯片ETF'];
+ let funds=data.cards.map((item,i)=>({kind:'基金',name:fundNames[i],code:i?'159995':'000925',title:isPre?(i?'隔夜科技调整，开盘承接待观察':'暂无重大新增，保留昨日回顾'):i?(isPost?'芯片领涨，收盘优势扩大':'午后重新走高，强于大盘'):(isPost?'午后修复未延续，收盘仍为负':'跌幅收窄，尚未跟上大盘'),change:item.change,down:!!item.down,summary:item.summary,body:item.body,followup:item.followup,points:isPre?null:item.points,axis:data.axis,caption:item.caption,time:data.label}));
+ funds.push({kind:'板块',name:'半导体',code:'行业指数',title:isPre?'隔夜芯片调整，留意板块承接':isPost?'半导体领涨，收盘强于大盘':'半导体午后回升，科技主线活跃',change:isPre?'昨日 +1.65%':isPost?'收盘 +2.28%':'当前 +1.56%',down:false,summary:'你关注的半导体板块，与芯片ETF的走势密切相关。',body:isPre?'保留昨日板块回顾，今早补充隔夜芯片情绪变化。开盘后再观察是否传导至A股半导体方向。':'科技方向买盘回流，半导体板块表现较强。结合板块成交与成分股表现观察上涨是否具有持续性。',time:data.label,points:[135,95,108,65,isPost?24:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日全天板块走势':'截至 13:42 的板块走势'});
+ // Each stock has its own full card, including a trend and an explanation.
+ const stocks=data.stocks.map((row,i)=>({kind:'股票',name:i?'立讯精密':'新易盛',code:i?'002475':'300502',title:row[1],change:row[0],down:!!i,summary:i?'消费电子与科技主线表现分化，关注买盘承接。':'光模块与科技主线同步，关注需求预期及成交变化。',body:row[2],time:data.label,points:i?[55,74,110,96,isPost?130:118]:[135,102,119,66,isPost?28:45],axis:isPre?['前4日','前3日','前2日','前1日','昨日']:data.axis,caption:isPre?'近 5 个交易日走势':isPost?'今日完整走势':'截至 13:42 的盘中走势'}));
+ const subscriptionTitles=isPre?['隔夜芯片调整，需求观察继续','机构关注方向，等待新增信号','今日留意企业公告与披露进展']:isPost?['科技收涨，继续跟进需求验证','科技配置线索，等待后续确认','收盘后关注公告与业绩进展']:['科技方向回升，观察成交持续性','科技交易活跃，跟进机构线索','重要公告与披露窗口持续跟踪'];
+ const subscriptions=[
+ {category:'投资机会',name:'半导体需求观察',title:subscriptionTitles[0],summary:'你订阅的「半导体与算力」机会',body:'持续跟进需求、订单和业绩三条线索。板块价格变化先反映预期，机会是否得到验证，仍需后续经营信息支持。',tag:'观察阶段',facts:[['关注方向','半导体 / 算力'],['下一步','订单与业绩验证']]},
+ {category:'机构信号',name:'科技方向机构线索',title:subscriptionTitles[1],summary:'你订阅的「机构动向」',body:'关注机构调研和持仓披露中的科技线索。单次调研不代表实际买入，后续结合公开披露与经营进展持续观察。',tag:'持续跟踪',facts:[['信号类型','调研 / 公开披露'],['下一步','跟进信息更新']]},
+ {category:'大事件',name:'企业业绩与公告窗口',title:subscriptionTitles[2],summary:'你订阅的「重要事件」',body:'留意自选公司业绩、订单与重要公告。事件公布后，再看实际结果与市场预期的差异，以及关联自选的表现。',tag:'事件跟踪',facts:[['事件类型','业绩 / 公司公告'],['下一步','等待披露结果']]}
+ ].map(item=>({...item,kind:'订阅',time:isPre?'盘前更新':isPost?'盘后更新':'盘中跟踪'}));
+ funds=[funds[1],funds[0],funds[2]];
+ return {funds,stocks,subscriptions};
+}
+function readingCard(item,index,group){
+ const subscription=group==='subscriptions';
+ const trend=item.points?miniTrend(item.points,item.axis,item.down,item.caption):'';
+ const facts=subscription?`<div class="subscription-facts">${item.facts.map(([name,value])=>`<div><span>${name}</span><strong>${value}</strong></div>`).join('')}</div>`:'';
+ return `<article class="reading-card ${subscription?'subscription-card':''}" aria-label="${item.name}"><div class="reading-card-top"><span>${subscription?item.category:item.kind+' · '+item.code}</span><time>${item.time}</time></div><h3>${item.title}</h3><div class="reading-product"><span>${item.name}</span>${item.change?`<strong class="number ${item.down?'down':'up'}">${item.change}</strong>`:`<span class="subscription-stage">${item.tag}</span>`}</div><p class="reading-summary">${item.summary}</p>${trend}${facts}<p class="reading-body">${item.body}</p>${item.followup?`<p class="reading-followup">后续关注 · ${item.followup}</p>`:''}</article>`;
+}
+function renderReadingDecks(){
+ const groups=getReadingGroups(activeReadingSession);
+ document.querySelector('.personal-reading').dataset.layout=readingLayout;
+ document.querySelectorAll('.reading-variants button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.layout===readingLayout)));
+ const overview=marketImpact[activeReadingSession];
+ document.querySelector('#personal-overview').innerHTML=`<p class="overview-eyebrow">我的自选概览 · ${relatedSessions[activeReadingSession].label}</p><h3>${overview.overview}</h3><p>${overview.detail}</p>`;
+ document.querySelector('#personal-decks').innerHTML=Object.entries(groups).map(([key,items])=>{
+  const expanded=readingLayout==='full'&&expandedDecks.has(key);
+  const cards=expanded?items:items.slice(0,1);
+  const action=readingLayout==='full'?`<button class="deck-action" data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"><span>共 ${items.length} ${key==='subscriptions'?'类订阅':'条'+deckNames[key]}</span><strong>${expanded?'收起卡片':'展开 '+items.length+' 张卡片'} ${expanded?'⌃':'⌄'}</strong></button>`:`<button class="deck-action compact-more" data-more="${key}"><span>还有 ${items.length-1} ${key==='subscriptions'?'类订阅': '条'+deckNames[key]}</span><strong>${key==='subscriptions'?'去我的订阅':'去自选查看'} →</strong></button>`;
+  return `<section class="reading-deck" aria-labelledby="deck-title-${key}"><header class="deck-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'我订阅的机会':deckNames[key]}</h3><span>${items.length} ${key==='subscriptions'?'类订阅':'条关注'}</span></header><div class="deck-pile ${readingLayout==='full'&&!expanded?'is-stacked':''}"><div class="deck-list" id="deck-${key}">${cards.map((item,i)=>readingCard(item,i,key)).join('')}</div>${action}</div></section>`;
+ }).join('');
+ if(drilledGroup)renderDrilldown(drilledGroup,false);
+}
+function renderDrilldown(group,scroll=true){
+ drilledGroup=group;
+ const target=document.querySelector('#watchlist-drilldown');
+ target.hidden=false;
+ const name=group==='subscriptions'?'我的订阅': '自选 · '+deckNames[group];
+ target.innerHTML=`<header class="drilldown-heading"><h3>${name}</h3><button type="button" data-close-drilldown>返回卡片 ↑</button></header><div class="deck-list">${getReadingGroups(activeReadingSession)[group].map((item,i)=>readingCard(item,i,group)).join('')}</div>`;
+ if(scroll){target.focus({preventScroll:true});target.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}
+}
 function renderRelatedSession(session){
- const data=relatedSessions[session];
- const section=document.querySelector('.watchlist');
- section.dataset.session=session;
- const impact=marketImpact[session];
- let context=section.querySelector('.market-impact');
- if(!context){context=document.createElement('div');context.className='market-impact';section.querySelector('.watchlist-title').after(context);}
- const lead=document.createElement('h3');lead.textContent=impact.overview;
- const detail=document.createElement('p');detail.textContent=impact.detail;
- context.replaceChildren(lead,detail);
- section.querySelector('.watchlist-title>span').textContent=data.context;
- document.querySelectorAll('.movement-card').forEach((card,index)=>{
-  const item=data.cards[index];
-  card.querySelector('.movement-meta').textContent=item.meta;
-  let state=card.querySelector('.movement-state');
-  if(!state){state=document.createElement('p');state.className='movement-state';card.querySelector('.movement-meta').after(state);}
-  state.textContent=item.state;
-  const heading=card.querySelector('h3');
-  const change=document.createElement('span');change.className=item.down?'down':'up';change.textContent=item.change;
-  heading.replaceChildren(document.createTextNode(item.title),change);
-  card.querySelector('.movement-summary').textContent=item.summary;
-  let comparison=card.querySelector('.movement-comparison');
-  if(!comparison){comparison=document.createElement('p');comparison.className='movement-comparison';card.querySelector('.movement-summary').after(comparison);}
-  const benchmark=document.createElement('span');benchmark.textContent=impact.benchmark;
-  const relative=document.createElement('span');relative.textContent=item.comparison;
-  comparison.replaceChildren(benchmark,relative);
-  const figure=card.querySelector('figure');
-  figure.hidden=session==='pre';
-  comparison.hidden=session==='pre';
-  let history=card.querySelector('.movement-history');
-  if(!history){history=document.createElement('p');history.className='movement-history';figure.before(history);}
-  history.hidden=session!=='pre';
-  history.textContent=index===0?'昨日回顾 · 净值下跌0.25%，成长方向调整拖累表现。':'昨日回顾 · 收涨1.92%，科技方向活跃，强于同期大盘。';
-  let followup=card.querySelector('.movement-followup');
-  if(!followup){followup=document.createElement('p');followup.className='movement-followup';card.append(followup);}
-  followup.hidden=session!=='post';
-  followup.textContent=item.followup?'后续关注 · '+item.followup:'';
-  const tone=item.down?'#43a047':'#ed5454';
-  const xs=[12,156,300,444,586];
-  const path=item.points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
-  figure.querySelector('svg').innerHTML=`<title>${item.caption}，${item.quote}</title><path class="movement-grid" d="M12 24H586 M12 64H586 M12 104H586 M12 144H586"/><path fill="${tone}" fill-opacity=".08" d="${path}V166H12Z"/><path fill="none" stroke="${tone}" stroke-width="3" stroke-linejoin="round" d="${path}"/>${item.points.map((y,i)=>`<circle cx="${xs[i]}" cy="${y}" r="6" fill="${tone}" stroke="white" stroke-width="4"/>`).join('')}<g class="movement-axis">${data.axis.map((label,i)=>`<text x="${xs[i]}" y="198" text-anchor="${i===0?'start':i===4?'end':'middle'}">${label}</text>`).join('')}</g>`;
-  figure.querySelector('svg').removeAttribute('aria-labelledby');
-  figure.querySelector('svg').setAttribute('aria-label',`${item.caption}，${item.quote}`);
-  const quote=document.createElement('span');quote.className=item.down?'down':'up';quote.textContent=item.quote;
-  figure.querySelector('figcaption').replaceChildren(document.createTextNode(item.caption),quote);
-  const reason=document.createElement('strong');reason.textContent=item.reason;
-  card.querySelector('.movement-reason').replaceChildren(reason,document.createTextNode(item.body));
- });
+ activeReadingSession=session;
+ renderReadingDecks();
  const quotes={pre:[['1.6820','−0.25%'],['1.2225','+1.92%'],['3893.13','+0.12%'],['4519.91','+0.08%'],['6280.45','+1.65%']],live:[['1.6820','−0.25%'],['1.2377','+1.24%'],['3905.20','+0.31%'],['4512.68','−0.16%'],['6378.43','+1.56%']],post:[['1.6820','−0.25%'],['1.2460','+1.92%'],['3912.64','+0.50%'],['4528.95','+0.20%'],['6423.65','+2.28%']]}[session];
  document.querySelectorAll('.saved-list-row').forEach((row,i)=>{
   const cells=row.querySelectorAll('.saved-list-quote span');
@@ -129,14 +139,15 @@ function renderRelatedSession(session){
  document.querySelector('.saved-list-row p').textContent='基金 · 000925 · 最新净值';
  document.querySelector('.saved-list-labels span:last-child').textContent=session==='pre'?'昨日值 / 日涨跌':session==='post'?'收盘值 / 日涨跌':'最新值 / 日涨跌';
  document.querySelector('.reading-note').textContent='场外基金展示最近公布的净值及对应涨跌，盘中与收盘估算不替代正式净值；ETF、指数与关注板块展示所选时段行情。';
- document.querySelector('.stock-movements .watchlist-title>span').textContent=data.label;
- document.querySelector('.stock-movements h2').textContent=session==='pre'?'股票关注':session==='post'?'股票复盘':'股票异动';
- document.querySelectorAll('.stock-reading-item').forEach((row,i)=>{
-  row.querySelector('header>span').textContent=data.stocks[i][0];
-  row.querySelector('h4').textContent=data.stocks[i][1];
-  row.querySelector('p').textContent=data.stocks[i][2];
- });
+
 }
+document.querySelectorAll('.reading-variants button').forEach(button=>button.addEventListener('click',()=>{readingLayout=button.dataset.layout;drilledGroup=null;document.querySelector('#watchlist-drilldown').hidden=true;renderReadingDecks();}));
+document.querySelector('#personal-decks').addEventListener('click',event=>{
+ const expand=event.target.closest('[data-expand]');
+ if(expand){const key=expand.dataset.expand;expandedDecks.has(key)?expandedDecks.delete(key):expandedDecks.add(key);renderReadingDecks();const button=document.querySelector(`[data-expand="${key}"]`);button.focus({preventScroll:true});if(!expandedDecks.has(key))document.querySelector(`#deck-title-${key}`).scrollIntoView({block:'nearest'});return;}
+ const more=event.target.closest('[data-more]');if(more)renderDrilldown(more.dataset.more);
+});
+document.querySelector('#watchlist-drilldown').addEventListener('click',event=>{if(event.target.closest('[data-close-drilldown]')){const key=drilledGroup;drilledGroup=null;document.querySelector('#watchlist-drilldown').hidden=true;const trigger=document.querySelector(`[data-more="${key}"]`);trigger.focus({preventScroll:true});trigger.scrollIntoView({block:'center'});}});
 selectMarketSession('post');
 
 document.querySelectorAll('.yesterday-details').forEach(details=>details.addEventListener('toggle',()=>{details.querySelector('summary').textContent=details.open?'收起昨日复盘':'展开昨日复盘';}));

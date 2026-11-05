@@ -84,58 +84,12 @@
     <div class="next-session"><span>明日关注</span><p>继续观察科技成交与强势能否延续，以及上涨能否扩散到其他成长方向。盘后若有新消息，明早只补充新增影响。</p></div>
    </div>
   </section>
-  <section class="watchlist" aria-labelledby="watchlist-title">
-   <header class="watchlist-title"><h2 id="watchlist-title">与你相关</h2><span>2 个产品有变化</span></header>
-   <div class="movement-cards">
-    <article class="movement-card">
-     <p class="movement-meta">汇添富外延增长主题股票A · 近一交易日</p>
-     <h3>你的自选基金昨日<span class="down">下跌了 0.25%</span></h3>
-     <p class="movement-summary">前一日回升后再度回落，近五个交易日呈震荡走势。</p>
-     <figure class="movement-figure">
-      <svg viewBox="0 0 598 206" role="img" aria-labelledby="fund-chart-title"><title id="fund-chart-title">净值走势，8月11日回升，8月12日下跌0.25%</title>
-       <defs><linearGradient id="fund-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2876ed" stop-opacity=".16"/><stop offset="1" stop-color="#2876ed" stop-opacity="0"/></linearGradient></defs>
-       <path class="movement-grid" d="M12 24H586 M12 64H586 M12 104H586 M12 144H586"/>
-       <path fill="url(#fund-fill)" d="M12 113L156 103 300 141 444 51 586 128V166H12Z"/>
-       <path class="movement-line" d="M12 113L156 103 300 141 444 51"/><path class="movement-line falling" d="M444 51L586 128"/>
-       <g class="movement-points"><circle cx="12" cy="113" r="6"/><circle cx="156" cy="103" r="6"/><circle cx="300" cy="141" r="6"/><circle class="falling-dot" cx="444" cy="51" r="6"/><circle class="falling-dot" cx="586" cy="128" r="6"/></g>
-       <g class="movement-axis"><text x="12" y="198">08-08</text><text x="156" y="198" text-anchor="middle">08-09</text><text x="300" y="198" text-anchor="middle">08-10</text><text x="444" y="198" text-anchor="middle">08-11</text><text x="586" y="198" text-anchor="end">08-12</text></g>
-      </svg><figcaption>近 5 个交易日净值走势<span class="down">昨日 −0.25%</span></figcaption>
-     </figure>
-     <p class="movement-reason"><strong>为什么回落？</strong>主要指数整体承压，基金所配置的成长股随市场调整，拖累当日净值。市场情绪偏谨慎、资金观望，也让前一日的反弹未能延续。</p>
-    </article>
-    <article class="movement-card">
-     <p class="movement-meta">华夏国证半导体芯片ETF · 近一交易日</p>
-     <h3>你的自选芯片ETF昨日<span class="up">上涨了 1.92%</span></h3>
-     <p class="movement-summary">连续两日回升，昨日涨势加快，表现强于同期大盘。</p>
-     <figure class="movement-figure">
-      <svg viewBox="0 0 598 206" role="img" aria-labelledby="chip-chart-title"><title id="chip-chart-title">芯片ETF走势，连续两日回升，最近一个交易日上涨1.92%</title>
-       <defs><linearGradient id="chip-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ed6868" stop-opacity=".16"/><stop offset="1" stop-color="#ed6868" stop-opacity="0"/></linearGradient></defs>
-       <path class="movement-grid" d="M12 24H586 M12 64H586 M12 104H586 M12 144H586"/>
-       <path fill="url(#chip-fill)" d="M12 135L156 112 300 132 444 91 586 30V166H12Z"/>
-       <path class="movement-line rising" d="M12 135L156 112 300 132 444 91 586 30"/>
-       <g class="movement-points rising-points"><circle cx="12" cy="135" r="6"/><circle cx="156" cy="112" r="6"/><circle cx="300" cy="132" r="6"/><circle cx="444" cy="91" r="6"/><circle cx="586" cy="30" r="6"/></g>
-       <g class="movement-axis"><text x="12" y="198">08-08</text><text x="156" y="198" text-anchor="middle">08-09</text><text x="300" y="198" text-anchor="middle">08-10</text><text x="444" y="198" text-anchor="middle">08-11</text><text x="586" y="198" text-anchor="end">08-12</text></g>
-      </svg><figcaption>近 5 个交易日价格走势<span class="up">昨日 +1.92%</span></figcaption>
-     </figure>
-     <p class="movement-reason"><strong>为什么走强？</strong>AI算力需求带动芯片订单预期升温，资金回流半导体板块，推高ETF所跟踪的芯片股。上涨主要反映市场对需求改善的预期，仍需后续业绩验证。</p>
-    </article>
-   </div>
+  <section class="personal-reading" aria-labelledby="personal-title" data-layout="full">
+   <header class="personal-header"><h2 id="personal-title">与你相关</h2><div class="reading-variants" role="group" aria-label="卡片展示版本"><button type="button" aria-pressed="true" data-layout="full">全卡版</button><button type="button" aria-pressed="false" data-layout="compact">小卡版</button></div></header>
+   <div class="personal-overview" id="personal-overview"></div>
+   <div id="personal-decks"></div>
   </section>
-  <section class="stock-movements" aria-labelledby="stock-movements-title">
-   <header class="watchlist-title"><h2 id="stock-movements-title">股票异动</h2><span>盘中观察</span></header>
-   <div class="stock-reading-list">
-    <article class="stock-reading-item">
-     <header><h3>新易盛 <small>300502</small></h3><span class="up number">+3.26%</span></header>
-     <h4>午后涨幅扩大，光模块板块同步走强</h4>
-     <p>算力需求预期升温，资金回流光模块方向，带动股价午后上行。本轮变化与板块共振有关，后续仍需观察订单和业绩能否兑现。</p>
-    </article>
-    <article class="stock-reading-item">
-     <header><h3>立讯精密 <small>002475</small></h3><span class="down number">−1.18%</span></header>
-     <h4>冲高后回落，早盘涨幅未能延续</h4>
-     <p>消费电子板块走弱，叠加前期上涨后的获利回吐，股价由涨转跌。当前回落更多反映短期资金分歧，仍需结合后续经营数据判断。</p>
-    </article>
-   </div>
-  </section>
+   <section class="watchlist-drilldown" id="watchlist-drilldown" hidden tabindex="-1" aria-label="自选异动详情"></section>
   <section class="saved-watchlist" aria-labelledby="saved-watchlist-title">
    <header class="watchlist-title"><h2 id="saved-watchlist-title">自选列表</h2><span>共 5 项</span></header>
    <div class="saved-list" role="table" aria-label="自选基金、指数与板块行情">
