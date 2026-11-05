@@ -114,13 +114,9 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .session-block p{font-size:26px;line-height:42px;color:#45546a;margin-top:12px}
 .yesterday-result .a-market-quote{margin-top:12px}
 .a-market .intraday-chart{margin-top:18px}
-.chart-marker circle{fill:#fff;stroke:#e9676c;stroke-width:2}
-.chart-marker text{fill:#b94045;font-size:22px;text-anchor:middle;font-family:Arial,sans-serif}
-.market-reading{padding-top:20px;margin-top:8px}
-.market-reading p{display:flex;align-items:baseline;gap:14px;margin-top:14px;font-size:25px;line-height:38px}
-.market-reading p:first-child{margin-top:0}
-.market-reading time{flex-shrink:0;font-size:23px;color:#64738a}
-.market-reading .event-number{flex:0 0 30px;text-align:center;color:#b94045;font-size:22px}
+.chart-annotations{pointer-events:none}
+.chart-annotations circle{fill:#e96368;stroke:#fff;stroke-width:3}
+.chart-annotations text{fill:#515d70;font-size:24px;font-weight:400;paint-order:stroke;stroke:#fff;stroke-width:7px;stroke-linejoin:round}
 .a-market[data-session="post"] .close-chart{margin:24px 0 18px}
 .day-summary{margin-top:12px}
 .reading-card{padding:26px 28px}
