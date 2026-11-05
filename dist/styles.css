@@ -141,3 +141,6 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 }
 
 .personal-reading[data-layout="compact"] .saved-watchlist{display:none}
+
+/* Count belongs to the card; expand belongs to the section heading. */
+.deck-toggle{display:flex;align-items:center;font-size:23px;line-height:36px;color:#617da7;padding:5px 0 5px 20px}.deck-toggle strong{font-weight:400}.reading-card:has(>.card-action){padding-bottom:0}.card-action{display:flex;align-items:center;justify-content:space-between;width:calc(100% + 56px);margin:22px -28px 0;padding:20px 28px;border-top:1px solid #edf0f6;border-radius:0 0 24px 24px;font-size:22px;line-height:36px;color:#8995a8;text-align:left}.card-action strong{font-size:23px;font-weight:400;color:#5977a4}.card-action.compact-more{background:#f8faff}
