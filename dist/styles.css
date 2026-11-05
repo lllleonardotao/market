@@ -139,3 +139,5 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
  .reading-card{padding-top:22px;padding-bottom:22px}
  .deck-chart svg{max-height:150px}
 }
+
+.personal-reading[data-layout="compact"] .saved-watchlist{display:none}
