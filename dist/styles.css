@@ -243,3 +243,12 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .stock-live-quote{display:flex;align-items:baseline;gap:14px;margin-top:12px}
 .stock-live-quote strong{font-size:30px;line-height:42px;font-weight:500}
 .stock-live-quote>span{font-size:21px;line-height:32px;color:#7b889c}
+/* Extend the blue market backdrop through the personal introduction. */
+.hero-art{height:var(--market-blue-end,1800px);border-radius:0 0 48px 48px;overflow:hidden;pointer-events:none}.hero-art::after{content:"";position:absolute;inset:948px 0 0;background:linear-gradient(180deg,#d7e9ff 0%,#dfeeff 100%)}.personal-reading{background:transparent;border-radius:0}
+
+/* Closing sparkline sits beside the quote in one compact row. */
+.closing-quote-row{display:flex;align-items:center;gap:20px}
+.closing-quote-row>.a-market-quote{flex:1;min-width:0;gap:12px;margin:0;white-space:nowrap}
+.a-market[data-session="post"] .closing-quote-row>.close-chart{flex:0 0 174px;width:174px;height:62px;margin:0;overflow:hidden}
+.closing-quote-row .chart-grid{display:none}
+.closing-quote-row .intraday-line{stroke-width:5}

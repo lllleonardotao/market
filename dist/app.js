@@ -199,3 +199,19 @@ document.querySelectorAll('.yesterday-details').forEach(details=>details.addEven
 document.querySelectorAll('[data-sentiment]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-sentiment]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));document.querySelector('.sentiment-caption').textContent='你的选择：'+button.dataset.sentiment;}));
 
 document.querySelectorAll('[data-market-guess]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-market-guess]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));const feedback=document.querySelector('.market-guess-feedback');feedback.textContent='已选择'+button.dataset.marketGuess;feedback.hidden=false;}));
+
+function syncMarketBackdrop(){
+ const intro=document.querySelector('#personal-overview');
+ const canvas=document.querySelector('.phone');
+ if(!intro||!canvas)return;
+ const canvasRect=canvas.getBoundingClientRect();
+ const scale=canvasRect.width/750;
+ if(!scale)return;
+ const end=(intro.getBoundingClientRect().bottom-canvasRect.top)/scale+20;
+ canvas.style.setProperty('--market-blue-end',Math.ceil(end)+'px');
+}
+syncMarketBackdrop();
+const marketBackdropObserver=new ResizeObserver(syncMarketBackdrop);
+['.a-market','.personal-header','#personal-overview'].forEach(selector=>{const target=document.querySelector(selector);if(target)marketBackdropObserver.observe(target);});
+window.addEventListener('resize',syncMarketBackdrop);
+document.fonts.ready.then(syncMarketBackdrop);
