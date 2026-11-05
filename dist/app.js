@@ -120,16 +120,15 @@ function renderRelatedSession(session){
   const reason=document.createElement('strong');reason.textContent=item.reason;
   card.querySelector('.movement-reason').replaceChildren(reason,document.createTextNode(item.body));
  });
- const quotes={pre:[['1.6820','−0.25%'],['1.2225','+1.92%'],['3893.13','+0.12%'],['4519.91','+0.08%'],['1.8572','−0.18%']],live:[['1.6820','−0.25%'],['1.2377','+1.24%'],['3905.20','+0.31%'],['4512.68','−0.16%'],['1.8572','−0.18%']],post:[['1.6820','−0.25%'],['1.2460','+1.92%'],['3912.64','+0.50%'],['4528.95','+0.20%'],['1.8572','−0.18%']]}[session];
+ const quotes={pre:[['1.6820','−0.25%'],['1.2225','+1.92%'],['3893.13','+0.12%'],['4519.91','+0.08%'],['6280.45','+1.65%']],live:[['1.6820','−0.25%'],['1.2377','+1.24%'],['3905.20','+0.31%'],['4512.68','−0.16%'],['6378.43','+1.56%']],post:[['1.6820','−0.25%'],['1.2460','+1.92%'],['3912.64','+0.50%'],['4528.95','+0.20%'],['6423.65','+2.28%']]}[session];
  document.querySelectorAll('.saved-list-row').forEach((row,i)=>{
   const cells=row.querySelectorAll('.saved-list-quote span');
   cells[0].textContent=quotes[i][0];cells[1].textContent=quotes[i][1];
   cells[1].className='number '+(quotes[i][1].startsWith('−')?'down':'up');
  });
  document.querySelector('.saved-list-row p').textContent='基金 · 000925 · 最新净值';
- document.querySelector('.saved-list-row:last-child p').textContent='基金 · 110020 · 最新净值';
  document.querySelector('.saved-list-labels span:last-child').textContent=session==='pre'?'昨日值 / 日涨跌':session==='post'?'收盘值 / 日涨跌':'最新值 / 日涨跌';
- document.querySelector('.reading-note').textContent='场外基金展示最近公布的净值及对应涨跌，盘中与收盘估算不替代正式净值；ETF和指数展示所选时段行情。';
+ document.querySelector('.reading-note').textContent='场外基金展示最近公布的净值及对应涨跌，盘中与收盘估算不替代正式净值；ETF、指数与关注板块展示所选时段行情。';
  document.querySelector('.stock-movements .watchlist-title>span').textContent=data.label;
  document.querySelector('.stock-movements h2').textContent=session==='pre'?'股票关注':session==='post'?'股票复盘':'股票异动';
  document.querySelectorAll('.stock-reading-item').forEach((row,i)=>{
