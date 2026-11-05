@@ -141,7 +141,8 @@ function renderReadingDecks(){
   live:'今日关注：芯片与光模块走强，留意成长基金修复及订阅机构动向。',
   post:'今日关注：芯片与光模块收涨，跟进成长基金净值及订阅公告更新。'
  }[activeReadingSession];
- document.querySelector('#personal-overview').innerHTML=`<p class="overview-summary">${overview}</p>`;
+ const overviewCopy=overview.replace(/^今日关注：/,'').replace(/^(.*?)([、，])/,'<span class="overview-key">$1</span>$2');
+ document.querySelector('#personal-overview').innerHTML=`<p class="overview-summary"><span class="overview-kicker">今日关注</span><span class="overview-copy">${overviewCopy}</span></p>`;
  Object.entries(groups).forEach(([key,items])=>{
   const host=document.querySelector(`[data-deck-host="${key}"]`);
   host.hidden=items.length===0;
@@ -202,7 +203,7 @@ selectMarketSession('pre');
 
 document.querySelectorAll('.yesterday-details').forEach(details=>details.addEventListener('toggle',()=>{details.querySelector('summary').textContent=details.open?'收起昨日复盘':'展开昨日复盘';}));
 
-document.querySelectorAll('[data-sentiment]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-sentiment]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));document.querySelector('.sentiment-caption').textContent='你的选择：'+button.dataset.sentiment;}));
+document.querySelectorAll('[data-sentiment]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-sentiment]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));const caption=document.querySelector('.sentiment-caption');caption.hidden=false;caption.textContent='你的选择：'+button.dataset.sentiment;}));
 
 document.querySelectorAll('[data-market-guess]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-market-guess]').forEach(option=>option.setAttribute('aria-pressed',String(option===button)));const feedback=document.querySelector('.market-guess-feedback');feedback.textContent='已选择'+button.dataset.marketGuess;feedback.hidden=false;}));
 

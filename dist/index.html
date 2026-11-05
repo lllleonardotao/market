@@ -113,11 +113,32 @@
    <section class="watchlist-drilldown" id="watchlist-drilldown" hidden tabindex="-1" aria-label="自选异动详情"></section>
 
   <section class="community-reading" aria-labelledby="community-title">
-   <h2 id="community-title">大家都在关注</h2>
-   <section class="community-module" aria-labelledby="sentiment-title"><header><h3 id="sentiment-title">竞猜风向</h3><span>下一交易日 · 上证指数</span></header><p class="community-question">你觉得，下一个交易日怎么走？</p><div class="sentiment-options"><button type="button" data-sentiment="看涨" aria-pressed="false"><span>看涨</span><strong>61%</strong></button><button type="button" data-sentiment="看跌" aria-pressed="false"><span>看跌</span><strong>39%</strong></button></div><p class="sentiment-caption" role="status">看看大家的判断，也留下你的看法</p></section>
-   <section class="community-module" aria-labelledby="discussion-title"><header><h3 id="discussion-title">全网热议</h3><span>市场正在讨论</span></header>
-    <details class="discussion-topic"><summary><span class="topic-rank">01</span><span>芯片领涨之后，科技主线还能持续吗？<small>半导体 · 资金与需求</small></span><span class="topic-arrow">⌄</span></summary><p>讨论聚焦科技板块的成交持续性，以及订单、业绩能否支持当前需求预期。</p></details>
-    <details class="discussion-topic"><summary><span class="topic-rank">02</span><span>指数涨了，为什么我的基金没跟上？<small>基金 · 配置与收益差异</small></span><span class="topic-arrow">⌄</span></summary><p>指数与基金配置并不相同。观察上涨覆盖的板块，以及基金配置方向是否同步修复。</p></details>
+   <header class="community-header"><h2 id="community-title">大家都在关注</h2><span class="ai-processing"><i aria-hidden="true">••</i> AI处理</span></header>
+   <section class="community-module forecast-card" aria-labelledby="sentiment-title">
+    <header><h3 id="sentiment-title">竞猜风向</h3><time>2 分钟前</time></header>
+    <p class="community-insight">5 场看涨、黄金最被看好；<br><span class="forecast-down">恒生、沪深300 偏空</span></p>
+    <div class="forecast-table"><div class="forecast-legend"><span>看涨</span><span>看跌</span></div>
+<div class="forecast-row"><span class="forecast-name is-hot">黄金</span><strong class="forecast-up number">66%</strong><div class="forecast-track" role="img" aria-label="黄金：看涨66%，看跌34%"><i style="width:66%"></i></div><strong class="forecast-down number">34%</strong></div>
+<div class="forecast-row"><span class="forecast-name ">上证</span><strong class="forecast-up number">61%</strong><div class="forecast-track" role="img" aria-label="上证：看涨61%，看跌39%"><i style="width:61%"></i></div><strong class="forecast-down number">39%</strong></div>
+<div class="forecast-row"><span class="forecast-name ">科创板</span><strong class="forecast-up number">58%</strong><div class="forecast-track" role="img" aria-label="科创板：看涨58%，看跌42%"><i style="width:58%"></i></div><strong class="forecast-down number">42%</strong></div>
+<div class="forecast-row"><span class="forecast-name ">半导体</span><strong class="forecast-up number">53%</strong><div class="forecast-track" role="img" aria-label="半导体：看涨53%，看跌47%"><i style="width:53%"></i></div><strong class="forecast-down number">47%</strong></div>
+<div class="forecast-row"><span class="forecast-name is-bearish">沪深300</span><strong class="forecast-up number">47%</strong><div class="forecast-track" role="img" aria-label="沪深300：看涨47%，看跌53%"><i style="width:47%"></i></div><strong class="forecast-down number">53%</strong></div>
+    </div>
+    <div class="sentiment-poll"><div class="poll-heading"><p><strong>最有分歧 · 恒生</strong><span>你怎么看？</span></p><span class="square-label">去广场 ›</span></div>
+     <div class="sentiment-options" role="group" aria-label="你对恒生的看法"><button type="button" data-sentiment="看涨" aria-pressed="false">看涨 <strong>49%</strong></button><button type="button" data-sentiment="看跌" aria-pressed="false">看跌 <strong>51%</strong></button></div>
+     <p class="sentiment-caption" role="status" hidden></p>
+    </div>
+   </section>
+   <section class="community-module discussion-card" aria-labelledby="discussion-title">
+    <header><h3 id="discussion-title">全网热议</h3><time>14:40</time></header>
+    <p class="community-insight">红利和银行聊得最热；半导体领跌被看作<span class="discussion-blue">换仓</span></p>
+    <div class="discussion-cloud" role="img" aria-label="全网讨论热词：红利、银行最热，其次为固态电池、腾讯、半导体、存款利率、指数、游戏、高股息、南向、定投、领跌、黄金、资金">
+     <span class="cloud-index">指数</span><span class="cloud-games">游戏</span><span class="cloud-dividend">高股息</span>
+     <span class="cloud-south">南向</span><span class="cloud-battery">固态电池</span><span class="cloud-tencent">腾讯</span><span class="cloud-invest">定投</span>
+     <span class="cloud-chip">半导体</span><strong class="cloud-bonus">红利</strong><strong class="cloud-bank">银行</strong><span class="cloud-deposit">存款利率</span>
+     <span class="cloud-fall">领跌</span><span class="cloud-gold">黄金</span><span class="cloud-capital">资金</span>
+    </div>
+    <div class="discussion-comments"><p><span class="comment-avatar avatar-man" aria-hidden="true">陈</span><span>银行今天又抬指数，红利这波还没走…</span></p><p><span class="comment-avatar avatar-woman" aria-hidden="true">林</span><span>半导体今天领跌，消息面没什么新东…</span></p></div>
    </section>
   </section>
  </main>
