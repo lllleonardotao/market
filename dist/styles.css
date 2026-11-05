@@ -116,7 +116,10 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .a-market .intraday-chart{margin-top:18px}
 .chart-annotations{pointer-events:none}
 .chart-annotations circle{fill:#e96368;stroke:#fff;stroke-width:3}
-.chart-annotations text{fill:#515d70;font-size:24px;font-weight:400;paint-order:stroke;stroke:#fff;stroke-width:7px;stroke-linejoin:round}
+.chart-annotations text{fill:#913c45;font-size:26px;font-weight:600}
+.chart-annotations rect{fill:#fff0f0;stroke:#edb7ba;stroke-width:1.2}
+.chart-annotations .event-leader{fill:none;stroke:#d98b93;stroke-width:2}
+.chart-annotations .event-halo{fill:#e96368;opacity:.16;stroke:none}
 .a-market[data-session="post"] .close-chart{margin:24px 0 18px}
 .day-summary{margin-top:12px}
 .reading-card{padding:26px 28px}
@@ -138,7 +141,7 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 
 .personal-reading[data-layout="compact"] .saved-watchlist{display:none}
 
-/* Count belongs to the card; expand belongs to the section heading. */
+/* Card headers contain the category and its expand control. */
 .deck-toggle{display:flex;align-items:center;font-size:23px;line-height:36px;color:#617da7;padding:5px 0 5px 20px}.deck-toggle strong{font-weight:400}.reading-card:has(>.card-action){padding-bottom:0}.card-action{display:flex;align-items:center;justify-content:space-between;width:calc(100% + 56px);margin:22px -28px 0;padding:20px 28px;border-top:1px solid #edf0f6;border-radius:0 0 24px 24px;font-size:22px;line-height:36px;color:#8995a8;text-align:left}.card-action strong{font-size:23px;font-weight:400;color:#5977a4}.card-action.compact-more{background:#f8faff}
 
 .post-market-summary{margin-top:22px}
@@ -168,3 +171,11 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 
 /* The same prediction module closes the A-share card in every session. */
 .market-guess{margin-top:28px;padding:24px;border-radius:26px;background:#f7f7f6}.market-guess h3{font-size:28px;line-height:44px;font-weight:600;color:#202020;text-wrap:wrap}.market-guess h3>span{color:#b97b20}.market-guess-options{display:flex;gap:16px;margin-top:22px}.market-guess-options button{flex:1;display:flex;align-items:center;justify-content:center;gap:12px;min-width:0;padding:24px 10px;border:2px solid transparent;border-radius:20px;background:#f5e4e5;color:#cb5552;font-size:32px;line-height:42px;font-weight:600;transition:background .2s,border-color .2s,transform .2s}.market-guess-options button:nth-child(2){background:#e2eee3;color:#3d7c43}.market-guess-options strong{font-size:36px;font-weight:500}.market-guess-options button[aria-pressed="true"]{border-color:currentColor;transform:translateY(-2px)}.market-guess-feedback{margin-top:14px;font-size:22px;line-height:34px;color:#748093}
+
+/* All card category headings follow the A-share header. */
+.reading-card>.card-heading{padding:0;margin:0 0 22px;min-height:40px}
+.reading-card>.card-heading h3,.personal-reading .saved-watchlist>.watchlist-title h3,.community-module>header h3{font-size:28px;line-height:40px;font-weight:500;color:#202020;letter-spacing:0;margin:0}
+.personal-reading .saved-watchlist{background:#fff;border:1px solid #ffffffc9;border-radius:24px;padding:26px 28px}
+.personal-reading .saved-watchlist>.watchlist-title{padding:0;margin:0 0 22px;min-height:40px}
+.personal-reading .saved-watchlist .saved-list{padding:0;border-radius:0;background:transparent}
+.personal-reading .saved-watchlist .reading-note{padding:18px 0 0}
