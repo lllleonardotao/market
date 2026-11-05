@@ -274,8 +274,6 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .community-reading{padding:44px 28px 32px}
 .community-header{display:flex;align-items:center;justify-content:space-between;padding:0 12px;margin-bottom:24px}
 .community-header h2{font-size:32px;line-height:46px;font-weight:500;color:#202020}
-.ai-processing{display:flex;align-items:center;gap:12px;padding:4px 24px;border-radius:24px;background:#fff;font-size:24px;line-height:34px;color:#333}
-.ai-processing i{font-style:normal;font-size:29px;letter-spacing:2px;line-height:24px}
 .community-reading .community-module{padding:28px 32px 30px;border-radius:32px;margin-top:24px}
 .community-module>header h3{color:#8a8d90;font-size:26px;line-height:38px;font-weight:500}
 .community-module>header time{font-size:23px;line-height:34px;color:#a7aaae}
@@ -303,13 +301,9 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .community-insight>.reading-inline-time{flex:none;margin:0;font-size:21px;line-height:44px;font-weight:400;color:#7b889c;letter-spacing:0;white-space:nowrap}
 .personal-overview>.overview-summary{display:block}.overview-kicker{margin-top:0;margin-right:12px}.overview-copy{display:inline}
 
-/* Big-head version: the A-share story leads; sectors follow directly below. */
-.phone[data-page-layout="bighead"] .report{height:128px}
-.phone[data-page-layout="bighead"] .indices,
-.phone[data-page-layout="bighead"] .next-index{display:none}
+/* Big-head version retains the market map, then A-shares and popular sectors. */
+.phone[data-page-layout="bighead"] .report{height:530px}
 .phone[data-page-layout="bighead"] .a-market{margin:0 40px;padding:32px;border-radius:32px;background:rgba(255,255,255,.88);box-shadow:none}
 .phone[data-page-layout="bighead"]>.sectors{position:relative;top:auto;left:auto;margin:24px 40px 0;width:670px;height:242px;background:rgba(255,255,255,.8);box-shadow:none}
-.phone[data-page-layout="bighead"] .hero-art{background-image:linear-gradient(155deg,#a6d5ff 0,#84b5f1 210px,#d7e9ff 620px,#dfeeff 100%);background-size:100% 100%}
-.phone[data-page-layout="bighead"] .hero-art:after{display:none}
 .page-session-switch .footer-switch-row:last-child{flex:1.45}
 .page-session-switch .footer-switch-row:last-child>.page-session-label{display:none}
