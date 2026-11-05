@@ -123,9 +123,9 @@ function renderReadingDecks(){
   host.hidden=items.length===0;
   if(!items.length){host.replaceChildren();return;}
   const expanded=items.length>1&&readingLayout==='full'&&expandedDecks.has(key);
-  const countText=`共 ${items.length} ${key==='subscriptions'?'类订阅':'条'+deckNames[key]}`;
-  const headerAction=items.length>1&&readingLayout==='full'?`<button class="deck-toggle" data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}" aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${expanded?'收起 ⌃':'展开 ⌄'}</strong></button>`:'';
-  const action=readingLayout==='full'?(items.length>1?`<div class="card-action"><span>${countText}</span></div>`:''):key==='subscriptions'?(items.length>1?`<button class="card-action compact-more" data-more="${key}"><span>还有 ${items.length-1} 类订阅</span><strong>去我的订阅 →</strong></button>`:''):`<button class="card-action compact-more" data-more="${key}"><span>自选</span><strong>${items.length} 条异动 <span aria-hidden="true">›</span></strong></button>`;
+  const countText=`共${items.length}${key==='subscriptions'?'类订阅':'条异动'}`;
+  const headerAction=items.length>1?`<button class="deck-toggle" ${readingLayout==='full'?`data-expand="${key}" aria-expanded="${expanded}" aria-controls="deck-${key}"`:`data-more="${key}"`} aria-label="${expanded?'收起':'展开'}${deckNames[key]}卡组"><strong>${countText}</strong><span class="deck-toggle-arrow" aria-hidden="true">⌄</span></button>`:'';
+  const action='';
   const cardHeader=`<header class="deck-heading card-heading"><h3 id="deck-title-${key}">${key==='subscriptions'?'订阅':deckNames[key]}</h3>${headerAction}</header>`;
   const firstCard=readingCard(items[0],0,key).replace('<div class="reading-card-top">',cardHeader+'<div class="reading-card-top">').replace('</article>',action+'</article>');
   const tail=readingLayout==='full'&&items.length>1?`<div class="deck-tail" aria-hidden="${!expanded}" ${expanded?'':'inert'}><div class="deck-tail-clip"><div class="deck-tail-cards">${items.slice(1).map((item,i)=>readingCard(item,i+1,key)).join('')}</div></div></div>`:'';

@@ -188,3 +188,9 @@ main>.watchlist-drilldown{padding:28px 28px 0;margin:0}.drilldown-heading{paddin
 .a-market:is([data-session="live"],[data-session="post"]) .intraday-chart,
 .a-market:is([data-session="live"],[data-session="post"]) .close-chart{margin:24px 0 18px}
 .intraday-chart .chart-annotations text{font-size:24px}
+
+/* Counts and expansion share one quiet control in the card header. */
+.card-heading .deck-toggle{gap:10px;padding:4px 14px;background:#f1f2f4;border-radius:24px;color:#7b828d;font-size:22px;line-height:34px;white-space:nowrap}
+.deck-toggle-arrow{display:inline-block;line-height:26px;transition:transform .2s ease}
+.deck-toggle[aria-expanded="true"] .deck-toggle-arrow{transform:rotate(180deg)}
+@media(prefers-reduced-motion:reduce){.deck-toggle-arrow{transition:none}}
