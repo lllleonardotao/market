@@ -14,7 +14,7 @@ function headerInfo(title,body){headerDialog.querySelector('h2').textContent=tit
 headerDialog.querySelector('button').onclick=()=>headerDialog.close();
 headerDialog.addEventListener('click',e=>{if(e.target===headerDialog){const r=headerDialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)headerDialog.close();}});
 document.querySelector('.menu').onclick=()=>headerInfo('财小通','行情日报 · A股盘中走势 · 自选追踪');
-document.querySelector('.mini-app').onclick=()=>headerInfo('财小通行情日报','此页面为设计预览，行情数字为原稿中的示例数据。');
+document.querySelector('.mini-app').onclick=()=>headerInfo('财小通行情日报','此页面为设计预览，行情数字来自页面原稿。');
 document.querySelector('.all-sectors').onclick=()=>headerInfo('热门板块','存储 +8.67%\n有色金属 +4.21%\n医疗服务 +1.52%\n大农业 -0.26%');
 document.querySelector('.next-index').onclick=()=>{const positions=markets.map(m=>[m[3],m[4]]);markets.push(markets.shift());markets.forEach((m,i)=>{m[3]=positions[i][0];m[4]=positions[i][1];});renderMarkets();};
 document.querySelector('.play').onclick=function(){const playing=this.getAttribute('aria-pressed')==='true';if('speechSynthesis' in window){speechSynthesis.cancel();if(!playing){const message=new SpeechSynthesisUtterance('行情日报。'+markets.map(m=>m[0]+m[1]+'，涨跌幅'+m[2]).join('。'));message.lang='zh-CN';message.onend=()=>{this.setAttribute('aria-pressed','false');this.setAttribute('aria-label','播放行情日报');};speechSynthesis.speak(message);}}else{headerInfo('行情日报',markets.map(m=>m[0]+' '+m[1]+' '+m[2]).join('\n'));return;}this.setAttribute('aria-pressed',String(!playing));this.setAttribute('aria-label',playing?'播放行情日报':'暂停行情日报');};
@@ -63,6 +63,14 @@ const marketImpact={
   {state:'盘后状态 · 修复未延续，全天落后',title:'大盘收涨，基金修复未能延续',change:'收盘估算 −0.25%',summary:'午后一度修复至估算下跌0.18%，尾盘回落至下跌0.25%，未能跟随大盘收红。',comparison:'基金估算 −0.25% · 落后上证 0.75 个百分点',reason:'为什么没有跟上全天上涨？',body:'大盘收涨主要由科技板块拉动，基金其他配置方向仍偏弱，抵消了科技回升的贡献。盘中修复未能延续至收盘，说明上涨尚未充分扩散到基金配置。正式净值待公布，明日关注弱势方向能否补涨。'},
   {state:'盘后状态 · 领涨收盘，优势扩大',title:'大盘收涨，芯片ETF涨幅领先',change:'今日收涨 1.92%',summary:'从13:42上涨1.24%扩大至收盘上涨1.92%，最终领先大盘1.42个百分点。',comparison:'芯片ETF +1.92% · 领先上证 1.42 个百分点',reason:'为什么优势能保持到收盘？',body:'午后科技板块买盘延续至尾盘，芯片股维持活跃，集中配置这一方向的ETF继续扩大涨幅。大盘上涨主线与ETF配置方向一致，让其全天表现更强；明日关注资金与成交能否延续。'}]}
 };
+// Pre-market preserves the previous review and surfaces only new overnight information.
+relatedSessions.pre.context='1 条隔夜新增 · 1 只自选待关注';
+marketImpact.pre={overview:'隔夜科技调整，芯片ETF开盘待观察',detail:'隔夜美股芯片承压，与芯片ETF相关。其余自选暂无单独重大新增。',benchmark:'昨日上证 +0.12%',cards:[
+ {state:'盘前 · 暂无单独重大新增',title:'成长基金：暂无重大新增',change:'最近公布净值 −0.25%',summary:'昨日弱于大盘，今日开盘表现尚待观察。',comparison:'',reason:'今早补充',body:'暂无与这只基金直接相关的重大新增信息。昨日表现与原因保留，今日变化等待开盘后观察。'},
+ {state:'盘前 · 1 条隔夜新增',title:'芯片ETF：隔夜情绪出现变化',change:'昨日收涨 1.92%',summary:'隔夜美股芯片承压，今日关注昨日强势能否延续。',comparison:'',reason:'新增影响',body:'存储、光通信方向隔夜回落，可能影响科技板块开盘情绪。关注芯片板块的开盘承接与成交，暂不提前判断今日涨跌。'}]};
+relatedSessions.pre.stocks=[['昨日 +3.26%','隔夜光通信回落，关注开盘承接','昨日光模块走强。隔夜海外相关方向回落，今天观察板块情绪是否传导，盘前暂无今日涨跌。'],['昨日 −1.18%','保留昨日回顾，暂无重大新增','昨日冲高回落的复盘继续保留，今早暂无单独重大新增信息。开盘后再观察消费电子的承接。']];
+relatedSessions.post.cards[0].followup='正式净值公布后确认全天表现；后续观察其他成长方向能否修复。';
+relatedSessions.post.cards[1].followup='观察半导体成交与板块强度能否延续，并跟进订单、业绩的新进展。';
 for(const session of ['pre','live','post'])relatedSessions[session].cards.forEach((card,i)=>Object.assign(card,marketImpact[session].cards[i]));
 function renderRelatedSession(session){
  const data=relatedSessions[session];
@@ -91,6 +99,16 @@ function renderRelatedSession(session){
   const relative=document.createElement('span');relative.textContent=item.comparison;
   comparison.replaceChildren(benchmark,relative);
   const figure=card.querySelector('figure');
+  figure.hidden=session==='pre';
+  comparison.hidden=session==='pre';
+  let history=card.querySelector('.movement-history');
+  if(!history){history=document.createElement('p');history.className='movement-history';figure.before(history);}
+  history.hidden=session!=='pre';
+  history.textContent=index===0?'昨日回顾 · 净值下跌0.25%，成长方向调整拖累表现。':'昨日回顾 · 收涨1.92%，科技方向活跃，强于同期大盘。';
+  let followup=card.querySelector('.movement-followup');
+  if(!followup){followup=document.createElement('p');followup.className='movement-followup';card.append(followup);}
+  followup.hidden=session!=='post';
+  followup.textContent=item.followup?'后续关注 · '+item.followup:'';
   const tone=item.down?'#43a047':'#ed5454';
   const xs=[12,156,300,444,586];
   const path=item.points.map((y,i)=>`${i?'L':'M'}${xs[i]} ${y}`).join(' ');
@@ -111,12 +129,15 @@ function renderRelatedSession(session){
  document.querySelector('.saved-list-row p').textContent='基金 · 000925 · 最新净值';
  document.querySelector('.saved-list-row:last-child p').textContent='基金 · 110020 · 最新净值';
  document.querySelector('.saved-list-labels span:last-child').textContent=session==='pre'?'昨日值 / 日涨跌':session==='post'?'收盘值 / 日涨跌':'最新值 / 日涨跌';
- document.querySelector('.reading-note').textContent='场外基金展示最近公布的净值及对应涨跌，盘中与收盘估算不替代正式净值；ETF和指数展示所选时段行情。以上数据与原因均为设计示例。';
+ document.querySelector('.reading-note').textContent='场外基金展示最近公布的净值及对应涨跌，盘中与收盘估算不替代正式净值；ETF和指数展示所选时段行情。';
  document.querySelector('.stock-movements .watchlist-title>span').textContent=data.label;
+ document.querySelector('.stock-movements h2').textContent=session==='pre'?'股票关注':session==='post'?'股票复盘':'股票异动';
  document.querySelectorAll('.stock-reading-item').forEach((row,i)=>{
   row.querySelector('header>span').textContent=data.stocks[i][0];
   row.querySelector('h4').textContent=data.stocks[i][1];
   row.querySelector('p').textContent=data.stocks[i][2];
  });
 }
-selectMarketSession('live');
+selectMarketSession('post');
+
+document.querySelectorAll('.yesterday-details').forEach(details=>details.addEventListener('toggle',()=>{details.querySelector('summary').textContent=details.open?'收起昨日复盘':'展开昨日复盘';}));
