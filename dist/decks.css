@@ -149,6 +149,7 @@ html[data-layout=single] [data-node-id="25435:807"]{cursor:pointer}
 .single-stock-list .single-product-link{display:grid;grid-template-columns:minmax(0,1fr) 100px 100px 14px;gap:16px;min-height:66px}
 .discussion-prompt{position:relative;padding:20px 28px;min-height:80px;flex-shrink:0;border-top:0}
 .discussion-prompt::before{content:"";position:absolute;top:0;left:28px;right:28px;height:1px;background:#e9edf3}
+.discussion-prompt[data-discussion-kind=stocks]{margin-top:20px}
 html[data-layout=single] .discussion-prompt{display:none}
 [data-node-id="25435:683"],[data-node-id="25435:684"]{height:auto}
 [data-node-id="25435:684"]{display:block;width:100%;font-size:26px;line-height:44px}
@@ -169,3 +170,8 @@ html[data-layout=single] .discussion-prompt{display:none}
 .guess-percentage{font-size:24px;line-height:32px}
 .guess-vs{position:absolute;left:50%;top:20px;transform:translateX(-50%);display:grid;place-items:center;width:64px;height:64px;background:url("assets/guess-vs-bg.svg") center no-repeat;font-size:32px;line-height:44px;font-weight:700;color:#333;pointer-events:none}
 .guess-vs>span{transform:skewX(-8deg)}
+
+/* Use the same visible gap between every card in the related section. */
+[data-node-id="25435:679"]{--card-gap:28px}
+[data-node-id="25435:689"]{height:auto;padding-bottom:var(--card-gap)}
+[data-node-id="25435:731"],[data-node-id="25435:771"],[data-node-id="25435:799"]{padding-top:var(--card-gap)}

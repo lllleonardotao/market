@@ -33,13 +33,13 @@ function wireDeck({key,groupId,triggerId,extra,shadowIds,baseHeight,extraHeight}
   trigger.hidden=readingLayout==='flat'||readingLayout==='single';
   trigger.setAttribute('aria-expanded',String(expanded));
   trigger.querySelector('[data-node-id="25435:728"], [data-node-id="25435:864"]').textContent=readingLayout==='single'?(key==='movements'?'查看全部2条异动':'查看全部3类订阅'):(key==='movements'?'共2条异动':'共3类订阅');
-  if(readingLayout!=='single'&&key==='movements')group.style.height=(trigger.parentElement.offsetHeight+28)+'px';
+  if(readingLayout!=='single'&&key==='movements')group.style.height=trigger.parentElement.offsetHeight+'px';
   if(readingLayout==='single'&&key==='movements'){const single=group.querySelector('.single-movements');if(single)group.style.height=single.offsetHeight+'px';}
   if(key==='subscriptions'){
    const signal=node('25435:807');
    if(readingLayout==='single'){
     signal.setAttribute('role','button');signal.tabIndex=0;signal.setAttribute('aria-label','查看机构信号：创业板指');
-    group.style.height=(trigger.parentElement.offsetHeight+28)+'px';
+    group.style.height=trigger.parentElement.offsetHeight+'px';
    }else{signal.removeAttribute('role');signal.removeAttribute('tabindex');signal.removeAttribute('aria-label');}
   }
   trigger.setAttribute('aria-label',readingLayout==='single'?'查看全部'+label:(expanded?'收起':'展开')+label+'卡组');
