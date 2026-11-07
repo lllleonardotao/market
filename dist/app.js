@@ -71,7 +71,7 @@ async function initDecks(){
  const subscriptionHeight=subscriptions.offsetHeight;
  wireDeck({key:'subscriptions',groupId:'25435:800',triggerId:'25435:862',extra:subscriptions,shadowIds:['25435:801','25435:802'],baseHeight:785,extraHeight:subscriptionHeight});
  const links=document.createElement('div');links.className='single-subscription-links';
- links.innerHTML='<button type="button" data-subscription-detail="opportunity"><strong>热门机会</strong><span>半导体需求与订单观察</span><i aria-hidden="true">›</i></button><button type="button" data-subscription-detail="event"><strong>投资大事件</strong><span>企业业绩与公告窗口</span><i aria-hidden="true">›</i></button>';
+ links.innerHTML='<button type="button" data-subscription-detail="opportunity"><strong>热门机会</strong><span>半导体需求与订单观察</span><span class="ui-arrow ui-arrow-right" aria-hidden="true"><img src="assets/arrow-right-small.svg" alt=""></span></button><button type="button" data-subscription-detail="event"><strong>投资大事件</strong><span>企业业绩与公告窗口</span><span class="ui-arrow ui-arrow-right" aria-hidden="true"><img src="assets/arrow-right-small.svg" alt=""></span></button>';
  node('25435:862').before(links);
  links.querySelectorAll('button').forEach(button=>button.onclick=()=>showSubscriptionDetail(button.dataset.subscriptionDetail));
  const signal=node('25435:807');
@@ -147,9 +147,26 @@ const sessionNodes=['643','649','652','653','654','658','661','664','686','687',
 function selectSession(session){
  activeSession=session;document.documentElement.dataset.session=session;
  sessionNodes.forEach((id,index)=>{const el=node('25435:'+id);if(el)el.textContent=sessionCopy[session][index];});
- const axis=session==='pre'?['前4日','前3日','前2日','前1日','昨日']:['09:30','10:30','11:30',session==='live'?'13:00':'14:00',session==='live'?'13:42':'15:00'];
+ const axis=session==='pre'?['前4日','前3日','前2日','前1日','昨日']:['09:30','10:30','11:30/13:00','14:00','15:00'];
+ const stockAxis=session==='pre'?axis:['09:30','10:30','12:00/13:00','14:30','16:00'];
  ['720','721','722','723','724'].forEach((id,i)=>node('25435:'+id).textContent=axis[i]);
- ['793','794','795','796','797'].forEach((id,i)=>node('25435:'+id).textContent=session==='pre'?['前4日','前3日','前2日','前1日','昨日'][i]:axis[i]);
+ ['793','794','795','796','797'].forEach((id,i)=>node('25435:'+id).textContent=stockAxis[i]);
+ // Demo quotes are sampled at 13:42. Keep the full trading day visible,
+ // excluding each market's lunch break when locating the latest point.
+ for(const [lineId,fillId,dotId,elapsed,total] of [
+  ['715','714','716',162,240], // A shares: 09:30–11:30, 13:00–15:00.
+  ['791','790','792',192,330]  // Tencent: 09:30–12:00, 13:00–16:00.
+ ]){
+  const progress=session==='live'?elapsed/total:1;
+  for(const id of [lineId,fillId]){
+   node('25435:'+id).style.transformOrigin='left center';
+   node('25435:'+id).style.transform=`scaleX(${progress})`;
+  }
+  const dot=node('25435:'+dotId);
+  dot.style.left=session==='live'?`${0.5+97.35*progress}%`:'';
+  dot.style.right=session==='live'?'auto':'';
+  dot.style.width=session==='live'?'1.65%':'';
+ }
  document.querySelectorAll('button[data-session]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.session===session)));
  const single=document.querySelector('.single-movements');
  if(single){

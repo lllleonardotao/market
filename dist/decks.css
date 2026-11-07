@@ -101,6 +101,8 @@ html[data-layout=single] .single-movements{display:block}
 .single-watchlist li{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:66px;font-size:26px;line-height:41px;letter-spacing:-.58px}
 .single-watchlist li>a>span{min-width:0;max-width:365px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .single-watchlist li>a>div{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex:none}
+.single-watchlist .single-product-link{display:grid;grid-template-columns:minmax(0,1fr) max-content 14px;gap:16px}
+.single-watchlist .single-product-link strong{text-align:right}
 .single-watchlist strong{font-family:"LCT NUMB","PingFang SC",sans-serif;font-size:28px;line-height:32px;font-weight:500;white-space:nowrap}
 .single-watchlist-link{display:flex;align-items:center;justify-content:space-between;width:100%;padding:20px 24px;min-height:80px;border-radius:16px;background:#f1f5fb;color:#202020}
 .single-watchlist-link>strong{font-size:28px;line-height:40px;font-weight:500}
@@ -109,7 +111,7 @@ html[data-layout=single] .single-movements{display:block}
 /* Figma 25442:26525, sharing the single-card layout and exact chart assets. */
 html[data-layout=single] [data-node-id="25435:772"]{display:none}
 .single-stock .single-product strong{font-size:32px}
-.single-stock-quote{display:flex;align-items:baseline;gap:12px;margin-top:12px;color:#df4242;font-family:"LCT_NUMB","PingFang SC",sans-serif}
+.single-stock-quote{display:flex;align-items:baseline;gap:12px;margin-top:12px;color:#df4242;font-family:"LCT NUMB","PingFang SC",sans-serif}
 .single-stock-price{font-size:50.533px;line-height:56px;letter-spacing:-.5678px;font-weight:500}
 .single-stock-change{font-size:22.459px;line-height:25px;font-weight:500;white-space:nowrap}
 .single-stock .single-mini-chart{width:232px}
@@ -120,7 +122,7 @@ html[data-layout=single] [data-node-id="25435:772"]{display:none}
 .single-stock-list li{display:grid;grid-template-columns:minmax(0,1fr) 100px 100px;align-items:center;gap:24px;min-height:66px;font-size:26px;line-height:41px;letter-spacing:-.5849px}
 .single-stock-name{display:flex;align-items:baseline;gap:14px;white-space:nowrap}
 .single-stock-name>span{font-size:22px;line-height:31px;letter-spacing:.2193px;color:#76869a;opacity:.5}
-.single-stock-row-price,.single-stock-list strong{font-family:"LCT_NUMB","PingFang SC",sans-serif;font-size:28px;line-height:32px;letter-spacing:-.5678px;text-align:right;white-space:nowrap;font-weight:500}
+.single-stock-row-price,.single-stock-list strong{font-family:"LCT NUMB","PingFang SC",sans-serif;font-size:28px;line-height:32px;letter-spacing:-.5678px;text-align:right;white-space:nowrap;font-weight:500}
 .single-stock-row-price{color:#999}
 
 /* Discussion prompt follows the market story above. */
@@ -157,8 +159,13 @@ html[data-layout=single] .discussion-prompt{display:none}
 [data-node-id="25435:686"]{position:static;display:inline-block;width:auto;height:auto;padding:2px 10px;margin-right:12px;border-radius:7px;background:#e7eef9;color:#597396;font-size:23px;line-height:32px;vertical-align:baseline}
 [data-node-id="25435:687"]{display:inline;width:auto;height:auto;font-size:26px;line-height:44px}
 
+/* The prediction area forms the full-width bottom of the A-share card. */
+[data-node-id="25435:640"]{padding-bottom:0;overflow:hidden;border-bottom-color:#f7f7f6}
+[data-node-id="25435:666"]{width:calc(100% + 56px);margin-left:-28px;margin-right:-28px}
+[data-node-id="25435:667"]{padding:24px 28px 30px;border-radius:0}
+
 /* Figma 214:14055: opposing gradient capsules with inline vote counts. */
-[data-node-id="25435:669"].guess-intro{width:100%;height:auto;font-size:22px;line-height:44px;font-weight:400;color:#182a45;white-space:nowrap}
+[data-node-id="25435:669"].guess-intro{width:100%;height:auto;font-size:28px;line-height:44px;font-weight:400;color:#182a45;white-space:nowrap}
 .guess-reward{color:#051d53}
 .guess-options{position:relative;display:flex;width:100%;height:104px;margin-top:16px;isolation:isolate}
 .guess-option{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:52.12%;height:104px;padding:0 22px;background:transparent;font-size:32px;line-height:44px;font-weight:500;white-space:nowrap}
@@ -167,6 +174,8 @@ html[data-layout=single] .discussion-prompt{display:none}
 .guess-option-up::before{background-image:url("assets/guess-up-bg.svg")}
 .guess-option-down{color:#43a047;margin-left:-4.24%}
 .guess-option-down::before{background-image:url("assets/guess-down-bg.svg")}
+/* Discard exported fixed text boxes so each font centers by its line height. */
+.guess-option>span{width:auto;height:auto}
 .guess-percentage{font-size:24px;line-height:32px}
 .guess-vs{position:absolute;left:50%;top:20px;transform:translateX(-50%);display:grid;place-items:center;width:64px;height:64px;background:url("assets/guess-vs-bg.svg") center no-repeat;font-size:32px;line-height:44px;font-weight:700;color:#333;pointer-events:none}
 .guess-vs>span{transform:skewX(-8deg)}
@@ -175,3 +184,18 @@ html[data-layout=single] .discussion-prompt{display:none}
 [data-node-id="25435:679"]{--card-gap:28px}
 [data-node-id="25435:689"]{height:auto;padding-bottom:var(--card-gap)}
 [data-node-id="25435:731"],[data-node-id="25435:771"],[data-node-id="25435:799"]{padding-top:var(--card-gap)}
+
+/* Align the visible quote text, including values wider than the exported boxes. */
+[data-node-id="25435:748"],[data-node-id="25435:757"],[data-node-id="25435:766"]{position:absolute;right:0;top:50%;transform:translateY(-50%)}
+[data-node-id="25435:748"]>p,[data-node-id="25435:757"]>p,[data-node-id="25435:766"]>p{width:auto;text-align:right}
+
+/* Avoid stacking list padding and card padding beneath the final row. */
+html[data-layout=single] .single-movements{padding-bottom:24px}
+html[data-layout=single] .single-watchlist,html[data-layout=single] .single-stock-list{padding-bottom:0}
+
+/* Let watchlist names and metadata size their own rows instead of exported boxes. */
+[data-node-id="25435:743"],[data-node-id="25435:752"],[data-node-id="25435:761"]{flex:1 1 0;min-width:0;max-width:calc(100% - 132px)}
+[data-node-id="25435:744"],[data-node-id="25435:753"],[data-node-id="25435:762"]{width:100%;height:auto}
+[data-node-id="25435:745"],[data-node-id="25435:754"],[data-node-id="25435:763"]{width:100%;height:auto;white-space:normal;text-wrap:wrap;overflow-wrap:anywhere}
+[data-node-id="25435:746"],[data-node-id="25435:755"],[data-node-id="25435:764"]{width:100%;height:auto;min-height:38px}
+[data-node-id="25435:747"],[data-node-id="25435:756"],[data-node-id="25435:765"]{width:100%;height:auto;white-space:normal;overflow-wrap:anywhere}

@@ -1,0 +1,9 @@
+/* LCT for digits and numeric punctuation; other glyphs use each element's existing font. */
+@font-face{
+  font-family:"LCT NUMB";
+  src:url("assets/lct-numb-medium.woff") format("woff");
+  font-style:normal;
+  font-weight:100 900;
+  font-display:swap;
+  unicode-range:U+0025,U+002B-002F,U+0030-003A,U+2212;
+}

@@ -153,6 +153,3 @@
 [data-node-id="25435:864"]{width:101px;height:36px;letter-spacing:-0.040625px;}
 [data-node-id="25435:866"]{width:12px;height:26px;letter-spacing:-1.25px;}
 
-/* Use the bundled LiCaiTong face for numbers while retaining the Chinese face. */
-@font-face{font-family:"LCT Numbers";src:url("assets/lct-numb-medium.woff") format("woff");font-style:normal;font-weight:100 900;font-display:swap;unicode-range:U+0025,U+002B-002E,U+0030-0039,U+2212}
-#canvas,#canvas *{font-family:"LCT Numbers","PingFang SC",sans-serif}

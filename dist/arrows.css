@@ -1,0 +1,13 @@
+/* DG_LCT UI Library · Y7rGyFPtnGELHUeMToqHsq / 21013:17211.
+   Native SVG geometry is preserved; 24px copy uses the small variants. */
+.ui-arrow{position:relative;display:inline-flex;flex:none;align-items:center;justify-content:center;vertical-align:middle;line-height:0}
+.ui-arrow img{display:block;max-width:none;flex:none}
+.ui-arrow-right{width:12px;height:20px}
+.ui-arrow-down{width:20px;height:12px}
+.ui-arrow-down img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
+[data-deck-toggle] .deck-chevron{width:20px;height:12px;align-self:center}
+[data-deck-toggle] .deck-chevron>.ui-arrow{display:flex}
+.ui-arrow-back{width:20px;height:32px;rotate:180deg;zoom:.5}
+#back{display:inline-flex;align-items:center;gap:4px}
+
+.single-subscription-links .ui-arrow{flex:0 0 12px;width:12px;height:20px;line-height:0;overflow:visible}
