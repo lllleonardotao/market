@@ -31,6 +31,7 @@ function wireDeck({key,groupId,triggerId,extra,shadowIds,baseHeight,extraHeight}
   trigger.setAttribute('aria-expanded',String(expanded));
   trigger.querySelector('[data-node-id="25435:728"], [data-node-id="25435:864"]').textContent=readingLayout==='single'?(key==='movements'?'查看全部2条异动':'查看全部3类订阅'):(key==='movements'?'共2条异动':'共3类订阅');
   if(readingLayout==='flat'&&key==='movements')group.style.height=(trigger.parentElement.offsetHeight+28)+'px';
+  if(readingLayout==='single'&&key==='movements'){const single=group.querySelector('.single-movements');if(single)group.style.height=single.offsetHeight+'px';}
   trigger.setAttribute('aria-label',readingLayout==='single'?'查看全部'+label:(expanded?'收起':'展开')+label+'卡组');
  };
  function toggle(){
@@ -59,6 +60,24 @@ async function initDecks(){
  parent.insertBefore(subscriptions,node('25435:862'));
  const subscriptionHeight=subscriptions.offsetHeight;
  wireDeck({key:'subscriptions',groupId:'25435:800',triggerId:'25435:862',extra:subscriptions,shadowIds:['25435:801','25435:802'],baseHeight:785,extraHeight:subscriptionHeight});
+ const singleResponse=await fetch('single-movements.html');
+ if(!singleResponse.ok)throw new Error('Unable to load single movement card');
+ const singleTemplate=document.createElement('template');singleTemplate.innerHTML=await singleResponse.text();
+ node('25435:693').append(singleTemplate.content.firstElementChild);
+ document.querySelector('[data-open-watchlist]').onclick=()=>{
+  detailDialog.querySelector('h2').textContent='自选';
+  const list=node('25435:732').cloneNode(true);
+  const etfRow=node('25435:751').cloneNode(true);
+  const inRow=id=>etfRow.querySelector(`[data-node-id="25435:${id}"]`);
+  inRow('754').textContent='华夏国证半导体芯片ETF';
+  inRow('756').textContent='基金 · 159995';
+  inRow('758').textContent=activeSession==='live'?'1.2143':'1.2225';
+  inRow('759').textContent=activeSession==='live'?'+1.24%':'+1.92%';
+  inRow('759').classList.replace('f81','f88');
+  list.querySelector('[data-node-id="25435:760"]').before(etfRow);
+  detailDialog.querySelector('.deck-dialog-content').replaceChildren(list);
+  detailDialog.showModal();detailDialog.scrollTop=0;
+ };
  document.documentElement.dataset.decksReady='true';
  selectLayout(readingLayout);selectSession(activeSession);
 }
@@ -107,6 +126,16 @@ function selectSession(session){
  ['720','721','722','723','724'].forEach((id,i)=>node('25435:'+id).textContent=axis[i]);
  ['793','794','795','796','797'].forEach((id,i)=>node('25435:'+id).textContent=session==='pre'?['前4日','前3日','前2日','前1日','昨日'][i]:axis[i]);
  document.querySelectorAll('button[data-session]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.session===session)));
+ const single=document.querySelector('.single-movements');
+ if(single){
+  single.querySelector('.single-summary').textContent=({pre:'隔夜科技回落，关注自选开盘承接',live:'科技买盘午后回流，芯片ETF重新走高',post:'科技领涨、午后回升，上证收涨 0.50%'})[session];
+  single.querySelector('.single-feature-change').textContent=({pre:'昨日 +1.92%',live:'+1.24%',post:'+1.92%'})[session];
+  single.querySelector('[data-single-etf-change]').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
+  single.querySelector('[data-single-sector-change]').textContent=({pre:'−1.36%',live:'−0.70%',post:'−1.07%'})[session];
+  single.querySelector('[data-single-index-change]').textContent=({pre:'+0.12%',live:'+0.31%',post:'+0.50%'})[session];
+  if(readingLayout==='single')decks.find(deck=>deck.group.dataset.deck==='movements')?.render();
+  updatePageHeight();
+ }
  document.querySelectorAll('.subscription-extra time').forEach(el=>el.textContent=({pre:'盘前更新',live:'盘中更新',post:'盘后更新'})[session]);
 }
 document.querySelectorAll('button[data-session]').forEach(button=>button.onclick=()=>selectSession(button.dataset.session));

@@ -72,3 +72,34 @@ html[data-layout=flat] [data-node-id="25435:1167"]{padding-top:74px}
 .watchlist-alert-up{color:#df6269;background:#fff0f1}
 .watchlist-alert-down{color:#4a9d50;background:#edf7ed}
 [data-node-id="25435:747"],[data-node-id="25435:756"]{white-space:nowrap}
+/* Figma 25442:16042: all watchlist movements share one summary card. */
+.single-movements{display:none;width:694px;padding:38px 28px 34px;background:#fff;border:1px solid #ffffffc9;border-radius:24px;color:#182a45}
+html[data-layout=single] [data-deck=movements]>[data-name=Container],html[data-layout=single] [data-node-id="25435:731"]{display:none}
+html[data-layout=single] .single-movements{display:block}
+.single-movements>header{display:flex;align-items:center;justify-content:space-between;min-height:40px}
+.single-movements h3{font-size:28px;line-height:40px;font-weight:500;color:#202020}
+.single-movements time{font-size:21px;line-height:32px;color:#64738a}
+.single-summary{font-size:38px;line-height:56px;font-weight:500;color:#243249;margin:26px 0 0;min-height:112px}
+.single-feature{position:relative;display:flex;align-items:center;min-height:192px;padding:24px 0 20px;border-bottom:1px solid #e9edf3}
+.single-feature-copy{position:relative;z-index:1;max-width:390px}
+.single-product{display:flex;align-items:center;gap:12px;white-space:nowrap}
+.single-product strong{font-size:30px;line-height:41px;font-weight:600;letter-spacing:-.58px}
+.single-feature-quote{display:flex;align-items:center;gap:12px;margin-top:12px;min-height:50px}
+.single-feature-change{font-size:26px;line-height:50px}
+.single-tag{display:inline-block;font-size:22px;line-height:32px;padding:0 8px;border-radius:4px;white-space:nowrap;font-weight:400}
+.single-up{color:#ed5454}.single-down{color:#43a047}
+.single-tag.single-up{background:#fff0f0}.single-tag.single-down{background:#edf7ed}
+.single-mini-chart{position:absolute;right:0;top:19px;width:248px;height:156px;overflow:hidden;border-radius:0 0 24px 0}
+.single-chart-mask{position:absolute;left:-.55px;top:-1.67px;width:282.706px;height:335.844px;mask-image:url(assets/single-chart-mask.svg);mask-size:293.198px 342.019px;mask-position:6.481px 1.497px;mask-repeat:no-repeat}
+.single-chart-line{position:absolute;left:-.74px;top:-.74px}
+.single-chart-guide{position:absolute;left:133.28px;top:-171.2px;transform:rotate(90deg);transform-origin:0 0}
+.single-chart-dot{position:absolute;left:122.17px;top:38.67px}
+.single-watchlist{list-style:none;padding:16px 4px 20px;margin:0}
+.single-watchlist li{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:66px;font-size:26px;line-height:41px;letter-spacing:-.58px}
+.single-watchlist li>span{min-width:0;max-width:365px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.single-watchlist li>div{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex:none}
+.single-watchlist strong{font-family:"LCT NUMB","PingFang SC",sans-serif;font-size:28px;line-height:32px;font-weight:500;white-space:nowrap}
+.single-watchlist-link{display:flex;align-items:center;justify-content:space-between;width:100%;padding:20px 24px;min-height:80px;border-radius:16px;background:#f1f5fb;color:#202020}
+.single-watchlist-link>strong{font-size:28px;line-height:40px;font-weight:500}
+.single-watchlist-link>span{font-size:24px;line-height:36px;color:#64738a}
+.single-watchlist-link>span>span{margin-left:12px;font-size:32px;color:#8291a7}
