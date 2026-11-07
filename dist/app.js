@@ -131,7 +131,7 @@ function selectSession(session){
  const single=document.querySelector('.single-movements');
  if(single){
   single.querySelector('.single-summary').textContent=({pre:'隔夜科技回落，关注自选开盘承接',live:'科技买盘午后回流，芯片ETF重新走高',post:'科技领涨、午后回升，上证收涨 0.50%'})[session];
-  single.querySelector('.single-feature-change').textContent=({pre:'昨日 +1.92%',live:'+1.24%',post:'+1.92%'})[session];
+  single.querySelector('.single-feature-change').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
   single.querySelector('[data-single-etf-change]').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
   single.querySelector('[data-single-sector-change]').textContent=({pre:'−1.36%',live:'−0.70%',post:'−1.07%'})[session];
   single.querySelector('[data-single-index-change]').textContent=({pre:'+0.12%',live:'+0.31%',post:'+0.50%'})[session];
