@@ -5,10 +5,12 @@ const decks=[];
 let readingLayout='folded';
 let activeSession='pre';
 function updatePageHeight(){
- const extra=decks.reduce((sum,deck)=>sum+(deck.visibleExpanded?deck.growth:0),0);
- node('25435:498').style.top=(4659.76+extra)+'px';
- document.querySelector('#canvas').style.height=(6738+extra)+'px';
- node('25435:425').style.height=(6738+extra)+'px';
+ const related=node('25435:679'),community=node('25435:498');
+ const top=related.offsetTop+related.offsetHeight;
+ community.style.top=top+'px';
+ const height=top+community.offsetHeight+160;
+ document.querySelector('#canvas').style.height=height+'px';
+ node('25435:425').style.height=height+'px';
 }
 function wireDeck({key,groupId,triggerId,extra,shadowIds,baseHeight,extraHeight}){
  const group=node(groupId),trigger=node(triggerId);
@@ -60,6 +62,7 @@ async function initDecks(){
  selectLayout(readingLayout);selectSession(activeSession);
 }
 initDecks().catch(error=>{console.error(error);});
+addEventListener('resize',updatePageHeight);
 
 const detailDialog=document.createElement('dialog');
 detailDialog.className='deck-dialog';
@@ -99,7 +102,7 @@ const sessionNodes=['643','649','652','653','654','658','661','664','686','687',
 function selectSession(session){
  activeSession=session;document.documentElement.dataset.session=session;
  sessionNodes.forEach((id,index)=>{const el=node('25435:'+id);if(el)el.textContent=sessionCopy[session][index];});
- const axis=session==='pre'?['前4日','前3日','前2日','前1日','昨日']:['09:30','10:30','11:30','14:00',session==='live'?'13:42':'15:00'];
+ const axis=session==='pre'?['前4日','前3日','前2日','前1日','昨日']:['09:30','10:30','11:30',session==='live'?'13:00':'14:00',session==='live'?'13:42':'15:00'];
  ['720','721','722','723','724'].forEach((id,i)=>node('25435:'+id).textContent=axis[i]);
  ['793','794','795','796','797'].forEach((id,i)=>node('25435:'+id).textContent=session==='pre'?['前4日','前3日','前2日','前1日','昨日'][i]:axis[i]);
  document.querySelectorAll('button[data-session]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.session===session)));

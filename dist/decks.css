@@ -56,3 +56,9 @@ html[data-layout=flat] .subscription-extra{margin-top:24px;background:#fff;borde
 @media(max-width:374px){.deck-dialog-content{zoom:calc((100vw - 28px)/694px)}}
 
 .deck-dialog #movements-extra,.deck-dialog .e2{background:#fff;border-radius:24px;overflow:hidden}
+
+body{padding-bottom:60px}
+.page-controls{display:flex;align-items:center;gap:8px;padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+.version-tabs{flex:1.05;min-width:0}
+.session-row{flex:1;min-width:0;margin:0;border-left:1px solid #dfe5ef;padding-left:8px}
+.version-tabs button,.session-tabs button{font-size:11px;line-height:20px;padding:4px 2px}
