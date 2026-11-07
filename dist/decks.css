@@ -65,9 +65,9 @@ body{padding-bottom:60px}
 .session-row{flex:1;min-width:0;margin:0;border-left:1px solid #dfe5ef;padding-left:8px}
 .version-tabs button,.session-tabs button{font-size:11px;line-height:20px;padding:4px 2px}
 
-/* Give the second movement a generous inset below the divider. */
-html[data-layout=flat] #movements-extra{height:438px;grid-template-rows:438px}
-html[data-layout=flat] [data-node-id="25435:1167"]{padding-top:74px}
+/* Keep a comfortable inset below the movement divider. */
+html[data-layout=flat] #movements-extra{height:412px;grid-template-rows:412px}
+html[data-layout=flat] [data-node-id="25435:1167"]{padding-top:48px}
 .watchlist-alert{display:inline-block;margin-left:10px;padding:2px 9px;border-radius:7px;font-size:19px;line-height:27px;vertical-align:middle;white-space:nowrap}
 .watchlist-alert-up{color:#df6269;background:#fff0f1}
 .watchlist-alert-down{color:#4a9d50;background:#edf7ed}

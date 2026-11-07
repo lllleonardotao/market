@@ -6,6 +6,8 @@ let readingLayout='folded';
 let activeSession='pre';
 function updatePageHeight(){
  const related=node('25435:679'),community=node('25435:498');
+ const market=node('25435:640');
+ related.style.top=(activeSession==='pre'?1756:market.offsetTop+market.offsetHeight+48)+'px';
  const top=related.offsetTop+related.offsetHeight;
  community.style.top=top+'px';
  const height=top+community.offsetHeight+160;
@@ -137,6 +139,7 @@ function selectSession(session){
   updatePageHeight();
  }
  document.querySelectorAll('.subscription-extra time').forEach(el=>el.textContent=({pre:'盘前更新',live:'盘中更新',post:'盘后更新'})[session]);
+ updatePageHeight();
 }
 document.querySelectorAll('button[data-session]').forEach(button=>button.onclick=()=>selectSession(button.dataset.session));
 selectSession('pre');
