@@ -164,8 +164,13 @@ html[data-layout=single] .discussion-prompt{display:none}
 [data-node-id="25435:666"]{width:calc(100% + 56px);margin-left:-28px;margin-right:-28px}
 [data-node-id="25435:667"]{padding:24px 28px 30px;border-radius:0}
 
+/* Match the A-share footer in the sentiment card. */
+[data-node-id="25435:503"]{padding-bottom:0;overflow:hidden}
+.disagreement-footer{width:calc(100% + 56px);margin:24px -28px 0;background:#f7f7f6}
+[data-node-id="25435:569"]{padding:24px 28px 30px}
+
 /* Figma 214:14055: opposing gradient capsules with inline vote counts. */
-[data-node-id="25435:669"].guess-intro{width:100%;height:auto;font-size:28px;line-height:44px;font-weight:400;color:#182a45;white-space:nowrap}
+.guess-intro[data-node-id]{width:100%;height:auto;font-size:28px;line-height:44px;font-weight:400;color:#182a45;white-space:nowrap}
 .guess-reward{color:#051d53}
 .guess-options{position:relative;display:flex;width:100%;height:104px;margin-top:16px;isolation:isolate}
 .guess-option{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:52.12%;height:104px;padding:0 22px;background:transparent;font-size:32px;line-height:44px;font-weight:500;white-space:nowrap}
