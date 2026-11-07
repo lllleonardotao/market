@@ -16,7 +16,7 @@
 .e15{top:19.99px}
 [hidden]{display:none!important}
 [data-deck]{overflow-anchor:none}
-[data-deck-toggle]{cursor:pointer;user-select:none}
+[data-deck-toggle]{cursor:pointer;user-select:none;background:#fff;border-top:1px solid #edf0f5}
 [data-deck-toggle]:focus-visible{outline:3px solid #2470eb;outline-offset:-5px}
 [data-deck-toggle] .deck-chevron{transition:rotate .2s ease}
 [data-deck-toggle][aria-expanded=true] .deck-chevron{rotate:180deg}
@@ -67,21 +67,21 @@ body{padding-bottom:60px}
 .session-row{flex:1;min-width:0;margin:0;border-left:1px solid #dfe5ef;padding-left:8px}
 .version-tabs button,.session-tabs button{font-size:11px;line-height:20px;padding:4px 2px}
 
-/* Keep a comfortable inset below the movement divider. */
-html[data-layout=flat] #movements-extra{height:412px;grid-template-rows:412px}
-html[data-layout=flat] [data-node-id="25435:1167"]{padding-top:48px}
+/* The expanded story uses the same inset beneath its divider. */
+html[data-layout=flat] #movements-extra{height:auto;grid-template-rows:auto}
+html[data-layout=flat] [data-node-id="25435:1167"]{padding:28px 27px 27px}
 .watchlist-alert{display:inline-block;margin-left:10px;padding:2px 9px;border-radius:7px;font-size:19px;line-height:27px;vertical-align:middle;white-space:nowrap}
 .watchlist-alert-up{color:#df6269;background:#fff0f1}
 .watchlist-alert-down{color:#4a9d50;background:#edf7ed}
 [data-node-id="25435:747"],[data-node-id="25435:756"]{white-space:nowrap}
 /* Figma 25442:16042: all watchlist movements share one summary card. */
-.single-movements{display:none;width:694px;padding:38px 28px 34px;background:#fff;border:1px solid #ffffffc9;border-radius:24px;color:#182a45}
+.single-movements{display:none;width:694px;padding:27px;background:#fff;border:1px solid #ffffffc9;border-radius:24px;color:#182a45}
 html[data-layout=single] [data-deck=movements]>[data-name=Container],html[data-layout=single] [data-node-id="25435:731"]{display:none}
 html[data-layout=single] .single-movements{display:block}
 .single-movements>header{display:flex;align-items:center;justify-content:space-between;min-height:40px}
 .single-movements h3{font-size:28px;line-height:40px;font-weight:500;color:#202020}
 .single-movements time{font-size:21px;line-height:32px;color:#64738a}
-.single-summary{font-size:38px;line-height:56px;font-weight:500;color:#243249;margin:26px 0 0;min-height:112px}
+.single-summary{font-size:38px;line-height:56px;font-weight:500;color:#243249;margin:24px 0 0}
 .single-feature{position:relative;display:flex;align-items:center;min-height:192px;padding:24px 0 20px;border-bottom:1px solid #e9edf3}
 .single-feature-copy{position:relative;z-index:1;max-width:390px}
 .single-product{display:flex;align-items:center;gap:12px;white-space:nowrap}
@@ -97,7 +97,7 @@ html[data-layout=single] .single-movements{display:block}
 .single-chart-line{position:absolute;left:-.74px;top:-.74px}
 .single-chart-guide{position:absolute;left:133.28px;top:-171.2px;transform:rotate(90deg);transform-origin:0 0}
 .single-chart-dot{position:absolute;left:122.17px;top:38.67px}
-.single-watchlist{list-style:none;padding:16px 4px 20px;margin:0}
+.single-watchlist{list-style:none;padding:16px 0 0;margin:0}
 .single-watchlist li{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:66px;font-size:26px;line-height:41px;letter-spacing:-.58px}
 .single-watchlist li>a>span{min-width:0;max-width:365px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .single-watchlist li>a>div{display:flex;align-items:center;justify-content:flex-end;gap:12px;flex:none}
@@ -118,7 +118,7 @@ html[data-layout=single] [data-node-id="25435:772"]{display:none}
 .single-stock .single-chart-mask{left:-16.55px}
 .single-stock .single-chart-guide{left:117.28px}
 .single-stock .single-chart-dot{left:106.17px}
-.single-stock-list{list-style:none;padding:16px 4px 20px;margin:0;color:#182a45}
+.single-stock-list{list-style:none;padding:16px 0 0;margin:0;color:#182a45}
 .single-stock-list li{display:grid;grid-template-columns:minmax(0,1fr) 100px 100px;align-items:center;gap:24px;min-height:66px;font-size:26px;line-height:41px;letter-spacing:-.5849px}
 .single-stock-name{display:flex;align-items:baseline;gap:14px;white-space:nowrap}
 .single-stock-name>span{font-size:22px;line-height:31px;letter-spacing:.2193px;color:#76869a;opacity:.5}
@@ -151,7 +151,8 @@ html[data-layout=single] [data-node-id="25435:807"]{cursor:pointer}
 .single-stock-list .single-product-link{display:grid;grid-template-columns:minmax(0,1fr) 100px 100px 14px;gap:16px;min-height:66px}
 .discussion-prompt{position:relative;padding:20px 28px;min-height:80px;flex-shrink:0;border-top:0}
 .discussion-prompt::before{content:"";position:absolute;top:0;left:28px;right:28px;height:1px;background:#e9edf3}
-.discussion-prompt[data-discussion-kind=stocks]{margin-top:20px}
+.discussion-prompt[data-discussion-kind=stocks]{margin-top:20px;padding:20px 0 0;min-height:60px}
+.discussion-prompt[data-discussion-kind=stocks]::before{left:0;right:0}
 html[data-layout=single] .discussion-prompt{display:none}
 [data-node-id="25435:683"],[data-node-id="25435:684"]{height:auto}
 [data-node-id="25435:684"]{display:block;width:100%;font-size:26px;line-height:44px}
@@ -166,7 +167,7 @@ html[data-layout=single] .discussion-prompt{display:none}
 
 /* Match the A-share footer in the sentiment card. */
 [data-node-id="25435:503"]{padding-bottom:0;overflow:hidden}
-.disagreement-footer{width:calc(100% + 56px);margin:24px -28px 0;background:#f7f7f6}
+.disagreement-footer{width:calc(100% + 56px);margin:24px -28px 0;background:linear-gradient(180deg,#f7f7f6 0%,#fff 100%)}
 [data-node-id="25435:569"]{padding:24px 28px 30px}
 
 /* Figma 214:14055: opposing gradient capsules with inline vote counts. */
@@ -194,13 +195,49 @@ html[data-layout=single] .discussion-prompt{display:none}
 [data-node-id="25435:748"],[data-node-id="25435:757"],[data-node-id="25435:766"]{position:absolute;right:0;top:50%;transform:translateY(-50%)}
 [data-node-id="25435:748"]>p,[data-node-id="25435:757"]>p,[data-node-id="25435:766"]>p{width:auto;text-align:right}
 
-/* Avoid stacking list padding and card padding beneath the final row. */
-html[data-layout=single] .single-movements{padding-bottom:24px}
-html[data-layout=single] .single-watchlist,html[data-layout=single] .single-stock-list{padding-bottom:0}
+/* Keep a 28px visible inset, accounting for each card's 1px border. */
+[data-node-id="25435:690"]{padding-left:28px;padding-right:28px}
+[data-node-id="25435:732"],[data-node-id="25435:772"]{padding:27px}
+[data-node-id="25435:697"],[data-node-id="25435:804"]{padding:27px 27px 0}
+[data-node-id="25435:700"],[data-node-id="25435:807"]{padding:24px 27px 27px}
+[data-node-id="25435:736"],[data-node-id="25435:776"]{padding-top:24px}
+.subscription-extra{padding:28px}
+html[data-layout=flat] [data-node-id="25435:804"]{padding:28px 28px 0}
+html[data-layout=flat] [data-node-id="25435:807"]{padding-left:28px;padding-right:28px;padding-bottom:28px}
+
+/* Separate the comment group from the word cloud with one top rule. */
+[data-node-id="25435:614"]{background:transparent;border-radius:0;border-top:1px solid #e9edf3;padding-left:0;padding-right:0}
+[data-node-id="25435:620"]{border-top:0}
 
 /* Let watchlist names and metadata size their own rows instead of exported boxes. */
 [data-node-id="25435:743"],[data-node-id="25435:752"],[data-node-id="25435:761"]{flex:1 1 0;min-width:0;max-width:calc(100% - 132px)}
 [data-node-id="25435:744"],[data-node-id="25435:753"],[data-node-id="25435:762"]{width:100%;height:auto}
-[data-node-id="25435:745"],[data-node-id="25435:754"],[data-node-id="25435:763"]{width:100%;height:auto;white-space:normal;text-wrap:wrap;overflow-wrap:anywhere}
+[data-node-id="25435:745"],[data-node-id="25435:754"],[data-node-id="25435:763"]{width:100%;height:auto;font-size:26px;white-space:normal;text-wrap:wrap;overflow-wrap:anywhere}
 [data-node-id="25435:746"],[data-node-id="25435:755"],[data-node-id="25435:764"]{width:100%;height:auto;min-height:38px}
 [data-node-id="25435:747"],[data-node-id="25435:756"],[data-node-id="25435:765"]{width:100%;height:auto;white-space:normal;overflow-wrap:anywhere}
+
+/* Session labels grow with their text so quotes never overlap the timestamp. */
+[data-node-id="25435:651"]{flex-wrap:wrap;height:auto}
+[data-node-id="25435:651"]>p{width:auto;white-space:nowrap}
+
+/* Closing index quote shares the featured movement card's layout and chart. */
+.market-feature-copy,.market-feature-values{display:contents}
+.market-feature-copy p{width:auto;white-space:nowrap}
+.market-close-chart{display:none}
+html[data-session=post] [data-node-id="25435:651"]{min-height:192px;padding:24px 0 20px;align-items:center;border-bottom:1px solid #e9edf3}
+html[data-session=post] .market-feature-copy{display:block;position:relative;z-index:1;max-width:390px}
+html[data-session=post] [data-node-id="25435:652"]{height:auto;font-size:30px;line-height:41px;font-weight:600;color:#182a45;letter-spacing:-.58px}
+html[data-session=post] .market-feature-values{display:flex;align-items:center;gap:12px;margin-top:12px;min-height:50px}
+html[data-session=post] .market-feature-values p{height:auto;font-size:30px;line-height:42px;font-weight:500;color:#ed5454}
+html[data-session=post] .market-close-chart{display:block}
+
+/* Funds are completed T-1 snapshots; only live stocks show a current point. */
+.single-movements:not(.single-stock) .single-chart-guide,
+.single-movements:not(.single-stock) .single-chart-dot,
+html:not([data-session=live]) .single-stock .single-chart-guide,
+html:not([data-session=live]) .single-stock .single-chart-dot,
+[data-node-id="25435:716"]{display:none}
+html[data-session=live] .single-stock .single-chart-mask{clip-path:inset(0 calc(100% - 132.72px) 0 0)}
+.single-movements:not(.single-stock) .single-feature-copy{max-width:420px}
+
+.single-movements:not(.single-stock) .single-feature-quote{flex-wrap:wrap;gap:4px 12px}

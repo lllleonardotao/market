@@ -7,7 +7,7 @@ try{
  await page.waitForSelector('html[data-decks-ready=true]');
  await page.evaluate(()=>selectLayout('single'));
  const spacing=await page.evaluate(()=>[...document.querySelectorAll('.single-movements')].map(card=>({bottom:card.getBoundingClientRect().bottom-card.querySelector('li:last-child').getBoundingClientRect().bottom})));
- spacing.forEach(({bottom})=>assert.ok(Math.abs(bottom-25)<1,`Expected 24px bottom padding plus border, got ${bottom}`));
+ spacing.forEach(({bottom})=>assert.ok(Math.abs(bottom-28)<1,`Expected the same 28px bottom inset as the top and sides, got ${bottom}`));
  for(const session of ['pre','live','post']){
   await page.evaluate(session=>{selectLayout('single');selectSession(session)},session);
   await page.evaluate(()=>document.fonts.ready);

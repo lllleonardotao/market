@@ -147,8 +147,13 @@ const sessionNodes=['643','649','652','653','654','658','661','664','686','687',
 function selectSession(session){
  activeSession=session;document.documentElement.dataset.session=session;
  sessionNodes.forEach((id,index)=>{const el=node('25435:'+id);if(el)el.textContent=sessionCopy[session][index];});
- const axis=session==='pre'?['前4日','前3日','前2日','前1日','昨日']:['09:30','10:30','11:30/13:00','14:00','15:00'];
- const stockAxis=session==='pre'?axis:['09:30','10:30','12:00/13:00','14:30','16:00'];
+ const fundDate='2027-06-14'; // T-1 for the report dated 2027-06-15.
+ node('25435:703').textContent='昨日芯片基金收涨1.92%，延续4日连涨';
+ node('25435:719').textContent='T-1 上涨1.92%';
+ node('25435:725').textContent=fundDate+' · 完整走势';
+ node('25435:747').textContent='基金 · 000925 · '+fundDate.slice(5);
+ const axis=['09:30','10:30','11:30/13:00','14:00','15:00'];
+ const stockAxis=session==='pre'?['前4日','前3日','前2日','前1日','昨日']:['09:30','10:30','12:00/13:00','14:30','16:00'];
  ['720','721','722','723','724'].forEach((id,i)=>node('25435:'+id).textContent=axis[i]);
  ['793','794','795','796','797'].forEach((id,i)=>node('25435:'+id).textContent=stockAxis[i]);
  // Demo quotes are sampled at 13:42. Keep the full trading day visible,
@@ -157,23 +162,27 @@ function selectSession(session){
   ['715','714','716',162,240], // A shares: 09:30–11:30, 13:00–15:00.
   ['791','790','792',192,330]  // Tencent: 09:30–12:00, 13:00–16:00.
  ]){
-  const progress=session==='live'?elapsed/total:1;
+  const intraday=session==='live'&&lineId==='791';
+  const progress=intraday?elapsed/total:1;
   for(const id of [lineId,fillId]){
    node('25435:'+id).style.transformOrigin='left center';
    node('25435:'+id).style.transform=`scaleX(${progress})`;
   }
   const dot=node('25435:'+dotId);
-  dot.style.left=session==='live'?`${0.5+97.35*progress}%`:'';
-  dot.style.right=session==='live'?'auto':'';
-  dot.style.width=session==='live'?'1.65%':'';
+  dot.style.left=intraday?`${0.5+97.35*progress}%`:'';
+  dot.style.right=intraday?'auto':'';
+  dot.style.width=intraday?'1.65%':'';
  }
  document.querySelectorAll('button[data-session]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.session===session)));
  const single=document.querySelector('.single-movements');
  if(single){
-  single.querySelector('.single-summary').textContent=({pre:'隔夜科技回落，关注自选开盘承接',live:'科技买盘午后回流，芯片ETF重新走高',post:'科技领涨、午后回升，上证收涨 0.50%'})[session];
-  (document.querySelector('[data-discussion-kind=movements] [data-discussion-topic]')||single.querySelector('[data-discussion-topic]')).textContent=({pre:'隔夜科技回落，芯片开盘能稳住吗？',live:'芯片ETF午后走高，这波回升能持续吗？',post:'科技领涨收盘，芯片行情还能延续吗？'})[session];
-  single.querySelector('.single-feature-change').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
-  single.querySelector('[data-single-etf-change]').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
+  single.querySelector('.single-summary').textContent='昨日芯片基金收涨1.92%，延续4日连涨';
+  (document.querySelector('[data-discussion-kind=movements] [data-discussion-topic]')||single.querySelector('[data-discussion-topic]')).textContent='芯片基金已连涨4天，后续还能延续吗？';
+  single.querySelector('.single-feature-change').textContent='+1.92%';
+  single.querySelector('.single-mini-chart').setAttribute('aria-label',fundDate+' 基金完整走势');
+  single.querySelector('[data-single-etf-change]').textContent='+1.92%';
+  const fundLink=single.querySelector('[data-detail-id=watchlist-1]');
+  fundLink.setAttribute('aria-label',fundLink.textContent.trim()+'，净值日期 '+fundDate+'（T-1）');
   single.querySelector('[data-single-sector-change]').textContent=({pre:'−1.36%',live:'−0.70%',post:'−1.07%'})[session];
   single.querySelector('[data-single-index-change]').textContent=({pre:'+0.12%',live:'+0.31%',post:'+0.50%'})[session];
   if(readingLayout==='single')decks.find(deck=>deck.group.dataset.deck==='movements')?.render();
@@ -190,7 +199,8 @@ function selectSession(session){
   const change=link.querySelector('strong').textContent;
   const price=stock?link.querySelector('.single-stock-row-price').textContent:'';
   const tag=link.querySelector('.single-tag')?.textContent||'';
-  const params=new URLSearchParams({id:link.dataset.detailId,name,change,price,tag,kind:link.dataset.detailKind,session});
+  const fund=!stock&&!name.includes('指数');
+  const params=new URLSearchParams({id:link.dataset.detailId,name,change,price,tag,kind:link.dataset.detailKind,session,...(fund?{date:fundDate}:{})});
   link.href='detail.html?'+params;
  });
  document.querySelectorAll('.subscription-extra time').forEach(el=>el.textContent=({pre:'盘前更新',live:'盘中更新',post:'盘后更新'})[session]);
