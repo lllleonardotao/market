@@ -2,8 +2,9 @@ function fit(){document.documentElement.style.setProperty('--scale',new URLSearc
 
 const node=id=>document.querySelector(`[data-node-id="${id}"]`);
 const decks=[];
-let readingLayout='folded';
-let activeSession='pre';
+const initialParams=new URLSearchParams(location.search);
+let readingLayout=['folded','flat','single'].includes(initialParams.get('layout'))?initialParams.get('layout'):'folded';
+let activeSession=['pre','live','post'].includes(initialParams.get('session'))?initialParams.get('session'):'pre';
 function updatePageHeight(){
  const related=node('25435:679'),community=node('25435:498');
  const market=node('25435:640');
@@ -29,11 +30,18 @@ function wireDeck({key,groupId,triggerId,extra,shadowIds,baseHeight,extraHeight}
   deck.visibleExpanded=expanded;extra.hidden=!expanded;
   group.style.height=(baseHeight+(expanded?deck.growth:0))+'px';
   shadowIds.forEach(id=>node(id).hidden=expanded||readingLayout==='single');
-  trigger.hidden=readingLayout==='flat';
+  trigger.hidden=readingLayout==='flat'||readingLayout==='single';
   trigger.setAttribute('aria-expanded',String(expanded));
   trigger.querySelector('[data-node-id="25435:728"], [data-node-id="25435:864"]').textContent=readingLayout==='single'?(key==='movements'?'查看全部2条异动':'查看全部3类订阅'):(key==='movements'?'共2条异动':'共3类订阅');
-  if(readingLayout==='flat'&&key==='movements')group.style.height=(trigger.parentElement.offsetHeight+28)+'px';
+  if(readingLayout!=='single'&&key==='movements')group.style.height=(trigger.parentElement.offsetHeight+28)+'px';
   if(readingLayout==='single'&&key==='movements'){const single=group.querySelector('.single-movements');if(single)group.style.height=single.offsetHeight+'px';}
+  if(key==='subscriptions'){
+   const signal=node('25435:807');
+   if(readingLayout==='single'){
+    signal.setAttribute('role','button');signal.tabIndex=0;signal.setAttribute('aria-label','查看机构信号：创业板指');
+    group.style.height=(trigger.parentElement.offsetHeight+28)+'px';
+   }else{signal.removeAttribute('role');signal.removeAttribute('tabindex');signal.removeAttribute('aria-label');}
+  }
   trigger.setAttribute('aria-label',readingLayout==='single'?'查看全部'+label:(expanded?'收起':'展开')+label+'卡组');
  };
  function toggle(){
@@ -62,6 +70,14 @@ async function initDecks(){
  parent.insertBefore(subscriptions,node('25435:862'));
  const subscriptionHeight=subscriptions.offsetHeight;
  wireDeck({key:'subscriptions',groupId:'25435:800',triggerId:'25435:862',extra:subscriptions,shadowIds:['25435:801','25435:802'],baseHeight:785,extraHeight:subscriptionHeight});
+ const links=document.createElement('div');links.className='single-subscription-links';
+ links.innerHTML='<button type="button" data-subscription-detail="opportunity"><strong>热门机会</strong><span>半导体需求与订单观察</span><i aria-hidden="true">›</i></button><button type="button" data-subscription-detail="event"><strong>投资大事件</strong><span>企业业绩与公告窗口</span><i aria-hidden="true">›</i></button>';
+ node('25435:862').before(links);
+ links.querySelectorAll('button').forEach(button=>button.onclick=()=>showSubscriptionDetail(button.dataset.subscriptionDetail));
+ const signal=node('25435:807');
+ signal.addEventListener('click',()=>{if(readingLayout==='single')showSubscriptionDetail('signal');});
+ signal.addEventListener('keydown',event=>{if(readingLayout==='single'&&(event.key==='Enter'||event.key===' ')){event.preventDefault();showSubscriptionDetail('signal');}});
+
  const singleResponse=await fetch('single-movements.html');
  if(!singleResponse.ok)throw new Error('Unable to load single movement card');
  const singleTemplate=document.createElement('template');singleTemplate.innerHTML=await singleResponse.text();
@@ -71,6 +87,13 @@ async function initDecks(){
  if(!stockResponse.ok)throw new Error('Unable to load single stock card');
  const stockTemplate=document.createElement('template');stockTemplate.innerHTML=await stockResponse.text();
  node('25435:771').append(stockTemplate.content.firstElementChild);
+ const movementPrompt=document.querySelector('.single-movements:not(.single-stock) .single-watchlist-link');
+ movementPrompt.dataset.discussionKind='movements';movementPrompt.classList.add('discussion-prompt');
+ node('25435:726').before(movementPrompt);
+ const stockPrompt=document.querySelector('.single-stock .single-watchlist-link');
+ stockPrompt.dataset.discussionKind='stocks';stockPrompt.classList.add('discussion-prompt');
+ node('25435:772').append(stockPrompt);
+
 
  document.documentElement.dataset.decksReady='true';
  selectLayout(readingLayout);selectSession(activeSession);
@@ -84,6 +107,14 @@ detailDialog.innerHTML='<header><h2></h2><button aria-label="关闭全部卡片"
 document.body.append(detailDialog);
 detailDialog.querySelector('button').onclick=()=>detailDialog.close();
 detailDialog.addEventListener('click',event=>{if(event.target===detailDialog){const r=detailDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)detailDialog.close();}});
+function showSubscriptionDetail(kind){
+ const source=kind==='signal'?node('25435:807'):document.querySelectorAll('.subscription-tail>.subscription-extra')[kind==='opportunity'?0:1];
+ const detail=source.cloneNode(true);
+ detail.removeAttribute('role');detail.removeAttribute('tabindex');detail.removeAttribute('aria-label');
+ detailDialog.querySelector('h2').textContent=({signal:'机构信号：创业板指',opportunity:'热门机会',event:'投资大事件'})[kind];
+ detailDialog.querySelector('.deck-dialog-content').replaceChildren(detail);
+ detailDialog.showModal();detailDialog.scrollTop=0;
+}
 function showDeck(deck){
  detailDialog.querySelector('h2').textContent=deck.label;
  const front=deck.group.querySelector(':scope > [data-name="Container"]').cloneNode(true);
@@ -123,7 +154,7 @@ function selectSession(session){
  const single=document.querySelector('.single-movements');
  if(single){
   single.querySelector('.single-summary').textContent=({pre:'隔夜科技回落，关注自选开盘承接',live:'科技买盘午后回流，芯片ETF重新走高',post:'科技领涨、午后回升，上证收涨 0.50%'})[session];
-  single.querySelector('[data-discussion-topic]').textContent=({pre:'隔夜科技回落，芯片开盘能稳住吗？',live:'芯片ETF午后走高，这波回升能持续吗？',post:'科技领涨收盘，芯片行情还能延续吗？'})[session];
+  (document.querySelector('[data-discussion-kind=movements] [data-discussion-topic]')||single.querySelector('[data-discussion-topic]')).textContent=({pre:'隔夜科技回落，芯片开盘能稳住吗？',live:'芯片ETF午后走高，这波回升能持续吗？',post:'科技领涨收盘，芯片行情还能延续吗？'})[session];
   single.querySelector('.single-feature-change').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
   single.querySelector('[data-single-etf-change]').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
   single.querySelector('[data-single-sector-change]').textContent=({pre:'−1.36%',live:'−0.70%',post:'−1.07%'})[session];
@@ -133,11 +164,20 @@ function selectSession(session){
  }
  const stock=document.querySelector('.single-stock');
  if(stock){
-  stock.querySelector('[data-discussion-topic]').textContent=({pre:'隔夜科技回落，关注的个股会受多大影响？',live:'科技板块午后回升，哪些个股更有后劲？',post:'科技领涨收盘，关注的个股谁更有后劲？'})[session];
+  (document.querySelector('[data-discussion-kind=stocks] [data-discussion-topic]')||stock.querySelector('[data-discussion-topic]')).textContent=({pre:'隔夜科技回落，关注的个股会受多大影响？',live:'科技板块午后回升，哪些个股更有后劲？',post:'科技领涨收盘，关注的个股谁更有后劲？'})[session];
   stock.querySelector('.single-summary').textContent=({pre:'隔夜科技回落，关注个股开盘承接',live:'科技领涨、午后回升，关注个股表现',post:'科技领涨、午后回升，上证收涨 0.50%'})[session];
  }
+ document.querySelectorAll('.single-product-link').forEach(link=>{
+  const stock=link.dataset.detailKind==='stock';
+  const name=stock?link.querySelector('.single-stock-name').firstChild.textContent.trim():link.querySelector(':scope > span').textContent;
+  const change=link.querySelector('strong').textContent;
+  const price=stock?link.querySelector('.single-stock-row-price').textContent:'';
+  const tag=link.querySelector('.single-tag')?.textContent||'';
+  const params=new URLSearchParams({id:link.dataset.detailId,name,change,price,tag,kind:link.dataset.detailKind,session});
+  link.href='detail.html?'+params;
+ });
  document.querySelectorAll('.subscription-extra time').forEach(el=>el.textContent=({pre:'盘前更新',live:'盘中更新',post:'盘后更新'})[session]);
  updatePageHeight();
 }
 document.querySelectorAll('button[data-session]').forEach(button=>button.onclick=()=>selectSession(button.dataset.session));
-selectSession('pre');
+selectSession(activeSession);
