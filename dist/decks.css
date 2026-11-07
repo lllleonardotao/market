@@ -23,7 +23,9 @@
 .subscription-extra{width:100%;border-top:1px solid #edf0f5;padding:26px 28px;color:#26354c}
 .subscription-extra header{display:flex;justify-content:space-between;align-items:start;gap:16px}
 .subscription-extra h3{font-size:38px;font-weight:500;line-height:56px;width:534px;letter-spacing:.1px}
-.subscription-extra time{font-size:21px;line-height:44px;color:#7b889c;white-space:nowrap}
+.subscription-extra time{font-size:21px;line-height:56px;color:#7b889c;white-space:nowrap}
+/* Match the title's first line even when its copy wraps onto more lines. */
+[data-name^="Heading "] > [data-name="Time"] > p{height:56px;line-height:56px}
 .subscription-extra p{font-size:25px;line-height:42px;margin-top:18px;color:#53657e}
 .subscription-extra .subscription-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
 .subscription-facts div{padding:18px 14px;background:#edf4ff;border-radius:12px}
@@ -104,3 +106,24 @@ html[data-layout=single] .single-movements{display:block}
 .single-watchlist-link>strong{font-size:28px;line-height:40px;font-weight:500}
 .single-watchlist-link>span{font-size:24px;line-height:36px;color:#64738a}
 .single-watchlist-link>span>span{margin-left:12px;font-size:32px;color:#8291a7}
+/* Figma 25442:26525, sharing the single-card layout and exact chart assets. */
+html[data-layout=single] [data-node-id="25435:772"]{display:none}
+.single-stock .single-product strong{font-size:32px}
+.single-stock-quote{display:flex;align-items:baseline;gap:12px;margin-top:12px;color:#df4242;font-family:"LCT_NUMB","PingFang SC",sans-serif}
+.single-stock-price{font-size:50.533px;line-height:56px;letter-spacing:-.5678px;font-weight:500}
+.single-stock-change{font-size:22.459px;line-height:25px;font-weight:500;white-space:nowrap}
+.single-stock .single-mini-chart{width:232px}
+.single-stock .single-chart-mask{left:-16.55px}
+.single-stock .single-chart-guide{left:117.28px}
+.single-stock .single-chart-dot{left:106.17px}
+.single-stock-list{list-style:none;padding:16px 4px 20px;margin:0;color:#182a45}
+.single-stock-list li{display:grid;grid-template-columns:minmax(0,1fr) 100px 100px;align-items:center;gap:24px;min-height:66px;font-size:26px;line-height:41px;letter-spacing:-.5849px}
+.single-stock-name{display:flex;align-items:baseline;gap:14px;white-space:nowrap}
+.single-stock-name>span{font-size:22px;line-height:31px;letter-spacing:.2193px;color:#76869a;opacity:.5}
+.single-stock-row-price,.single-stock-list strong{font-family:"LCT_NUMB","PingFang SC",sans-serif;font-size:28px;line-height:32px;letter-spacing:-.5678px;text-align:right;white-space:nowrap;font-weight:500}
+.single-stock-row-price{color:#999}
+
+/* Discussion prompt follows the market story above. */
+.single-watchlist-link{flex-direction:column;align-items:flex-start;gap:6px;background:transparent;border-radius:0;border-top:1px solid #e9edf3;padding:20px 4px 0}
+.single-watchlist-link>strong{font-size:24px;line-height:36px;color:#64738a}
+.single-watchlist-link>p{font-size:26px;line-height:40px;text-align:left;color:#243249}

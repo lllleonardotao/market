@@ -66,20 +66,12 @@ async function initDecks(){
  if(!singleResponse.ok)throw new Error('Unable to load single movement card');
  const singleTemplate=document.createElement('template');singleTemplate.innerHTML=await singleResponse.text();
  node('25435:693').append(singleTemplate.content.firstElementChild);
- document.querySelector('[data-open-watchlist]').onclick=()=>{
-  detailDialog.querySelector('h2').textContent='自选';
-  const list=node('25435:732').cloneNode(true);
-  const etfRow=node('25435:751').cloneNode(true);
-  const inRow=id=>etfRow.querySelector(`[data-node-id="25435:${id}"]`);
-  inRow('754').textContent='华夏国证半导体芯片ETF';
-  inRow('756').textContent='基金 · 159995';
-  inRow('758').textContent=activeSession==='live'?'1.2143':'1.2225';
-  inRow('759').textContent=activeSession==='live'?'+1.24%':'+1.92%';
-  inRow('759').classList.replace('f81','f88');
-  list.querySelector('[data-node-id="25435:760"]').before(etfRow);
-  detailDialog.querySelector('.deck-dialog-content').replaceChildren(list);
-  detailDialog.showModal();detailDialog.scrollTop=0;
- };
+
+ const stockResponse=await fetch('single-stocks.html');
+ if(!stockResponse.ok)throw new Error('Unable to load single stock card');
+ const stockTemplate=document.createElement('template');stockTemplate.innerHTML=await stockResponse.text();
+ node('25435:771').append(stockTemplate.content.firstElementChild);
+
  document.documentElement.dataset.decksReady='true';
  selectLayout(readingLayout);selectSession(activeSession);
 }
@@ -131,12 +123,18 @@ function selectSession(session){
  const single=document.querySelector('.single-movements');
  if(single){
   single.querySelector('.single-summary').textContent=({pre:'隔夜科技回落，关注自选开盘承接',live:'科技买盘午后回流，芯片ETF重新走高',post:'科技领涨、午后回升，上证收涨 0.50%'})[session];
+  single.querySelector('[data-discussion-topic]').textContent=({pre:'隔夜科技回落，芯片开盘能稳住吗？',live:'芯片ETF午后走高，这波回升能持续吗？',post:'科技领涨收盘，芯片行情还能延续吗？'})[session];
   single.querySelector('.single-feature-change').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
   single.querySelector('[data-single-etf-change]').textContent=({pre:'+1.92%',live:'+1.24%',post:'+1.92%'})[session];
   single.querySelector('[data-single-sector-change]').textContent=({pre:'−1.36%',live:'−0.70%',post:'−1.07%'})[session];
   single.querySelector('[data-single-index-change]').textContent=({pre:'+0.12%',live:'+0.31%',post:'+0.50%'})[session];
   if(readingLayout==='single')decks.find(deck=>deck.group.dataset.deck==='movements')?.render();
   updatePageHeight();
+ }
+ const stock=document.querySelector('.single-stock');
+ if(stock){
+  stock.querySelector('[data-discussion-topic]').textContent=({pre:'隔夜科技回落，关注的个股会受多大影响？',live:'科技板块午后回升，哪些个股更有后劲？',post:'科技领涨收盘，关注的个股谁更有后劲？'})[session];
+  stock.querySelector('.single-summary').textContent=({pre:'隔夜科技回落，关注个股开盘承接',live:'科技领涨、午后回升，关注个股表现',post:'科技领涨、午后回升，上证收涨 0.50%'})[session];
  }
  document.querySelectorAll('.subscription-extra time').forEach(el=>el.textContent=({pre:'盘前更新',live:'盘中更新',post:'盘后更新'})[session]);
  updatePageHeight();
