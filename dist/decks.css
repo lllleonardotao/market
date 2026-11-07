@@ -147,10 +147,25 @@ html[data-layout=single] [data-node-id="25435:807"]{cursor:pointer}
 .single-product-link:focus-visible{outline:3px solid #2470eb;outline-offset:2px}
 .single-stock-list li{display:block}
 .single-stock-list .single-product-link{display:grid;grid-template-columns:minmax(0,1fr) 100px 100px 14px;gap:16px;min-height:66px}
-.discussion-prompt{padding:20px 28px;min-height:80px;flex-shrink:0}
+.discussion-prompt{position:relative;padding:20px 28px;min-height:80px;flex-shrink:0;border-top:0}
+.discussion-prompt::before{content:"";position:absolute;top:0;left:28px;right:28px;height:1px;background:#e9edf3}
 html[data-layout=single] .discussion-prompt{display:none}
 [data-node-id="25435:683"],[data-node-id="25435:684"]{height:auto}
 [data-node-id="25435:684"]{display:block;width:100%;font-size:26px;line-height:44px}
 [data-node-id="25435:685"]{display:inline;width:auto;height:auto;background:transparent}
 [data-node-id="25435:686"]{position:static;display:inline-block;width:auto;height:auto;padding:2px 10px;margin-right:12px;border-radius:7px;background:#e7eef9;color:#597396;font-size:23px;line-height:32px;vertical-align:baseline}
 [data-node-id="25435:687"]{display:inline;width:auto;height:auto;font-size:26px;line-height:44px}
+
+/* Figma 214:14055: opposing gradient capsules with inline vote counts. */
+[data-node-id="25435:669"].guess-intro{width:100%;height:auto;font-size:22px;line-height:44px;font-weight:400;color:#182a45;white-space:nowrap}
+.guess-reward{color:#051d53}
+.guess-options{position:relative;display:flex;width:100%;height:104px;margin-top:16px;isolation:isolate}
+.guess-option{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:52.12%;height:104px;padding:0 22px;background:transparent;font-size:32px;line-height:44px;font-weight:500;white-space:nowrap}
+.guess-option::before{content:"";position:absolute;inset:0;background:center/100% 100% no-repeat;z-index:-1}
+.guess-option-up{color:#ed5454}
+.guess-option-up::before{background-image:url("assets/guess-up-bg.svg")}
+.guess-option-down{color:#43a047;margin-left:-4.24%}
+.guess-option-down::before{background-image:url("assets/guess-down-bg.svg")}
+.guess-percentage{font-size:24px;line-height:32px}
+.guess-vs{position:absolute;left:50%;top:20px;transform:translateX(-50%);display:grid;place-items:center;width:64px;height:64px;background:url("assets/guess-vs-bg.svg") center no-repeat;font-size:32px;line-height:44px;font-weight:700;color:#333;pointer-events:none}
+.guess-vs>span{transform:skewX(-8deg)}
