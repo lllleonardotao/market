@@ -1,1 +1,1 @@
-{"name":"caixiaotong-market-replica","private":true,"version":"1.0.0","scripts":{"dev":"python3 -m http.server 4173 --directory dist","check":"node --check dist/app.js"}}
+{"name":"caixiaotong-market-replica","private":true,"version":"1.0.0","scripts":{"dev":"python3 -m http.server 4173 --directory dist","check":"node --check dist/app.js","test":"node test/figma-multicard.test.mjs"}}

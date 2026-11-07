@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import { readFile, stat } from 'node:fs/promises';
+const root = new URL('../dist/', import.meta.url);
+const html = await readFile(new URL('index.html', root),'utf8');
+for(const node of ['25435:425','25435:432','25435:726','25435:803','25435:862']) assert.ok(html.includes(`data-node-id="${node}"`));
+assert.ok(!/https:\/\/www.figma.com\/api\/mcp\/asset/.test(html));
+const images = [...html.matchAll(/src="([^"]+)"/g)].map(x=>x[1]);
+for(const image of images) assert.ok((await stat(new URL(image,root))).size>0, image);
+assert.ok(!/<div[^>]*\/>/.test(html),'HTML must close every container');
+console.log(`Verified ${images.length} local asset callsites and screen structure.`);

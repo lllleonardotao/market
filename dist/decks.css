@@ -1,0 +1,58 @@
+.e0{grid-template-columns: 692px}
+.e1{grid-template-rows: 390.02px}
+.e2{height:390px}
+.e3{flex:549 0 0}
+.e4{width:534px}
+.e5{inset:23.56% 0.5% 1.57% 1.33%}
+.e6{inset:23.56% 1.33% 18.75% 1.33%}
+.e7{inset:23.56% 1.33% 22.12% 1.33%}
+.e8{inset:-1.33% -0.26%}
+.e9{inset:75.48% 0.5% 19.71% 97.85%}
+.e10{inset:57.69% 3.31% 23.08% 76.82%}
+.e11{inset:57.69% 3.31% 23.08% 76.82%}
+.e12{inset:-1.25% -0.42%}
+.e13{inset:59.62% 6.44% 27.14% 79.73%}
+.e14{left:-0.2px}
+.e15{top:19.99px}
+[hidden]{display:none!important}
+[data-deck]{overflow-anchor:none}
+[data-deck-toggle]{cursor:pointer;user-select:none}
+[data-deck-toggle]:focus-visible{outline:3px solid #2470eb;outline-offset:-5px}
+[data-deck-toggle] .deck-chevron{transition:rotate .2s ease}
+[data-deck-toggle][aria-expanded=true] .deck-chevron{rotate:180deg}
+.subscription-extra{width:100%;border-top:1px solid #edf0f5;padding:26px 28px;color:#26354c}
+.subscription-extra header{display:flex;justify-content:space-between;align-items:start;gap:16px}
+.subscription-extra h3{font-size:38px;font-weight:500;line-height:56px;width:534px;letter-spacing:.1px}
+.subscription-extra time{font-size:21px;line-height:44px;color:#7b889c;white-space:nowrap}
+.subscription-extra p{font-size:25px;line-height:42px;margin-top:18px;color:#53657e}
+.subscription-extra .subscription-facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.subscription-facts div{padding:18px 14px;background:#edf4ff;border-radius:12px}
+.subscription-facts span{display:block;font-size:21px;line-height:32px;color:#7a8799}
+.subscription-facts strong{display:block;font-size:24px;line-height:36px;font-weight:400;margin-top:8px}
+@media(prefers-reduced-motion:reduce){[data-deck-toggle] .deck-chevron{transition:none}}
+/* Preview controls stay at the foot of the phone, outside its scaled canvas. */
+body{padding-bottom:112px}
+.page-controls{position:fixed;z-index:30;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,375px);padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:rgba(255,255,255,.98);border-top:1px solid #dfe5ef;box-shadow:0 -4px 16px #243b5b08;color:#626e80}
+.version-tabs,.session-tabs{display:flex;gap:3px;padding:3px;background:#edf1f8;border-radius:10px}
+.version-tabs button,.session-tabs button{flex:1;min-width:0;padding:6px 4px;font-size:12px;line-height:20px;white-space:nowrap;border-radius:7px;background:transparent;color:#626e80}
+.version-tabs button[aria-selected=true],.session-tabs button[aria-pressed=true]{background:#fff;color:#233a62;box-shadow:0 1px 4px #263f6b18;font-weight:600}
+.session-row{display:flex;align-items:center;gap:12px;margin-top:7px}
+.session-row>span{font-size:11px;white-space:nowrap}
+.session-tabs{flex:1}
+html[data-layout=single] [data-deck-toggle] .deck-chevron{rotate:-90deg}
+html[data-layout=flat] [data-deck] > [data-name=Container]{overflow:visible;background:transparent;border:0}
+html[data-layout=flat] [data-node-id="25435:697"],html[data-layout=flat] [data-node-id="25435:804"]{background:#fff;border-radius:24px 24px 0 0}
+html[data-layout=flat] [data-node-id="25435:700"],html[data-layout=flat] [data-node-id="25435:807"]{background:#fff;border-radius:0 0 24px 24px}
+html[data-layout=flat] #movements-extra{margin-top:24px;border-radius:24px;overflow:hidden;background:#fff}
+html[data-layout=flat] .subscription-extra{margin-top:24px;background:#fff;border:0;border-radius:24px}
+.deck-dialog{width:375px;max-width:100vw;max-height:85dvh;margin:auto;padding:0 14px 20px;background:#f4f6fc;border-radius:18px;color:#26354c;overscroll-behavior:contain}
+.deck-dialog::backdrop{background:#17273d66}
+.deck-dialog>header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:16px 0;background:#f4f6fc}
+.deck-dialog h2{font-size:17px;font-weight:500}
+.deck-dialog>header button{font-size:13px;color:#5977a4;background:transparent;padding:6px}
+.deck-dialog-content{width:694px;zoom:.5;display:flex;flex-direction:column;gap:24px}
+.deck-dialog .dialog-front{position:relative;left:auto;top:auto;overflow:hidden;width:694px}
+.deck-dialog .subscription-extra{background:#fff;border-radius:24px;margin-bottom:24px}
+@media(max-width:374px){.deck-dialog-content{zoom:calc((100vw - 28px)/694px)}}
+
+.deck-dialog #movements-extra,.deck-dialog .e2{background:#fff;border-radius:24px;overflow:hidden}
